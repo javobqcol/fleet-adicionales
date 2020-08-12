@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="fleet_vehicle_view_form" model="ir.ui.view">
+      <field name="name">fleet.vehicle.form.inherit</field>
+      <field name="model">fleet.vehicle</field>
+      <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>        
+      <field name="arch" type="xml">
+        <field name="color" position="replace">
+          <field name="cubicaje"/>
+          <field name="carga"/>
+          <field name="color_id"/>
+        </field>
+        <xpath expr="//field[@name='driver_id']" position="before">
+          <field name="vehicle_type_id"/>
+        </xpath>
+        <xpath expr="//form/sheet/group/group[3]" position="replace"/>
+        <xpath expr="//form/sheet/group[@col='2']" position="after">
+          <notebook colspan="4">
+            <page string="Archivos Adjuntos">
+              <field name="fleet_attach_ids" widget="many2many_binary" colspan="2"/>
+            </page>
+            <page string="Imagenes ">
+              <field name="multi_images" widget="image_multi">
+                <tree editable="bottom">
+                  <field name="image"/>
+                  <field name="description"/>
+                  <field name="title"/>
+                </tree>
+              </field>
+            </page>
+            <page string="Notas">
+              <separator string="Nota Interna" colspan="4" />
+              <field nolabel="1" name="description" placeholder="Espacio para notas internas..."/>
+            </page>
+          </notebook>
+        </xpath>
+      </field>
+    </record>    
+
+    <record id='vehicle_type_view_tree' model='ir.ui.view'>
+      <field name="name">vehicle.type.tree</field>
+      <field name="model">vehicle.type</field>
+      <field name="arch" type="xml">
+        <tree string="Tipo de vehiculo" editable="top">
+          <field name="code"/>
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id='vehicle_type_action' model='ir.actions.act_window'>
+      <field name="name">Tipos de vehiculo</field>
+      <field name="res_model">vehicle.type</field>
+      <field name="view_mode">tree</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Cree un nuevo tipo de vehiculo
+        </p>
+      </field>
+    </record>
+    <menuitem action="vehicle_type_action" parent="fleet.fleet_configuration" id="vehicle_type_menu" sequence="20"/>
+
+    <record id='vehicle_color_view_tree' model='ir.ui.view'>
+      <field name="name">vehicle.color.tree</field>
+      <field name="model">vehicle.color</field>
+      <field name="arch" type="xml">
+        <tree string="Color de vehiculo" editable="top">
+          <field name="name"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id='tipo_licencia_view_tree' model='ir.ui.view'>
+      <field name="name">tipo.licencia.tree</field>
+      <field name="model">tipo.licencia.res.partner</field>
+      <field name="arch" type="xml">
+        <tree string="Tipo de licencia" editable="top">
+          <field name="name"/>
+          <field name="servicio"/>
+          <field name="descripcion"/>
+        </tree>
+      </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="view_partner_form_inherit_l10n_co">
+      <field name="name">res.partner.l10n_co.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <field name="vat" position="replace">
+          <field name="l10n_co_document_type" string = "Tipo Documento"/>
+          <field name="vat" string ="Número"/>
+        </field>
+        <field name="vat" position="after">
+          <field name="l10n_co_verification_code" invisible="1"/>
+        </field>
+        <xpath expr="//notebook/page[1]" position ="after">
+          <page string="Licencia Conduccion" autofocus="autofocus" attrs="{'invisible':[('is_company','=',True)]}" >
+            <group col="2">
+              <group string="Estado de la licencia">
+                <field name="restriccion"/>
+                <field name="licencia_cancelada"/>
+                <field name="fecha_cancelacion" attrs="{'invisible':[('licencia_cancelada','=',True)]}"/>
+                <field name="motivo" attrs="{'invisible':[('licencia_cancelada','=',True)]}"/>
+              </group>
+              <group string="licencias">
+                <field name="licencia_id" nolabel="1" attrs="{'readonly':[('licencia_cancelada','=',True)]}">
+                  <tree editable="top"
+                        decoration-warning="state == '3.diesoon'"
+                        decoration-danger="state =='4.inactive'"
+                        decoration-muted="state =='1.cancel'">
+                    <field name="licencia_id" required="1"/>
+                    <field name="fecha_inicio"/>
+                    <field name="fecha_final"/>
+                    <field name="state" readonly="1"/>
+                  </tree>
+                </field>
+              </group>
+            </group>
+          </page>
+          <page string="Documentos Adjuntos" attrs="{'invisible':[('is_company','=',True)]}" >
+            <field name="documentos_ids" widget="many2many_binary" colspan="2"/>
+          </page>
+        </xpath>
+
+      </field>
+    </record>
+
+
+
+    <record id='res_partner_vehicle_action' model='ir.actions.act_window'>
+      <field name="name">Terceros</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Cree un nuevo tercero
+        </p>
+      </field>
+    </record>
+    <menuitem action="res_partner_vehicle_action" parent="fleet.fleet_vehicles" id="res_partner_vehicle_menu" sequence="35" groups="fleet.fleet_group_user"/>
+
+    <record id='vehicle_color_action' model='ir.actions.act_window'>
+      <field name="name">Color de vehiculo</field>
+      <field name="res_model">vehicle.color</field>
+      <field name="view_mode">tree</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Cree un nuevo color de vehiculo
+        </p>
+      </field>
+    </record>
+    <menuitem action="vehicle_color_action" parent="fleet.fleet_configuration" id="vehicle_color_menu" sequence="25"/>
+
+    <record id='tipo_licencia_action' model='ir.actions.act_window'>
+      <field name="name">Tipo de licencia</field>
+      <field name="res_model">tipo.licencia.res.partner</field>
+      <field name="view_mode">tree</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Cree un nuevo tipo de licencia
+        </p>
+      </field>
+    </record>
+    <menuitem action="tipo_licencia_action" parent="fleet.fleet_configuration" id="tipo_licencia_menu" sequence="30"/>
+
+
+
+    <record id="fleet_vehicle_log_contract_view_form_inherit" model="ir.ui.view">
+      <field name="name">fleet_vehicle_log_contract_view_form_inherit</field>
+      <field name="model">fleet.vehicle.log.contract</field>
+      <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form"/>
+      <field name="arch" type="xml">
+        <field name="insurer_id" position="after">
+          <field name="company_id" string="Comprador" groups="base.group_multi_company"/>
+        </field>
+        <xpath expr="//form/sheet/group/group[1]" position="attributes">
+          <attribute name="string">Informacion de contrato</attribute>
+        </xpath>
+        <xpath expr="//form/sheet/group/group[2]" position="attributes">
+          <attribute name="string">Informacion de vehiculo</attribute>
+        </xpath>
+        <xpath expr="//notebook/page[2]" position ="after">
+          <page string="Documentos contrato Adjuntos">
+            <field name="documentos_ids" widget="many2many_binary" />
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+
+    <record id='fleet.fleet_vehicle_log_contract_view_tree' model='ir.ui.view'>
+      <field name="name">fleet.vehicle.log.contract.tree</field>
+      <field name="model">fleet.vehicle.log.contract</field>
+      <field name="arch" type="xml">
+        <tree string="Registro de contratos" decoration-warning="state=='diesoon'" decoration-danger="days_left==0" decoration-muted="state=='closed'">
+          <field name="active" invisible="1"/>
+          <field name="currency_id" invisible="1"/>
+          <field name="days_left" invisible="1"/>
+          <field name="vehicle_id" string="Vehiculo"/>
+          <field name="start_date" string="Fecha inicio"/>
+          <field name="expiration_date" string="Fecha final"/>
+          <field name="cost_subtype_id" string="Servicio"/>
+          <field name="insurer_id" string="Empresa contrato"/>
+          <field name="company_id" string="Comprador" groups="base.group_multi_company"/>
+          <field name="purchaser_id" string="Responsable"/>
+          <field name="cost_generated" invisible="1"/>
+          <field name="cost_frequency" invisible="1"/>
+          <field name="amount" string="Costo contrato" sum="Total contratos" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="state" />
+          <field name="activity_exception_decoration" widget="activity_exception"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="fleet.fleet_vehicle_log_contract_view_search" model="ir.ui.view">
+      <field name="name">fleet.vehicle.log.contract.search</field>
+      <field name="model">fleet.vehicle.log.contract</field>
+      <field name="arch" type="xml">
+        <search string="Contratos de vehiculos">
+          <field name="vehicle_id" string="Vehiculo" filter_domain="[('vehicle_id.name', 'ilike', self)]"/>
+          <field name="company_id" string="Comprador" filter_domain="[('company_id', 'child_of', self)]" groups="base.group_multi_company"/>
+          <field name="purchaser_id" string="Responsable" filter_domain="[('purchaser_id', 'child_of', self)]"/>
+          <field name="insurer_id" string="Vendedor" filter_domain="[('insurer_id', 'child_of', self)]"/>
+          <field name="cost_subtype_id" string="Servicio" filter_domain="[('cost_ids.cost_subtype_id', 'ilike', self)]"/>
+          <filter name="open" string="En Progreso" domain="[('state', 'in', ['open', 'diesoon'])]"/>
+          <filter name="expired" string="Expired" domain="[('state', '=', 'expired')]"/>
+          <filter name="expired" string="Expira pronto" domain="[('state', '=', 'diesoon')]"/>
+          <separator/>
+            <filter string="Archivado" name="inactive" domain="[('active', '=', False)]"/>
+          <separator/>
+          <filter invisible="1" string="Late Activities" name="activities_overdue"
+              domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+              help="Show all records which has next action date is before today"/>
+          <filter invisible="1" string="Today Activities" name="activities_today"
+              domain="[('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+          <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+              domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+          <group expand="1" string="Agrupado por">
+            <filter name="groupby_company_id" context="{'group_by': 'company_id'}" string="Compañia" groups="base.group_multi_company"/>
+            <filter name="groupby_vehicle_id" context="{'group_by': 'vehicle_id'}"  string="Vehiculo" />
+            <filter name="groupby_purchaser_id" context="{'group_by': 'purchaser_id'}" string="Responsable"/>
+            <filter name="groupby_insurer_id" context="{'group_by': 'insurer_id'}" string="Proveedor"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="fleet.fleet_vehicle_log_contract_view_graph" model="ir.ui.view">
+       <field name="name">fleet.vehicle.log.contract.graph</field>
+       <field name="model">fleet.vehicle.log.contract</field>
+       <field name="arch" type="xml">
+            <graph string="Contract Costs Per Month" type="bar" stacked="True">
+                <field name="date" type="row"/>
+                <field name="vehicle_id" type="row"/>
+                <field name="cost_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_log_services_view_form_inherit" model="ir.ui.view">
+      <field name="name">fleet.vehicle.log.services.view.form.inherit</field>
+      <field name="model">fleet.vehicle.log.services</field>
+      <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//sheet/group[4]" position="replace"/>
+        <xpath expr="//sheet/group[1]" position ="before">
+          <div class="oe_title">
+            <h1>
+              <field name="name_seq" readonly="1"/>
+            </h1>
+          </div>
+        </xpath>
+        <xpath expr="//field[@name='amount']" position="replace">
+          <field name="currency_id" invisible="1" />
+          <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}" />
+        </xpath>
+        <field name="date" position="after">
+          <field name="company_id"
+                 string="Comprador"
+                 groups="base.group_multi_company"
+                 options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+        </field>
+        <field name="purchaser_id" position="attributes">
+           <attribute name="string">Responsable</attribute>
+        </field>
+        <field name="cost_ids" position ="replace">
+          <notebook>
+            <page string="Servicios incluidos">
+              <field name="cost_ids" nolabel="1">
+                <tree string="Servicios Incluidos" editable="bottom">
+                  <field name="currency_id" invisible="1" />
+                  <field name="cost_subtype_id" string="Servicio" domain="[('category','=','service')]" required="1"/>
+                  <field name="description" string="Descripción del servicio"/>
+                  <field name="amount" sum="Total servicios" string="Costo Indicativo" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                </tree>
+              </field>
+              </page>
+            <page string="Documentos adjuntos servicio">
+              <field name="documentos_ids" widget="many2many_binary" />
+            </page>
+            <page string="Notas">
+              <group string="Notas">
+                <field nolabel="1" name="notes" placeholder="Escriba aqui cualquier otra informacion relativa al servicio que considere relevante."/>
+              </group>
+            </page>
+          </notebook>
+        </field>
+      </field>
+    </record>
+
+    <record id="fleet_vehicle_log_services_view_tree_inherit" model="ir.ui.view">
+      <field name="name">fleet.vehicle.log.services.view.tree.inherit</field>
+      <field name="model">fleet.vehicle.log.services</field>
+      <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_tree"/>
+      <field name="arch" type="xml">
+        <field name="date" position="before">
+          <field name="name_seq" string="Consecutivo"/>
+        </field>
+        <field name="inv_ref" position="attributes">
+          <attributes name="string">Factura</attributes>
+        </field>
+        <field name="purchaser_id" position="replace">
+          <field name="company_id" string="Comprador" groups="base.group_multi_company"/>
+          <field name="purchaser_id" string="Responsable"/>
+        </field>
+        <field name="notes" position="replace"/>
+         <field name="amount" position="replace">
+          <field name="currency_id" invisible="1" />
+          <field name="amount" sum="Total servicios" string="Costo Indicativo" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+        </field>
+      </field>
+    </record>
+
+
+   <record id='fleet.fleet_vehicle_log_services_view_search' model='ir.ui.view'>
+      <field name="name">fleet.vehicle.log.services.search</field>
+      <field name="model">fleet.vehicle.log.services</field>
+      <field name="arch" type="xml">
+        <field name="vehicle_id" string="Vehiculo"
+               filter_domain="[('vehicle_id.name','ilike',self)]"/>
+        <field name="name_seq" string="Consecutivo"
+               filter_domain="[('name_seq','ilike',self)]"/>
+        <field name="vendor_id" string="Proveedor"
+               filter_domain="[('vendor_id','ilike',self)]"/>
+        <field name="company_id" string="Comprador" groups="base.group_multi_company"
+               filter_domain="[('company_id','ilike',self)]"/>
+        <field name="inv_ref" string="Numero factura"
+                   filter_domain="[('inv_ref','ilike',self)]"/>
+        <field name="cost_subtype_id" string="Servicio"
+                   filter_domain="[('cost_subtype_id','ilike',self)]"/>
+        <group expand="1" string="Agrupado por">
+          <filter name="groupby_company_id" context="{'group_by': 'company_id'}" string="Comprador" groups="base.group_multi_company"/>
+          <filter name="groupby_vehicle_id" context="{'group_by': 'vehicle_id'}" string="Vehiculo"/>
+          <filter name="groupby_cost_subtype_id" context="{'group_by': 'cost_subtype_id'}" string="Servicio"/>
+          <filter name="groupby_purchaser_id" context="{'group_by': 'purchaser_id'}" string="Responsable"/>
+          <filter name="groupby_vendor_id" context="{'group_by': 'vendor_id'}" string="Proveedor"/>
+        </group>
+      </field>
+    </record>
+
+    <record id="fleet.fleet_vehicle_log_services_view_graph" model="ir.ui.view">
+     <field name="name">fleet.vehicle.log.services.graph</field>
+     <field name="model">fleet.vehicle.log.services</field>
+     <field name="arch" type="xml">
+        <graph string="Costo mensual de servicios" stacked="True">
+          <field name="date" string="Fecha" type="row"/>
+          <field name="vehicle_id" string="Vehiculo" type="row"/>
+          <field name="cost_amount" string= "Costo" type="measure"/>
+        </graph>
+      </field>
+    </record>
+
+  </data>
+</odoo>
+

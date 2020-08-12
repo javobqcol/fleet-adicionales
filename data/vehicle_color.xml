@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record model="vehicle.color" id="1">
+      <field name="name">Rojo</field>
+    </record>
+    <record model="vehicle.color" id="2">
+      <field name="name">Negro</field>
+    </record>
+    <record model="vehicle.color" id="3">
+      <field name="name">Rojo oscuro</field>
+    </record>
+    <record model="vehicle.color" id="4">
+      <field name="name">Plateado</field>
+    </record>
+    <record model="vehicle.color" id="5">
+      <field name="name">Amarillo</field>
+    </record>
+    <record model="vehicle.color" id="6">
+      <field name="name">Blanco</field>
+    </record>
+    <record model="vehicle.color" id="7">
+      <field name="name">Dorado</field>
+    </record>
+    <record model="vehicle.color" id="8">
+      <field name="name">Gris</field>
+    </record>
+    <record model="vehicle.color" id="9">
+      <field name="name">Azul</field>
+    </record>
+    <record model="vehicle.color" id="10">
+      <field name="name">Verde</field>
+    </record>
+    <record model="vehicle.color" id="11">
+      <field name="name">Purpura</field>
+    </record>
+    <record model="vehicle.color" id="12">
+      <field name="name">Verde Oscuro</field>
+    </record>
+    <record model="vehicle.color" id="13">
+      <field name="name">Marron</field>
+    </record>
+    <record model="vehicle.color" id="14">
+      <field name="name">Naranja</field>
+    </record>
+  </data>
+</odoo>  
+

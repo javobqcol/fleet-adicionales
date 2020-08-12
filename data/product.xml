@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+     <record id="category_all_trazable" model="product.category">
+      <field name="parent_id" eval="ref('product.product_category_all')"/>
+      <field name="name">Trazable</field>
+    </record>
+     <record id="category_all_Trazable_herramienta" model="product.category">
+      <field name="parent_id" eval="ref('category_all_trazable')"/>
+      <field name="name">Herramienta</field>
+    </record>
+     <record id="category_all_Trazable_maquinaria" model="product.category">
+      <field name="parent_id" eval="ref('category_all_trazable')"/>
+      <field name="name">Maquinaria</field>
+    </record>
+
+  </data>
+</odoo>

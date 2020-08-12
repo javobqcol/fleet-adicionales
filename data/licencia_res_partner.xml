@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record model="tipo.licencia.res.partner" id="1">
+      <field name="name">A1</field>
+      <field name="servicio">particular</field>
+      <field name="descripcion">Motocicletas de menos de 125 centímetros cúbicos</field>
+    </record>
+    <record model="tipo.licencia.res.partner" id="2">
+      <field name="name">A2</field>
+      <field name="servicio">particular</field>
+      <field name="descripcion">Motocicletas de más de 125 centímetros cúbicos</field>
+    </record>
+    <record model="tipo.licencia.res.partner" id="3">
+      <field name="name">B1</field>
+      <field name="servicio">particular</field>
+      <field name="descripcion">Automóviles, motocarros, cuatrimotos, camperos, camionetas y microbuses</field>
+    </record>
+    <record model="tipo.licencia.res.partner" id="4">
+      <field name="name">B2</field>
+      <field name="servicio">particular</field>
+      <field name="descripcion">Camiones rígidos, busetas y buses</field>
+    </record>
+    <record model="tipo.licencia.res.partner" id="5">
+      <field name="name">B3</field>
+      <field name="servicio">particular</field>
+      <field name="descripcion">Vehículos articulados y tractocamiones de particular</field>
+    </record>
+    <record model="tipo.licencia.res.partner" id="6">
+      <field name="name">C1</field>
+      <field name="servicio">publico</field>
+      <field name="descripcion">Automóviles, motocarros, cuatrimotos, camperos, camionetas y microbuses </field>
+    </record>
+    <record model="tipo.licencia.res.partner" id="7">
+      <field name="name">C2</field>
+      <field name="servicio">publico</field>
+      <field name="descripcion">Camiones rígidos, busetas y buses</field>
+    </record>
+    <record model="tipo.licencia.res.partner" id="8">
+      <field name="name">C3</field>
+      <field name="servicio">publico</field>
+      <field name="descripcion">Vehículos articulados y tractocamiones de particular</field>
+    </record>
+  </data>
+</odoo>  
+

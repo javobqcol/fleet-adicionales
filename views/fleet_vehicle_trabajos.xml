@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="fleet_vehicle_work_view_form" model="ir.ui.view">
+      <field name="name">fleet.vehicle.work.view.form</field>
+      <field name="model">fleet.vehicle.work</field>
+      <field name="arch" type="xml">
+        <form string="Trabajos">
+          <sheet>
+            <div class="oe_title">
+              <h1>
+                <field name="name_seq" readonly="1"/>
+              </h1>
+            </div>
+            <group col="2">
+              <group>
+                <field name="company_id"
+                       string="Compañia"
+                       groups="base.group_multi_company"
+                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <field name="contractor_id"
+                       string="contratista"/>
+                <field name="contacto_id"
+                       string="Responsable"/>
+                <field name="country_id"
+                       placeholder="Pais"
+                       options='{"no_open": True, "no_create": True}'/>
+                <field name="state_id"
+                       placeholder="Departamento"
+                       options='{"no_open": True, "no_create": True}'
+                       context="{'country_id': country_id}"/>
+                <field name="city"
+                       placeholder="Ciudad - sitio de trabajo"/>
+               </group>
+              <group>
+                <field name="fecha_inicio"
+                       string="Fecha inicial"/>
+                <field name="fecha_final"
+                       string="Fecha final"/>
+                <field name="state"/>
+              </group>
+            </group>
+           <notebook>
+              <page string="Maquinaria incluida">
+                <field name="detalle_ids">
+                  <tree string="Vehiculos destinados al trabajo" editable="top">
+                    <field name="currency_id"
+                           invisible="1"/>
+                    <field name="vehicle_id"/>
+                    <field name="unidades_standby"/>
+                    <field name="precio_unidad"
+                           sum="Total Unidades"
+                           string="Precio unidad"
+                           widget="monetary"
+                           options="{'currency_field': 'currency_id'}"/>
+                  </tree>
+                </field>
+              </page>
+              <page string="Notas">
+                <field nolabel="1" name="descripcion" placeholder="Escriba aqui cualquier otra informacion relativa al trabajo que considere relevante."/>
+              </page>
+           </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record id="fleet_vehicle_work_view_tree" model="ir.ui.view">
+      <field name="name">fleet.vehicle.work.tree</field>
+      <field name="model">fleet.vehicle.work</field>
+      <field name="arch" type="xml">
+        <tree string="Trabajos">
+          <field name="name_seq"/>
+          <field name="company_id"  groups="base.group_multi_company"/>
+          <field name="contractor_id"/>
+          <field name="contacto_id"/>
+          <field name="fecha_inicio"/>
+          <field name="fecha_final"/>
+          <field name="state"/>
+        </tree>
+      </field>
+    </record>
+
+   <record id="fleet_vehicle_work_view_search" model="ir.ui.view">
+     <field name="name">fleet.vehicle.work.view.search</field>
+     <field name="model">fleet.vehicle.work</field>
+     <field name="arch" type="xml">
+       <search string="Trabajos realizados por los automotores">
+         <field name="name_seq"
+                string="Consecutivo"
+                filter_domain="[('name_seq','ilike',self)]"/>
+         <field name="contractor_id"
+                string="Contratante"
+                filter_domain="[('contractor_id.name','ilike',self)]"/>
+         <field name="company_id"
+                string="Compañia"
+                groups="base.group_multi_company"
+                filter_domain="[('company_id.name','ilike',self)]"/>
+         <field name="detalle_ids"
+                string="Vehiculos"
+                filter_domain="[('detalle_ids.vehicle_id.name','ilike',self)]"/>
+         <group expand="1" string="Agrupado por">
+           <filter name="groupby_company_id"
+                   context="{'group_by': 'company_id'}"
+                   string="Compañia"
+                   groups="base.group_multi_company"/>
+           <filter name="groupby_contratante"
+                   context="{'group_by': 'contractor_id'}"
+                   string="Contratante"/>
+         </group>
+       </search>
+     </field>
+    </record>
+
+
+
+    <record id='fleet_vehicle_work_action' model='ir.actions.act_window'>
+      <field name="name">Registro de trabajos de los vehiculos</field>
+      <field name="res_model">fleet.vehicle.work</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="fleet_vehicle_work_view_search"/>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Ingrese un nuevo Trabajo
+        </p><p>
+          Rastree todos los trabajos realizados por la maquinaria y equipos.
+        </p>
+      </field>
+    </record>
+    <menuitem action="fleet_vehicle_work_action" parent="fleet.fleet_vehicles" id="fleet_vehicle_work_menu"/>
+
+<!--    <record id="fleet.fleet_vehicle_log_services_view_graph" model="ir.ui.view">-->
+<!--     <field name="name">fleet.vehicle.log.services.graph</field>-->
+<!--     <field name="model">fleet.vehicle.log.services</field>-->
+<!--     <field name="arch" type="xml">-->
+<!--        <graph string="Costo mensual de servicios" stacked="True">-->
+<!--          <field name="date" string="Fecha" type="row"/>-->
+<!--          <field name="vehicle_id" string="Vehiculo" type="row"/>-->
+<!--          <field name="cost_amount" string= "Costo" type="measure"/>-->
+<!--        </graph>-->
+<!--      </field>-->
+<!--    </record>-->
+
+  </data>
+</odoo>
+

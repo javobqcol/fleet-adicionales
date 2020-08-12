@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+
+    <record id="type_service_refueling" model="fleet.service.type">
+      <field name="name">Retanqueo</field>
+      <field name="category">service</field>
+    </record>
+    <record id="type_service_service_8" model="fleet.service.type">
+      <field name="name">Reparacion y mantenimiento</field>
+      <field name="category">service</field>
+    </record>
+    <record id="type_service_service_1" model="fleet.service.type">
+      <field name="name">Mantenimiento preventivo</field>
+      <field name="category">service</field>
+    </record>
+
+    <record id="type_contract_leasing" model="fleet.service.type">
+      <field name="name">Leasing</field>
+      <field name="category">contract</field>
+    </record>
+
+    <record id="type_contract_soat" model="fleet.service.type">
+      <field name="name">Soat</field>
+      <field name="category">contract</field>
+    </record>
+
+    <record id="type_contract_Tecnomecanica" model="fleet.service.type">
+      <field name="name">Tecnomecánica</field>
+      <field name="category">contract</field>
+    </record>
+
+    <record id="type_activo" model="fleet.vehicle.state">
+      <field name="name">Activo</field>
+      <field name="sequence">6</field>
+    </record>
+
+    <record id="type_proximo_mtto" model="fleet.vehicle.state">
+      <field name="name">Proximo Mtto</field>
+      <field name="sequence">7</field>
+    </record>
+
+    <record id="type_mtto_urgente" model="fleet.vehicle.state">
+      <field name="name">Mtto urgente</field>
+      <field name="sequence">8</field>
+    </record>
+
+    <record id="type_en_taller" model="fleet.vehicle.state">
+      <field name="name">En taller</field>
+      <field name="sequence">9</field>
+    </record>
+
+    <record id="type_en_patio" model="fleet.vehicle.state">
+      <field name="name">En patio</field>
+      <field name="sequence">10</field>
+    </record>
+
+    <record id="type_inactivo" model="fleet.vehicle.state">
+      <field name="name">Inactivo</field>
+      <field name="sequence">20</field>
+    </record>
+
+
+    <record id="ir_mail_server_uco" model="ir.mail_server">
+      <field name="name">servidor gmail</field>
+      <field name="smtp_host">smtp.gmail.com</field>
+      <field name="smtp_port" eval="465"/>
+      <field name="smtp_user">javobqcol@gmail.com</field>
+<!--      <field name="smtp_pass">Cul1m4n1969</field>-->
+      <field name="smtp_encryption">ssl</field>
+    </record>
+
+    <record id="email_template_licence_fleet" model="mail.template">
+      <field name="name">Vencimiento de licencia</field>
+      <field name="subject">Vencimiento de licencia vehicular de  ${object.partner_id.name or ''}</field>
+      <field name="email_from">javobqcol@gmail.com</field>
+      <field name="email_to">javobqcol@gmail.com</field>
+      <field name="model_id" ref="model_licencia_res_partner"/>
+      <field name="mail_server_id" ref="ir_mail_server_uco" />
+      <field name="auto_delete" eval="False"/>
+      <field name="body_html"><![CDATA[
+		<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+<p><font style="font-size: 14px;">El conductor&nbsp;</font><i><font style="font-size: 14px;">${object.partner_id.name or ''}</font></i><font style="font-size: 14px;">&nbsp;Identificado con documento número&nbsp;</font><i><font style="font-size: 14px;">${object.partner_id.vat or ''}</font></i><font style="font-size: 14px;">&nbsp; su&nbsp; licencia&nbsp;</font><i><font style="font-size: 14px;">${object.licencia_id.name or ''}</font></i><font style="font-size: 14px;">&nbsp;&nbsp;vence el&nbsp;&nbsp;</font><i><font style="font-size: 14px;">${object.fecha_final}</font></i></p><p><br></p><p><br></p><p>Administracion..<br></p><p><br></p><p><br></p>		</div>
+            ]]></field>
+    </record>
+
+    <record id="email_template_vehicle_contract" model="mail.template">
+      <field name="name">Contrato a renovar</field>
+      <field name="email_from">javobqcol@gmail.com</field>
+      <field name="email_to">javobqcol@gmail.com</field>
+      <field name="model_id" ref="model_fleet_vehicle_log_contract"/>
+      <field name="mail_server_id" ref="ir_mail_server_uco" />
+<!--
+      <field name="mail_server_id" ref="gmail" />
+-->
+      <field name="auto_delete" eval="False"/>
+      <field name="subject">Vehiculo ${object.vehicle_id.display_name} Vence su ${object.cost_subtype_id.display_name} el dia ${object.expiration_date}...</field>
+      <field name="body_html"><![CDATA[
+      <p><font style="font-size:18px;">Cordial saludo</font></p><p><br></p><font style="font-size:18px;">El Vehiculo ${object.vehicle_id.display_name} Vence su ${object.cost_subtype_id.display_name} el dia ${object.expiration_date}</font><p><font style="font-size:18px;">Atentamente</font></p><p><br></p><p><font style="font-size:18px;">Odoo / Flota</font></p>
+            ]]></field>
+    </record>
+
+    <record id="email_template_vehicle_maintenance" model="mail.template">
+      <field name="name">Mantenimiento a realizar</field>
+      <field name="email_from">javobqcol@gmail.com</field>
+      <field name="email_to">javobqcol@gmail.com</field>
+      <field name="model_id" ref="model_fleet_vehicle"/>
+      <field name="mail_server_id" ref="ir_mail_server_uco" />
+<!--
+      <field name="mail_server_id" ref="gmail" />
+-->
+      <field name="auto_delete" eval="False"/>
+      <field name="subject">Mantenimiento por ejecutar equipo ${object.name}
+        % if object.col == "rojo":
+            URGENTE
+        % endif
+      </field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        % if object.col == 'rojo':
+            Urgente
+        % endif
+        <br />
+        % if object.col == 'rojo':
+            Favor realizar el mantenimiento preventivo de  <strong>${object.name}</strong>
+        % endif
+        % if object.col == 'amarillo':
+            Favor preparar el Mantenimiento preventivo de <strong>${object.name}</strong>
+            Odometro = ${object.odometer} ${object.odometer_type} - faltando para mantenimiento ${object.falta_para_mtto} ${object.odometer_type}
+        %endif
+        <br /><br />
+        Atentamente
+        <br /><br />
+        Odoo
+    </p>
+</div>
+            </field>
+   </record>
+
+
+    <record forcecreate="True" id="ir_cron_licencia_res_partner_generator" model="ir.cron">
+      <field name="name">Fleet: Revisar vencimiento de licencia</field>
+      <field name="model_id" ref="model_licencia_res_partner"/>
+      <field name="state">code</field>
+      <field name="code">model.run_planificador()</field>
+      <field name="user_id" ref="base.user_root" />
+      <field name="interval_number">1</field>
+      <field name="interval_type">days</field>
+      <field name="numbercall">-1</field>
+    </record>
+
+    <record forcecreate="True" id="ir_cron_vehicle_odometer_generator" model="ir.cron">
+      <field name="name">Fleet: Revisar odometros a vencer</field>
+      <field name="model_id" ref="model_fleet_vehicle"/>
+      <field name="state">code</field>
+      <field name="code">model.run_planificador()</field>
+      <field name="user_id" ref="base.user_root" />
+      <field name="interval_number">1</field>
+      <field name="interval_type">days</field>
+      <field name="numbercall">-1</field>
+    </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="fleet_vehicle_viaje_view_form" model="ir.ui.view">
+      <field name="name">fleet.vehicle.viaje.view.form</field>
+      <field name="model">fleet.vehicle.viaje</field>
+      <field name="arch" type="xml">
+        <form string="Viajes">
+          <sheet>
+            <group col="2">
+              <group>
+                <field name="vehicle_id"
+                       string="Vehiculo"/>
+                <field name="company_id"
+                       string="Compañia"
+                       groups="base.group_multi_company"
+                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <field name="work_id"
+                       string="Trabajo"/>
+                <field name="driver_id"
+                       string="Conductor"/>
+               </group>
+              <group>
+                <field name="date" string="Fecha"/>
+                <field name="viaje" />
+                <field name="km"/>
+              </group>
+            </group>
+           <notebook>
+              <page string="Detalle de viajes">
+                <field name="viajedet_ids">
+                  <tree string="Vehiculos destinados al trabajo">
+                    <field name="material_id"/>
+                    <field name="km_recorridos"/>
+                    <field name="m3"/>
+                    <field name="cantera_id"/>
+                    <field name="recibo_cantera"/>
+                    <field name="recibo_interno"/>
+                    <field name="countrydesde_id"/>
+                    <field name="statedesde_id"/>
+                    <field name="citydesde"/>
+                    <field name="statehasta_id"/>
+                    <field name="cityhasta"/>
+                  </tree>
+                </field>
+              </page>
+              <page string="Notas">
+                <field nolabel="1" name="descripcion" placeholder="Escriba aqui cualquier otra informacion relativa al trabajo que considere relevante."/>
+              </page>
+           </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="fleet_vehicle_viaje_det_view_form" model="ir.ui.view">
+      <field name="name">fleet.vehicle.viaje.det.view.form</field>
+      <field name="model">fleet.vehicle.viaje.det</field>
+      <field name="arch" type="xml">
+        <form string="Detallado">
+          <sheet>
+            <group col="2">
+              <group>
+                <field name="material_id"/>
+                <field name="km_recorridos"/>
+                <field name="m3"/>
+                <field name="cantera_id"/>
+                <field name="recibo_cantera"/>
+                <field name="recibo_interno"/>
+              </group>
+              <group>
+                <field name="countrydesde_id"/>
+                <field name="statedesde_id"/>
+                <field name="citydesde"/>
+                <field name="countryhasta_id"/>
+                <field name="statehasta_id"/>
+                <field name="cityhasta"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record id="fleet_vehicle_viaje_view_tree" model="ir.ui.view">
+      <field name="name">fleet.vehicle.viaje.tree</field>
+      <field name="model">fleet.vehicle.viaje</field>
+      <field name="arch" type="xml">
+        <tree string="Viajes">
+          <field name="vehicle_id" string="Vehiculo"/>
+          <field name="company_id"  groups="base.group_multi_company"/>
+          <field name="work_id" string="Trabajo"/>
+          <field name="driver_id" string="Conductor"/>
+          <field name="date" string="Fecha"/>
+          <field name="viaje" />
+          <field name="km"/>
+        </tree>
+      </field>
+    </record>
+
+   <record id="fleet_vehicle_viaje_view_search" model="ir.ui.view">
+     <field name="name">fleet.vehicle.viaje.view.search</field>
+     <field name="model">fleet.vehicle.viaje</field>
+     <field name="arch" type="xml">
+       <search string="Viajes diarios realizados por los automotores">
+         <field name="vehicle_id"
+                string="Vehiculo"
+                filter_domain="[('vehicle_id','ilike',self)]"/>
+         <field name="company_id"
+                string="Compañia"
+                groups="base.group_multi_company"
+                filter_domain="[('company_id.name','ilike',self)]"/>
+         <field name="work_id"
+                string="Trabajo"
+                filter_domain="[('work_id','ilike',self)]"/>
+         <group expand="1" string="Agrupado por">
+           <filter name="groupby_company_id"
+                   context="{'group_by': 'company_id'}"
+                   string="Compañia"
+                   groups="base.group_multi_company"/>
+           <filter name="groupby_vehicle_id"
+                   context="{'group_by': 'vehicle_id'}"
+                   string="vehiculo"/>
+           <filter name="groupby_work_id"
+                   context="{'group_by': 'work_id'}"
+                   string="Trabajo"/>
+         </group>
+       </search>
+     </field>
+    </record>
+
+
+
+    <record id='fleet_vehicle_viajes_action' model='ir.actions.act_window'>
+      <field name="name">Registro de viajes de los vehiculos</field>
+      <field name="res_model">fleet.vehicle.viaje</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="fleet_vehicle_viaje_view_search"/>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Ingrese un nuevo viaje de vehiculo
+        </p><p>
+          Rastree todos los viajes realizados por los vehiculos.
+        </p>
+      </field>
+    </record>
+    <menuitem action="fleet_vehicle_viajes_action" parent="fleet.fleet_vehicles" id="fleet_vehicle_viaje_menu"/>
+
+
+       <record id="fleet_vehicle_viaje_view_form" model="ir.ui.view">
+      <field name="name">fleet.vehicle.viaje.view.form</field>
+      <field name="model">fleet.vehicle.viaje</field>
+      <field name="arch" type="xml">
+        <form string="Viajes">
+          <sheet>
+            <group col="2">
+              <group>
+                <field name="vehicle_id"
+                       string="Vehiculo"/>
+                <field name="company_id"
+                       string="Compañia"
+                       groups="base.group_multi_company"
+                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <field name="work_id"
+                       string="Trabajo"/>
+                <field name="driver_id"
+                       string="Conductor"/>
+               </group>
+              <group>
+                <field name="date" string="Fecha"/>
+                <field name="viaje" />
+                <field name="km"/>
+              </group>
+            </group>
+           <notebook>
+              <page string="Detalle de viajes">
+                <field name="viajedet_ids">
+                  <tree string="Vehiculos destinados al trabajo">
+                    <field name="material_id"/>
+                    <field name="km_recorridos"/>
+                    <field name="m3"/>
+                    <field name="cantera_id"/>
+                    <field name="recibo_cantera"/>
+                    <field name="recibo_interno"/>
+                    <field name="countrydesde_id"/>
+                    <field name="statedesde_id"/>
+                    <field name="citydesde"/>
+                    <field name="statehasta_id"/>
+                    <field name="cityhasta"/>
+                  </tree>
+                </field>
+              </page>
+              <page string="Notas">
+                <field nolabel="1" name="descripcion" placeholder="Escriba aqui cualquier otra informacion relativa al trabajo que considere relevante."/>
+              </page>
+           </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="fleet_vehicle_viaje_det_view_form" model="ir.ui.view">
+      <field name="name">fleet.vehicle.viaje.det.view.form</field>
+      <field name="model">fleet.vehicle.viaje.det</field>
+      <field name="arch" type="xml">
+        <form string="Detallado">
+          <sheet>
+            <group col="2">
+              <group>
+                <field name="material_id"/>
+                <field name="km_recorridos"/>
+                <field name="m3"/>
+                <field name="cantera_id"/>
+                <field name="recibo_cantera"/>
+                <field name="recibo_interno"/>
+              </group>
+              <group>
+                <field name="countrydesde_id"/>
+                <field name="statedesde_id"/>
+                <field name="citydesde"/>
+                <field name="countryhasta_id"/>
+                <field name="statehasta_id"/>
+                <field name="cityhasta"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <record id="fleet_vehicle_viaje_view_tree" model="ir.ui.view">
+      <field name="name">fleet.vehicle.viaje.tree</field>
+      <field name="model">fleet.vehicle.viaje</field>
+      <field name="arch" type="xml">
+        <tree string="Viajes">
+          <field name="vehicle_id" string="Vehiculo"/>
+          <field name="company_id"  groups="base.group_multi_company"/>
+          <field name="work_id" string="Trabajo"/>
+          <field name="driver_id" string="Conductor"/>
+          <field name="date" string="Fecha"/>
+          <field name="viaje" />
+          <field name="km"/>
+        </tree>
+      </field>
+    </record>
+
+   <record id="fleet_vehicle_viaje_view_search" model="ir.ui.view">
+     <field name="name">fleet.vehicle.viaje.view.search</field>
+     <field name="model">fleet.vehicle.viaje</field>
+     <field name="arch" type="xml">
+       <search string="Viajes diarios realizados por los automotores">
+         <field name="vehicle_id"
+                string="Vehiculo"
+                filter_domain="[('vehicle_id','ilike',self)]"/>
+         <field name="company_id"
+                string="Compañia"
+                groups="base.group_multi_company"
+                filter_domain="[('company_id.name','ilike',self)]"/>
+         <field name="work_id"
+                string="Trabajo"
+                filter_domain="[('work_id','ilike',self)]"/>
+         <group expand="1" string="Agrupado por">
+           <filter name="groupby_company_id"
+                   context="{'group_by': 'company_id'}"
+                   string="Compañia"
+                   groups="base.group_multi_company"/>
+           <filter name="groupby_vehicle_id"
+                   context="{'group_by': 'vehicle_id'}"
+                   string="vehiculo"/>
+           <filter name="groupby_work_id"
+                   context="{'group_by': 'work_id'}"
+                   string="Trabajo"/>
+         </group>
+       </search>
+     </field>
+    </record>
+
+
+
+    <record id='fleet_vehicle_viajes_action' model='ir.actions.act_window'>
+      <field name="name">Registro de viajes de los vehiculos</field>
+      <field name="res_model">fleet.vehicle.viaje</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="fleet_vehicle_viaje_view_search"/>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Ingrese un nuevo viaje de vehiculo
+        </p><p>
+          Rastree todos los viajes realizados por los vehiculos.
+        </p>
+      </field>
+    </record>
+    <menuitem action="fleet_vehicle_viajes_action" parent="fleet.fleet_vehicles" id="fleet_vehicle_viaje_menu"/>
+
+
+
+
+  </data>
+</odoo>
+

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+
+    <record id='tipo_licencia_view_tree' model='ir.ui.view'>
+      <field name="name">tipo.licencia.tree</field>
+      <field name="model">tipo.licencia.res.partner</field>
+      <field name="arch" type="xml">
+        <tree string="Tipo de licencia" editable="top">
+          <field name="name"/>
+          <field name="servicio"/>
+          <field name="descripcion"/>
+        </tree>
+      </field>
+    </record>
+
+
+
+    <record model="ir.ui.view" id="view_partner_form_inherit_l10n_co">
+      <field name="name">res.partner.l10n_co.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//form/sheet" position="before">
+           <header>
+              <field name="state"  widget="statusbar" options="{'clickable': '1'}"/>
+           </header>
+        </xpath>
+        <field name="city" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </field>
+        <field name="state_id" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </field>
+        <field name="zip" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </field>
+        <field name="country_id" position="attributes">
+          <attribute name="invisible">1</attribute>
+        </field>
+        <field name="street2" position="after">
+          <field name="country_id" placeholder="Pais" class="o_address_country" options='{"no_open": True, "no_create": True}'
+              attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+          <field name="state_id" placeholder="Departamento / Ciudad" options='{"no_open": True}'
+              attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}" context="{'country_id': country_id, 'zip': zip}"/>
+          <div class="o_row">
+            <field name="city" placeholder="Ubicación extra" class="o_address_city"
+                  attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+            <field name="zip" placeholder="ZIP"
+                  attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+          </div>
+        </field>
+        <field name="vat" position="replace">
+          <field name="l10n_co_document_type" string = "Tipo Documento"/>
+          <field name="vat" string ="Número"/>
+        </field>
+        <field name="vat" position="after">
+          <field name="l10n_co_verification_code" invisible="1"/>
+          <field name="responsable_id"/>
+        </field>
+        <field name="category_id" position="after">
+                <field name="restriccion" string="Restricción licencia" attrs="{'invisible':[('is_company','=',True)]}"/>
+                <field name="licencia_cancelada" attrs="{'invisible':[('is_company','=',True)]}"/>
+                <field name="fecha_cancelacion" attrs="{'invisible':['|',('licencia_cancelada','=',False), ('is_company','=',True)]}"/>
+                <field name="motivo" attrs="{'invisible':['|',('licencia_cancelada','=',False), ('is_company','=',True)]}"/>
+        </field>
+
+        <xpath expr="//notebook/page[1]" position ="before">
+          <page string="Licencia Conduccion" autofocus="autofocus" attrs="{'invisible':[('is_company','=',True)]}" >
+            <field name="licencia_id" nolabel="1" attrs="{'readonly':[('licencia_cancelada','=',True)]}" >
+              <tree editable="top"
+                    decoration-warning="state == 'diesoon'"
+                    decoration-danger="state =='inactive'"
+                    decoration-muted="state =='cancel'">
+                <field name="licencia_id" required="1"/>
+                <field name="fecha_inicio"/>
+                <field name="fecha_final"/>
+                <field name="state" readonly="1"/>
+              </tree>
+            </field>
+          </page>
+          <page string="Documentos Adjuntos" attrs="{'invisible':[('is_company','=',True)]}" >
+            <field name="documentos_ids" widget="many2many_binary" colspan="2"/>
+          </page>
+        </xpath>
+
+      </field>
+    </record>
+
+
+
+    <record id='res_partner_vehicle_action' model='ir.actions.act_window'>
+      <field name="name">Terceros</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Cree un nuevo tercero
+        </p>
+      </field>
+    </record>
+    <menuitem action="res_partner_vehicle_action" parent="fleet.fleet_vehicles" id="res_partner_vehicle_menu" sequence="35" groups="fleet.fleet_group_user"/>
+
+
+    <record id='tipo_licencia_action' model='ir.actions.act_window'>
+      <field name="name">Tipo de licencia</field>
+      <field name="res_model">tipo.licencia.res.partner</field>
+      <field name="view_mode">tree</field>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Cree un nuevo tipo de licencia
+        </p>
+      </field>
+    </record>
+    <menuitem action="tipo_licencia_action" parent="fleet.fleet_configuration" id="tipo_licencia_menu" sequence="30"/>
+
+  </data>
+</odoo>
+

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record model="vehicle.type" id="vehicle_type_camioneta">
+      <field name="code">vehiculo</field>
+      <field name="name">Camioneta</field>
+      <field name="unidades">kilometers</field>
+      <field name="mtto_cada">5000</field>
+      <field name="aviso_a">4500</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_camion">
+      <field name="code">vehiculo</field>
+      <field name="name">Camion</field>
+      <field name="unidades">kilometers</field>
+      <field name="mtto_cada">5000</field>
+      <field name="aviso_a">4500</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_volqueta_sencilla">
+      <field name="code">vehiculo</field>
+      <field name="name">Volqueta Sencilla</field>
+      <field name="unidades">kilometers</field>
+      <field name="mtto_cada">5000</field>
+      <field name="aviso_a">4500</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_volqueta_dobletroque">
+      <field name="code">vehiculo</field>
+      <field name="name">Volqueta Dobletroque</field>
+      <field name="unidades">kilometers</field>
+      <field name="mtto_cada">5000</field>
+      <field name="aviso_a">4500</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_tractocamion">
+      <field name="code">vehiculo</field>
+      <field name="name">Tractocamion</field>
+      <field name="unidades">kilometers</field>
+      <field name="mtto_cada">5000</field>
+      <field name="aviso_a">4500</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_automovil">
+      <field name="code">vehiculo</field>
+      <field name="name">Automovil</field>
+      <field name="unidades">kilometers</field>
+      <field name="mtto_cada">5000</field>
+      <field name="aviso_a">4500</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_bulldozer">
+      <field name="code">maquinaria</field>
+      <field name="name">Bulldozer</field>
+      <field name="unidades">hours</field>
+      <field name="mtto_cada">300</field>
+      <field name="aviso_a">250</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_retro_oruga">
+      <field name="code">maquinaria</field>
+      <field name="name">Retroexcavadora de orugas</field>
+      <field name="unidades">hours</field>
+      <field name="mtto_cada">300</field>
+      <field name="aviso_a">250</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_retro_llantas">
+      <field name="code">maquinaria</field>
+      <field name="name">Retroexcavadora de llantas</field>
+      <field name="unidades">hours</field>
+      <field name="mtto_cada">300</field>
+      <field name="aviso_a">250</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_miniretro">
+      <field name="code">maquinaria</field>
+      <field name="name">Miniretro</field>
+      <field name="unidades">hours</field>
+      <field name="mtto_cada">300</field>
+      <field name="aviso_a">250</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_cargador">
+      <field name="code">maquinaria</field>
+      <field name="name">Cargador</field>
+      <field name="unidades">hours</field>
+      <field name="mtto_cada">300</field>
+      <field name="aviso_a">250</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_minicargador">
+      <field name="code">maquinaria</field>
+      <field name="name">Minicargador</field>
+      <field name="unidades">hours</field>
+      <field name="mtto_cada">300</field>
+      <field name="aviso_a">250</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_pajarita">
+      <field name="code">maquinaria</field>
+      <field name="name">Pajarita</field>
+      <field name="unidades">hours</field>
+      <field name="mtto_cada">300</field>
+      <field name="aviso_a">250</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_motoniveladora">
+      <field name="code">maquinaria</field>
+      <field name="name">Motoniveladora</field>
+      <field name="unidades">hours</field>
+      <field name="mtto_cada">300</field>
+      <field name="aviso_a">250</field>
+    </record>
+    <record model="vehicle.type" id="vehicle_type_tractor">
+      <field name="code">maquinaria</field>
+      <field name="name">Tractor</field>
+      <field name="unidades">hours</field>
+      <field name="mtto_cada">300</field>
+      <field name="aviso_a">250</field>
+    </record>
+  </data>
+</odoo>  

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record model="fleet.vehicle.template" id="ve_te_lla_do">
+      <field name="name">Llantas</field>
+      <field name="type_id" eval="ref('fleet-adicionales.vehicle_type_volqueta_dobletroque')"/>
+      <field name="referencia">Sentado en la silla del conductor</field>
+      <field name="orden">1</field>
+      <field name="color">1</field>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_lla_ca">
+      <field name="name">Llantas</field>
+      <field name="type_id" eval="ref('fleet-adicionales.vehicle_type_camion')"/>
+      <field name="referencia">Sentado en la silla del conductor</field>
+      <field name="orden">1</field>
+      <field name="color">2</field>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_ba_do">
+      <field name="name">Baterias</field>
+      <field name="type_id" eval="ref('fleet-adicionales.vehicle_type_volqueta_dobletroque')"/>
+      <field name="referencia">Parte del sistema electrico varias pociciones</field>
+      <field name="orden">1</field>
+      <field name="color">3</field>
+      <field name="active">1</field>
+    </record>
+
+    <record model="fleet.vehicle.template" id="ve_te_do_lla_di_de">
+      <field name="orden">1</field>
+      <field name="name">Direccional derecha</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_do')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_do_lla_di_iz">
+      <field name="orden">2</field>
+      <field name="name">Direccional izquierda</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_do')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_do_lla_tr_de_de_interior">
+      <field name="orden">3</field>
+      <field name="name">Troque delantero derecho interior</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_do')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_do_lla_tr_de_de_exterior">
+      <field name="orden">4</field>
+      <field name="name">Troque delantero derecho exterior</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_do')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_do_lla_tr_de_iz_interior">
+      <field name="orden">5</field>
+      <field name="name">Troque delantero izquierdo interior</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_do')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_do_lla_tr_de_iz_exterior">
+      <field name="orden">6</field>
+      <field name="name">Troque delantero izquierdo exterior</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_do')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_do_lla_tr_tr_de_interior">
+      <field name="orden">7</field>
+      <field name="name">Troque trasero derecho interior</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_do')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_do_lla_tr_tr_de_exterior">
+      <field name="orden">8</field>
+      <field name="name">Troque trasero derecho exterior</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_do')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_do_lla_tr_tr_iz_interior">
+      <field name="orden">9</field>
+      <field name="name">Troque trasero izquierdo interior</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_do')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_do_lla_tr_tr_iz_exterior">
+      <field name="orden">10</field>
+      <field name="name">Troque trasero izquierdo exterior</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_do')"/>
+      <field name="active">1</field>
+    </record>
+
+    <record model="fleet.vehicle.template" id="ve_te_ca_lla_di_de">
+      <field name="orden">1</field>
+      <field name="name">Direccional derecha</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_ca')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_ca_lla_di_iz">
+      <field name="orden">2</field>
+      <field name="name">Direccional izquierda</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_ca')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_ca_lla_pa_de_de_in">
+      <field name="orden">3</field>
+      <field name="name">Pacha delantera derecha interior</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_ca')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_ca_lla_pa_de_de_ex">
+      <field name="orden">4</field>
+      <field name="name">Pacha delantera derecha exterior</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_ca')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_ca_lla_pa_de_iz_in">
+      <field name="orden">5</field>
+      <field name="name">Pacha delantera izquierda interior</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_ca')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_ca_lla_pa_de_iz_ex">
+      <field name="orden">6</field>
+      <field name="name">Pacha delantera izquierda exterior</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_lla_ca')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_do_ba_ba_un">
+      <field name="orden">1</field>
+      <field name="name">Bateria uno</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_ba_do')"/>
+      <field name="active">1</field>
+    </record>
+    <record model="fleet.vehicle.template" id="ve_te_do_ba_ba_do">
+      <field name="orden">2</field>
+      <field name="name">Bateria dos</field>
+      <field name="parent_id" eval="ref('fleet-adicionales.ve_te_ba_do')"/>
+      <field name="active">1</field>
+    </record>
+
+  </data>
+</odoo>  

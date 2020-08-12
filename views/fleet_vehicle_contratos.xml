@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <record id="fleet_vehicle_log_contract_view_form_inherit" model="ir.ui.view">
+      <field name="name">fleet_vehicle_log_contract_view_form_inherit</field>
+      <field name="model">fleet.vehicle.log.contract</field>
+      <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form"/>
+      <field name="arch" type="xml">
+        <field name="insurer_id" position="after">
+          <field name="company_id"
+                 string="Compañia"
+                 help="Empresa que compra el seguro"
+                 groups="base.group_multi_company"
+                 options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+        </field>
+        <field name="purchaser_id" position="attributes">
+          <attribute name="string">Comprador</attribute>
+          <attribute name="help">Comprador del seguro</attribute>
+        </field>
+        <xpath expr="//form/sheet/group/group[1]" position="attributes">
+          <attribute name="string">Informacion de contrato</attribute>
+        </xpath>
+        <xpath expr="//form/sheet/group/group[2]" position="attributes">
+          <attribute name="string">Informacion de vehiculo</attribute>
+        </xpath>
+        <xpath expr="//notebook/page[2]" position ="after">
+          <page string="Documentos contrato Adjuntos">
+            <field name="documentos_ids" widget="many2many_binary" />
+          </page>
+        </xpath>
+      </field>
+    </record>
+
+<!--    <record id='fleet_vehicle_log_contract_view_tree_inherit' model='ir.ui.view'>-->
+<!--      <field name="name">fleet.vehicle.log.contract.tree.inherit</field>-->
+<!--      <field name="model">fleet.vehicle.log.contract</field>-->
+<!--      <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_tree"/>-->
+<!--      <field name="arch" type="xml">-->
+<!--        <xpath expr="//tree" position="attributes">-->
+<!--          <attribute name="invisible">1</attribute>-->
+<!--        </xpath>-->
+<!--        <xpath expr="//tree" position="after">-->
+<!--          <tree string="Registro de contratos" decoration-warning="state=='diesoon'" decoration-danger="days_left==0" decoration-muted="state=='closed'">-->
+<!--            <field name="active" invisible="1"/>-->
+<!--            <field name="currency_id" invisible="1"/>-->
+<!--            <field name="days_left" invisible="1"/>-->
+<!--            <field name="vehicle_id" string="Vehiculo"/>-->
+<!--            <field name="start_date" string="Fecha inicio"/>-->
+<!--            <field name="expiration_date" string="Fecha final"/>-->
+<!--            <field name="cost_subtype_id" string="Servicio"/>-->
+<!--            <field name="insurer_id" string="Empresa contrato"/>-->
+<!--            <field name="company_id" string="Compañiar" groups="base.group_multi_company"/>-->
+<!--            <field name="purchaser_id" string="Responsable"/>-->
+<!--            <field name="cost_generated" invisible="1"/>-->
+<!--            <field name="cost_frequency" invisible="1"/>-->
+<!--            <field name="amount" string="Costo contrato" sum="Total contratos" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
+<!--            <field name="state" />-->
+<!--            <field name="activity_exception_decoration" widget="activity_exception"/>-->
+<!--          </tree>-->
+<!--        </xpath>-->
+<!--      </field>-->
+<!--    </record>-->
+
+
+    <record id='fleet.fleet_vehicle_log_contract_view_tree' model='ir.ui.view'>
+      <field name="name">fleet.vehicle.log.contract.tree</field>
+      <field name="model">fleet.vehicle.log.contract</field>
+      <field name="arch" type="xml">
+        <tree string="Registro de contratos" decoration-warning="state=='diesoon'" decoration-danger="days_left==0" decoration-muted="state=='closed'">
+          <field name="active" invisible="1"/>
+          <field name="currency_id" invisible="1"/>
+          <field name="days_left" invisible="1"/>
+          <field name="vehicle_id" string="Vehiculo"/>
+          <field name="start_date" string="Fecha inicio"/>
+          <field name="expiration_date" string="Fecha final"/>
+          <field name="cost_subtype_id" string="Servicio"/>
+          <field name="insurer_id" string="Empresa contrato"/>
+          <field name="company_id" string="Compañiar" groups="base.group_multi_company"/>
+          <field name="purchaser_id" string="Responsable"/>
+          <field name="cost_generated" invisible="1"/>
+          <field name="cost_frequency" invisible="1"/>
+          <field name="amount" string="Costo contrato" sum="Total contratos" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="state" />
+          <field name="activity_exception_decoration" widget="activity_exception"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="fleet.fleet_vehicle_log_contract_view_search" model="ir.ui.view">
+      <field name="name">fleet.vehicle.log.contract.search</field>
+      <field name="model">fleet.vehicle.log.contract</field>
+      <field name="arch" type="xml">
+        <search string="bitacora de Contratos de vehiculos">
+          <field name="vehicle_id" string="Vehiculo" filter_domain="[('vehicle_id.name', 'ilike', self)]"/>
+          <field name="company_id" string="Compañia" filter_domain="[('company_id', 'child_of', self)]" groups="base.group_multi_company"/>
+          <field name="purchaser_id" string="Responsable" filter_domain="[('purchaser_id', 'child_of', self)]"/>
+          <field name="insurer_id" string="Vendedor" filter_domain="[('insurer_id', 'child_of', self)]"/>
+          <field name="cost_subtype_id" string="Servicio" filter_domain="['|',('cost_subtype_id', 'ilike', self), ('cost_ids.cost_subtype_id','ilike',self)]"/>
+          <filter name="open" string="En Progreso" domain="[('state', 'in', ['open', 'diesoon'])]"/>
+          <filter name="expired" string="Expired" domain="[('state', '=', 'expired')]"/>
+          <filter name="expired" string="Expira pronto" domain="[('state', '=', 'diesoon')]"/>
+          <separator/>
+            <filter string="Archivado" name="inactive" domain="[('active', '=', False)]"/>
+          <separator/>
+          <filter invisible="1" string="Late Activities" name="activities_overdue"
+              domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+              help="Show all records which has next action date is before today"/>
+          <filter invisible="1" string="Today Activities" name="activities_today"
+              domain="[('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+          <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+              domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+          <group expand="1" string="Agrupado por">
+            <filter name="groupby_company_id" context="{'group_by': 'company_id'}" string="Compañia" groups="base.group_multi_company"/>
+            <filter name="groupby_vehicle_id" context="{'group_by': 'vehicle_id'}"  string="Vehiculo" />
+            <filter name="groupby_purchaser_id" context="{'group_by': 'purchaser_id'}" string="Responsable"/>
+            <filter name="groupby_insurer_id" context="{'group_by': 'insurer_id'}" string="Proveedor"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="fleet.fleet_vehicle_log_contract_view_graph" model="ir.ui.view">
+       <field name="name">fleet.vehicle.log.contract.graph</field>
+       <field name="model">fleet.vehicle.log.contract</field>
+       <field name="arch" type="xml">
+            <graph string="Contract Costs Per Month" type="bar" stacked="True">
+                <field name="date" type="row"/>
+                <field name="vehicle_id" type="row"/>
+                <field name="cost_amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+  </data>
+</odoo>
+

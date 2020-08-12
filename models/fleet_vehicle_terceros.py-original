@@ -1,0 +1,153 @@
+# -*- coding: utf-8 -*-
+
+from odoo import api, fields, models, _, tools
+from odoo.exceptions import ValidationError
+from dateutil.relativedelta import relativedelta
+from odoo.exceptions import UserError
+from odoo.osv import expression
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    state = fields.Selection([('activo', 'Activo'),
+                             ('Inactivo','Inactivo'),
+                             ('otro', 'Otro')], string="Estado")
+
+    licencia_id = fields.One2many('licencia.res.partner', 'partner_id', String = 'licencias')
+    documentos_ids = fields.Many2many('ir.attachment','res_partner_document_rel', 'partner_id', 'attachment_id', string="Documentos adjuntos")
+    restriccion = fields.Char(string='Restriccion')
+    licencia_cancelada = fields.Boolean(string="Licencia cancelada", default=False)
+    fecha_cancelacion = fields.Date(string = "fecha de cancelacion", help="Fecha cancelacion de licencia")
+    motivo = fields.Text(string="Motivo de cancelación", help="digite el motivo por el cual la licencia fue cancelada")
+
+
+    l10n_co_verification_code = fields.Char(compute='_compute_verification_code', string='VC',
+                                            # todo remove this field in master
+                                            help='Redundancy check to verify the vat number has been typed in correctly.')
+
+    l10n_co_document_type = fields.Selection([('rut', 'NIT'),
+                                              ('id_document', 'Cédula'),
+                                              ('id_card', 'Tarjeta de Identidad'),
+                                              ('passport', 'Pasaporte'),
+                                              ('foreign_id_card', 'Cédula Extranjera'),
+                                              ('external_id', 'ID del Exterior'),
+                                              ('diplomatic_card', 'Carné Diplomatico'),
+                                              ('residence_document', 'Salvoconducto de Permanencia'),
+                                              ('civil_registration', 'Registro Civil'),
+                                              ('national_citizen_id', 'Cédula de ciudadanía')], string='Document Type',
+                                             help='Indicates to what document the information in here belongs to.')
+    l10n_co_verification_code = fields.Char(compute='_compute_verification_code', string='VC',  # todo remove this field in master
+                                            help='Redundancy check to verify the vat number has been typed in correctly.')
+
+    @api.depends('vat')
+    def _compute_verification_code(self):
+        multiplication_factors = [71, 67, 59, 53, 47, 43, 41, 37, 29, 23, 19, 17, 13, 7, 3]
+
+        for partner in self:
+            if partner.vat and partner.country_id == self.env.ref('base.co') and len(partner.vat) <= len(multiplication_factors):
+                number = 0
+                padded_vat = partner.vat
+
+                while len(padded_vat) < len(multiplication_factors):
+                    padded_vat = '0' + padded_vat
+
+                # if there is a single non-integer in vat the verification code should be False
+                try:
+                    for index, vat_number in enumerate(padded_vat):
+                        number += int(vat_number) * multiplication_factors[index]
+
+                    number %= 11
+
+                    if number < 2:
+                        partner.l10n_co_verification_code = number
+                    else:
+                        partner.l10n_co_verification_code = 11 - number
+                except ValueError:
+                    partner.l10n_co_verification_code = False
+            else:
+                partner.l10n_co_verification_code = False
+
+    @api.constrains('vat', 'country_id', 'l10n_co_document_type')
+    def check_vat(self):
+        # check_vat is implemented by base_vat which this localization
+        # doesn't directly depend on. It is however automatically
+        # installed for Colombia.
+        if self.sudo().env.ref('base.module_base_vat').state == 'installed':
+            # don't check Colombian partners unless they have RUT (= Colombian VAT) set as document type
+            self = self.filtered(lambda partner: partner.country_id != self.env.ref('base.co') or\
+                                                 partner.l10n_co_document_type == 'rut')
+            return super(ResPartner, self).check_vat()
+        else:
+            return True
+
+
+class TipoLicenciaResPartner(models.Model):
+    _name = 'tipo.licencia.res.partner'
+    _description = 'Tipo de Licencia Conduccion tercero'
+    name = fields.Char(string = 'Codigo', required = True)
+    servicio = fields.Selection([('particular', 'Servicio particular'),
+        ('publico', 'Servicio publico')], string='Tipo Servicio',
+        help='Indica el tipo de servicio o particular o publico.')
+    descripcion = fields.Char(string = 'Descripcion', required = True)
+
+    def name_get(self):
+        res = []
+        for field in self:
+            res.append((field.id, '%s (%s)' % (field.name, field.servicio)))
+        return res
+
+
+class LicenciaResPartner(models.Model):
+    _name = 'licencia.res.partner'
+    _description = 'Licencia Conduccion tercero'
+    _order = 'state asc, fecha_final asc'
+    partner_id = fields.Many2one ('res.partner', 'Tercero')
+    licencia_id = fields.Many2one('tipo.licencia.res.partner', 'Tipo de licencia')
+    restriccion = fields.Char(string = 'Restriccion')
+    fecha_inicio = fields.Date(string = 'Fecha Inicial', required = True)
+    fecha_final = fields.Date(string = 'Vigencia', required = True)
+    state = fields.Selection([
+        ('2.active', 'Activo'),
+        ('3.diesoon', 'Proxima a vencer'),
+        ('4.inactive', 'Inactivo'),
+        ('1.cancel', 'Cancelado')
+    ], 'Estado licencia', default='2.active', help='Estado de la licencia', required = True)
+
+    @api.model
+    def do_enviar_correo(self):
+        template_id = self.env.ref('fleet-adicionales.email_template_licence_fleet').id
+        template = self.env['mail.template'].browse(template_id)
+        template.send_mail(self.id, force_send=True)
+
+    def run_planificador(self):
+        """Busca todas las licencias,
+        si la fecha de vencimiento es mayor que la fecha actual, pone su estado en inactivo"""
+
+        params = self.env['ir.config_parameter'].sudo()
+        delay_alert = int(params.get_param('hr_fleet.delay_alert_contract', default=30))
+        print('delay_alert', delay_alert)
+        date_today = fields.Date.from_string(fields.Date.today())
+        print('date_today', date_today)
+        outdated_days = fields.Date.to_string(date_today + relativedelta(days=+delay_alert))
+        print('outdated_days', outdated_days)
+
+        licencias_proximas_vencer = self.search([('state', '=', '2.active'), ('fecha_final', '<', outdated_days)])
+        print('licencias_proximas_vencer', licencias_proximas_vencer)
+        licencias_proximas_vencer.write({'state': '3.diesoon'})
+        for licencia in licencias_proximas_vencer:
+            licencia.do_enviar_correo()
+
+        licencias_vencidas = self.search(
+            [('state', 'not in', ['4.inactive', '1.cancel']), ('fecha_final', '<', fields.Date.today())])
+        licencias_vencidas.write({'state': '4.inactive'})
+
+    @api.model
+    def default_get(self, default_fields):
+        res = super(LicenciaResPartner, self).default_get(default_fields)
+        res.update({
+            'fecha_inicio': fields.Date.context_today(self),
+            'fecha_final': fields.Date.context_today(self) + relativedelta(years=+1),
+            'state': '2.active'
+        })
+        return res
+

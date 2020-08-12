@@ -1,0 +1,1512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data >
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05001"/>
+        <field name="name">STRIA DE TTOyTTE MEDELLIN</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05031">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05031"/>
+        <field name="name">STRIA TTOyTTE MCPAL AMALFI</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05034">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05034"/>
+        <field name="name">INSP TTOyTTE ANDES</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05042">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05042"/>
+        <field name="name">STRIA TTEyTTO MCPAL SANTA FE ANTIOQUIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">C</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05045">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05045"/>
+        <field name="name">STRIA MCPAL TTEyTTO APARTADO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05079">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05079"/>
+        <field name="name">DIR TTEyTTO  MCPAL BARBOSA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05088">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05088"/>
+        <field name="name">STRIA TTEyTTO BELLO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05101">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05101"/>
+        <field name="name">INSP MCPAL TTO CIUDAD BOLIVAR</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05129">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05129"/>
+        <field name="name">STRIA TTEYTTO CALDAS</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">B</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05147">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05147"/>
+        <field name="name">STRIA DE TTOyTTE CAREPA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">B</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05148">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05148"/>
+        <field name="name">INSP MCPAL TTOyTTE CARMEN DE VIBORAL</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05154">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05154"/>
+        <field name="name">STRIA TTOyTTE CAUCASIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05172">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05172"/>
+        <field name="name">STRIA TTOyTTE MCPAL CHIGORODO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05212">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05212"/>
+        <field name="name">STRIA TTEyTTO COPACABANA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05237">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05237"/>
+        <field name="name">DIR TTO MCPAL DONMATIAS</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05250">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05250"/>
+        <field name="name">STRIA TTOyTTE DEL MCPIO DEL BAGRE</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05266">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05266"/>
+        <field name="name">STRIA TTEyTTO ENVIGADO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05284">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05284"/>
+        <field name="name">STRIA TTEyTTO MCPAL FRONTINO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05308">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05308"/>
+        <field name="name">STRIA TTEyTTO GIRARDOTA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05318">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05318"/>
+        <field name="name">DIR TTO DPTAL ANTIOQUIA/GUARNE </field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05360">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05360"/>
+        <field name="name">STRIA TTEyTTO ITAGUI</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05376">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05376"/>
+        <field name="name">INSP TTO MCPAL LA CEJA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05380">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05380"/>
+        <field name="name">STRIA TTOYTTE MCPAL LA ESTRELLA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05440">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05440"/>
+        <field name="name">STRIA DE TTOyTTE DEL MCPIO DE MARINILLA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05579">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05579"/>
+        <field name="name">INSP TTO PUERTO BERRIO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05615">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05615"/>
+        <field name="name">STRIA GOB Y TTO RIONEGRO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05631">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05631"/>
+        <field name="name">STRIA TTOyTTE MCPAL SABANETA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05686">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05686"/>
+        <field name="name">STRIA TTO MCPAL SANTA ROSA DE OSOS</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05697">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05697"/>
+        <field name="name">STRIA TTOyTTE EL SANTUARIO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05736">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05736"/>
+        <field name="name">STRIA TTOyTTE MCPAL SEGOVIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05756">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05756"/>
+        <field name="name">INSP TTOyTTE MCPAL SONSON</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">B</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05837">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05837"/>
+        <field name="name">INSP MCPAL TTO TURBO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05847">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05847"/>
+        <field name="name">STRIA TTOyTTE MCPAL URRAO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito05887">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_05887"/>
+        <field name="name">STRIA TTEyTTO YARUMAL</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito08001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_08001"/>
+        <field name="name">SDM - BARRANQUILLA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito08296">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_08296"/>
+        <field name="name">STRIA MCPAL TTOyTTE GALAPA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito08433">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_08433"/>
+        <field name="name">STRIA DE TTOyTTE MALAMBO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito08573">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_08573"/>
+        <field name="name">STRIA MCPAL TTOyTTE PUERTO COLOMBIA </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito08634">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_08634"/>
+        <field name="name">INST TTO ATLANTICO/SABANAGRANDE  </field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito08638">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_08638"/>
+        <field name="name">STRIA TTO Y TTE MCPAL DE SABANALARGA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito08758">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_08758"/>
+        <field name="name">INST MCPAL TTOyTTE SOLEDAD </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68500">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68500"/>
+        <field name="name">ALCALDIA MUNICIPAL DE OIBA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito11001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_11001"/>
+        <field name="name">SDM - BOGOTA D.C.</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito13001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_13001"/>
+        <field name="name">DPTO ADTVO TTOyTTE DIST CARTAGENA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito13052">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_13052"/>
+        <field name="name">STRIA MCPAL TTEyTTO ARJONA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito13222">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_13222"/>
+        <field name="name">FONDO TTEyTTO BOLIVAR/STA ROSA NORTE</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito13222">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_13222"/>
+        <field name="name">INSTITUTO MUNICIPAL DE TRANSITO Y TRANSPORTE DE CLEMENCIA BOLIVAR</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito13244">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_13244"/>
+        <field name="name">INSP MCPAL TTOYTTE CARMEN DE BOLIVAR</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito13430">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_13430"/>
+        <field name="name">F. MCPAL TTOyTTE TERRESTRE MAGANGUE</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito13468">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_13468"/>
+        <field name="name">INSP TTO MOMPOX</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito13657">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_13657"/>
+        <field name="name">F TTEyTTO DPTAL  BOLIVAR/S JUAN NEPOMUCEN</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito13683">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_13683"/>
+        <field name="name">MUNICIPIO DE SANTA ROSA DEL SUR DE BOLIVAR</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito13836">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_13836"/>
+        <field name="name">STRIA TTOYTTE MCPAL TURBACO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15001"/>
+        <field name="name">STRIA DE TTOyTTE TUNJA </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15176">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15176"/>
+        <field name="name">STRIA MCPAL  TTOyTTE CHIQUINQUIRÁ</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15204">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15204"/>
+        <field name="name">ITBOY - DIST TTO No 1/COMBITA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15238">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15238"/>
+        <field name="name">STRIA MCPAL TTOyTTE DUITAMA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15299">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15299"/>
+        <field name="name">STRIA TTOyTTE MCPAL GARAGOA </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15322">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15322"/>
+        <field name="name">ITBOY - DIST TTO No. 6/GUATEQUE</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15407">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15407"/>
+        <field name="name">ITBOY - DIST TTO No. 10/VILLA DE LEYVA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15455">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15455"/>
+        <field name="name">ITBOY - DIST TTO No. 9/MIRAFLORES</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15469">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15469"/>
+        <field name="name">ITBOY - DIST TTO No. 5/MONIQUIRA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15491">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15491"/>
+        <field name="name">ITBOY - DIST TTO No. 2/ NOBSA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15516">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15516"/>
+        <field name="name">STRIA TTOyTTE MCPAL PAIPA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15572">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15572"/>
+        <field name="name">INSP TTOyTTE MCPAL PUERTO BOYACA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15599">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15599"/>
+        <field name="name">ITBOY - DIST TTO No. 11/RAMIRIQUI</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15632">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15632"/>
+        <field name="name">ITBOY - DIST TTO No. 4/SABOYA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15693">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15693"/>
+        <field name="name">ITBOY - DIST DE TTO SANTA ROSA DE VITERBO</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15753">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15753"/>
+        <field name="name">ITBOY - DIST TTO No. 7/SOATA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito15759">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_15759"/>
+        <field name="name">INST TTOyTTE MCPAL SOGAMOSO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito17001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_17001"/>
+        <field name="name">STRIA TTEyTTO MCPAL MANIZALES</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito17013">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_17013"/>
+        <field name="name">INSP TTEyTTO AGUADAS </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito17042">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_17042"/>
+        <field name="name">STRIA TTEyTTO ANSERMA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito17050">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_17050"/>
+        <field name="name">UND TTO CALDAS/ARANZAZU</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito17174">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_17174"/>
+        <field name="name">STRIA MCPAL TTOyTTE CHINCHINA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito17380">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_17380"/>
+        <field name="name">INPS TTOyTTE LA DORADA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito17433">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_17433"/>
+        <field name="name">DIR MCPAL TTOyTTE MANZANARES</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito17614">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_17614"/>
+        <field name="name">SUB STRIA MOVILIDAD RIOSUCIO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito17653">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_17653"/>
+        <field name="name">STRIA TTOyTTE SALAMINA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito17873">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_17873"/>
+        <field name="name">UNIDAD TTO CALDAS/VILLAMARIA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito18001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_18001"/>
+        <field name="name">STRIA TTOyTTE MCPAL FLORENCIA </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito18094">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_18094"/>
+        <field name="name">INST DPTAL TTyT DEL CAQUETA. S.O. BELEN DE LOS ANDAQUIES</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito18256">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_18256"/>
+        <field name="name">INST DPTAL TTOyTTE CAQUETA/EL PAUJIL</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito18753">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_18753"/>
+        <field name="name">INST DTAL TTOyTTE CAQUETA/S VIC CAGUAN</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito19001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_19001"/>
+        <field name="name">STRIA TTOyTTE MCPAL POPAYAN</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito19100">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_19100"/>
+        <field name="name">STRIA TTOyTTE MCPAL BOLIVAR</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito19142">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_19142"/>
+        <field name="name">STRIA TTOyTTE MCPAL CALOTO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito19256">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_19256"/>
+        <field name="name">STRIA TTOYTTE MCPAL EL TAMBO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito19455">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_19455"/>
+        <field name="name">STRIA TTOyTTE MCPAL MIRANDA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito19532">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_19532"/>
+        <field name="name">STRIA TTO MCPAL PATIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito19548">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_19548"/>
+        <field name="name">STRIA TTOyTTE MCPAL PIENDAMO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito19573">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_19573"/>
+        <field name="name">STRIA TTO MCPAL PUERTO TEJADA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito19698">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_19698"/>
+        <field name="name">STRIA TTOyTTE MPAL SANTANDER QUILICHAO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito19807">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_19807"/>
+        <field name="name">STRIA TTOyTTE MCPAL TIMBIO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito20001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_20001"/>
+        <field name="name">INST MCPAL TTOyTTE VALLEDUPAR</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito20011">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_20011"/>
+        <field name="name">INST MCPAL TTOyTTE AGUACHICA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito20013">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_20013"/>
+        <field name="name">STRIA TTEyTTO MCPAL AGUSTIN CODAZZI </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito20060">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_20060"/>
+        <field name="name">STRIA MCPAL TTOyTTE BOSCONIA </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito20250">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_20250"/>
+        <field name="name">STRIA DE TTOyTTE PASO-CESAR</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito20400">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_20400"/>
+        <field name="name">STRIA TTOyTTE MCPAL LA JAGUA DE IBIRICO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito20621">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_20621"/>
+        <field name="name">STRIA TTOyTTE MCPAL LA PAZ </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito23001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_23001"/>
+        <field name="name">STRIA MCPAL TTEyTTO MONTERIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito23162">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_23162"/>
+        <field name="name">INST TTOyTTE DE CERETE</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito23182">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_23182"/>
+        <field name="name">STRIA DPTAL TTOyTTE CORDOBA/CHINU </field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito23350">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_23350"/>
+        <field name="name">STRIA DPTAL TTOyTTE CORDOBA/APARTADA </field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito23417">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_23417"/>
+        <field name="name">INSP TTOyTTE LORICA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito23555">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_23555"/>
+        <field name="name">STRIA MCPAL TTEyTTO PLANETA RICA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito23660">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_23660"/>
+        <field name="name">INSP TTOyTTE MCPAL SAHAGUN</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25126">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25126"/>
+        <field name="name">STRIA DPTAL TTEyTTO CUND/CAJICA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25151">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25151"/>
+        <field name="name">STRIA TTEy MOV CUND/CAQUEZA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25175">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25175"/>
+        <field name="name">SECRETARIA DE  MOVILIDAD MUNICIPAL DE CHIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25183">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25183"/>
+        <field name="name">STRIA TTEyMOV CUND/CHOCONTA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25214">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25214"/>
+        <field name="name">STRIA TTEyMOV CUNDINAMARCA/COTA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25260">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25260"/>
+        <field name="name">STRIA TTEyMOV CUND/EL ROSAL</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25269">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25269"/>
+        <field name="name">STRIA TTO MCPAL FACATATIVA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25286">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25286"/>
+        <field name="name">STRIA TTOyTTE MCPAL FUNZA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25290">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25290"/>
+        <field name="name">STRIA DE MOVILIDAD MPAL FUSAGASUGA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25307">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25307"/>
+        <field name="name">STRIA TTOyTTE MCPAL GIRARDOT</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25377">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25377"/>
+        <field name="name">STRIA TTEyMOV CUND/LA CALERA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25386">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25386"/>
+        <field name="name">SECRETARIA DE TRÁNSITO - DEL MUNICIPIO DE LA MESA - CUNDINAMARCA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25430">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25430"/>
+        <field name="name">SECRETARIA DE TRANSPORTE Y TRANSPORTE DEL MUNICIPIO DE MADRID</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25473">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25473"/>
+        <field name="name">STRIA TTEyMOV CUND/MOSQUERA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25513">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25513"/>
+        <field name="name">STRIA TTOyTTE MCPAL PACHO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25612">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25612"/>
+        <field name="name">STRIA TTEyMOV CUND/RICAURTE</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25740">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25740"/>
+        <field name="name">STRIA TTEy MOV CUND/SIBATE</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25754">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25754"/>
+        <field name="name">STRIA MCPAL DE SOACHA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25843">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25843"/>
+        <field name="name">STRIA TTOyTTE MCPAL UBATE</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25875">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25875"/>
+        <field name="name">STRIA TTEyMOV CUND/VILLETA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito25899">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_25899"/>
+        <field name="name">STRIA MCPAL TTEYTTO ZIPAQUIRA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito27001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_27001"/>
+        <field name="name">INSP TTEyTTO QUIBDO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito27361">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_27361"/>
+        <field name="name">DIR TTEyTTO DPTAL CHOCO/ISTMINA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito41001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_41001"/>
+        <field name="name">STRIA INFR TTOyTTE MCPAL NEIVA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito41132">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_41132"/>
+        <field name="name">INST MCPAL DE TTE Y MOV CAMPOALEGRE INTRAMOVIL</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito41298">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_41298"/>
+        <field name="name">STRIA MCPAL TTOyTTE GARZON</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito41319">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_41319"/>
+        <field name="name">STRIA INFR PROD TTOyTTE MPAL GUADALUPE</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito41396">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_41396"/>
+        <field name="name">STRIA MCPAL TTOyTTE LA PLATA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito41524">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_41524"/>
+        <field name="name">UND MCPAL TTOyTTE PALERMO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito41551">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_41551"/>
+        <field name="name">DIR ADMINISTRATIVA PITALITO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito41615">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_41615"/>
+        <field name="name">INST TTOyTTE DPTAL HUILA/RIVERA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito41807">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_41807"/>
+        <field name="name">INST TTOyTTE DPTAL HUILA/TIMANA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito44001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_44001"/>
+        <field name="name">INST TTOyTTE MCPAL RIOHACHA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito44035">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_44035"/>
+        <field name="name">INST TTOyTTE DEL MUNICIPIO DE ALBANIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito44279">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_44279"/>
+        <field name="name">INSTITUTO DE TRANSITO Y TRANSPORTE DE FONSECA LA GUAJIRA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito44378">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_44378"/>
+        <field name="name">DPTO ADTVO TTOyTTE GUAJIRA/HATONUEVO</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito44430">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_44430"/>
+        <field name="name">INST MCPAL TTOyTTE MAICAO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">B</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito47001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_47001"/>
+        <field name="name">U TEC CONT/VIG/ REG TTOyTTE SANTA MARTA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito47053">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_47053"/>
+        <field name="name">INST DPTAL TTEyTTO MAGDALENA/ARACATACA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito47189">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_47189"/>
+        <field name="name">INST TTOyTTE MCPAL CIENAGA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito47245">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_47245"/>
+        <field name="name">INST MCPAL TTOyTTE EL BANCO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito47288">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_47288"/>
+        <field name="name">INST MCPAL TTOyTTE FUNDACION </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito47555">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_47555"/>
+        <field name="name">INSp TTO PLATO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito50001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_50001"/>
+        <field name="name">STRIA TTOyTTE MCPAL VILLAVICENCIO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito50006">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_50006"/>
+        <field name="name">INST TTOyTTE ACACIAS</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito50313">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_50313"/>
+        <field name="name">STRIA MCPAL TTO GRANADA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito50318">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_50318"/>
+        <field name="name">INST DPTAL TTOyTTE META/GUAMAL</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito50573">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_50573"/>
+        <field name="name">INST DPTAL TTOyTTE META/PUERTO LOPEZ</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito50606">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_50606"/>
+        <field name="name">INST DPTAL TTOyTTE  META/RESTREPO</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52001"/>
+        <field name="name">DPTO ADTVO TTOyTTE MCPAL PASTO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52110">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52110"/>
+        <field name="name">SUBSTRIA TTOyTTE DPTAL NARIÑO/BUESACO</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52240">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52240"/>
+        <field name="name">SUBSTRIA TTOyTTE DTAL NARIÑO/CHACHAGÜI</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52317">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52317"/>
+        <field name="name">SUBSTRIA TTOyTTE DTAL NARIÑO/GUACHUCAL</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52354">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52354"/>
+        <field name="name">SUB STARIA TTOyTTE DPTAL NARIÑO/IMUES</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52356">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52356"/>
+        <field name="name">STRIA TTOyTTE MCPAL IPIALES</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52399">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52399"/>
+        <field name="name">SUBSTRIA TTOyTTE DPTAL NARIÑO/LA UNION</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52480">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52480"/>
+        <field name="name">STRIA TTOYTTE MCPAL NARIÑO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">B</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52585">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52585"/>
+        <field name="name">SUBSTRIA TTOyTTE DPTAL NARIÑO/PUPIALES</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52612">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52612"/>
+        <field name="name">STRIA TTOyTTE MCPAL RICAURTE</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52678">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52678"/>
+        <field name="name">SUBSTRIA TTOyTTE DPTAL NARIÑO/SAMANIEGO</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52683">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52683"/>
+        <field name="name">SUBSTRIA TTOyTTE DPTAL NARIÑO/SANDONA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52788">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52788"/>
+        <field name="name">STRIA TTOyTTE DPTAL TANGUA/NARIÑO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52835">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52835"/>
+        <field name="name">STRIA TTEyTTO MCPAL TUMACO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito52838">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_52838"/>
+        <field name="name">STRIA TT0yTTE MCPAL TUQUERRES</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito54001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_54001"/>
+        <field name="name">DPTO ADTVO TTOyTTE MCPAL CUCUTA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito54206">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_54206"/>
+        <field name="name">INSP DE TT0 y TTE CONVENCION </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito54261">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_54261"/>
+        <field name="name">STRIA TTO DPTAL NTE SANTANDER/EL ZULIA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito54405">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_54405"/>
+        <field name="name">ITTE DEL MUNICIPIO DE LOS PATIOS</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">B</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito54498">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_54498"/>
+        <field name="name">STRIA MOVyTTO OCAÑA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito54518">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_54518"/>
+        <field name="name">INSP MCPAL TTOyTTE PAMPLONA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito54874">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_54874"/>
+        <field name="name">DPTO ADTVO TTEyTTO VILLA DEL ROSARIO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito63001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_63001"/>
+        <field name="name">STRIA DE TTOyTTE MCPAL ARMENIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito63130">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_63130"/>
+        <field name="name">INSP TTOyTTE CALARCA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito63190">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_63190"/>
+        <field name="name">INST DPTAL DE TTO QUINDIO/CIRCASIA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito63401">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_63401"/>
+        <field name="name">STRIA TTOyTTE MCPAL LA TEBAIDA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito63594">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_63594"/>
+        <field name="name">INS DE TTOyTTE QUIMBAYA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito66001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_66001"/>
+        <field name="name">INST MCPAL DE TTO y TTE PEREIRA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito66170">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_66170"/>
+        <field name="name">STRIA MCPAL TTOyTTE DOSQUEBRADAS</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito66400">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_66400"/>
+        <field name="name">STRIA MCPAL TTOyTTE LA VIRGINIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito66682">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_66682"/>
+        <field name="name">STRIA TTO y GOB MCPAL SANTA ROSA CABAL</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68001"/>
+        <field name="name">DIR TTOyTTE BUCARAMANGA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68077">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68077"/>
+        <field name="name">INSP MCPAL TTOyTTE BARBOSA/STDER</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68081">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68081"/>
+        <field name="name">INSP TTOyTTE BARRANCABERMEJA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68167">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68167"/>
+        <field name="name">INST TTOyTTE CHARALA </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68276">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68276"/>
+        <field name="name">DIR TTOyTTE FLORIDABLANCA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68307">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68307"/>
+        <field name="name">STRIA MCPAL TTOyTTE GIRON</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68432">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68432"/>
+        <field name="name">STRIA TTOyTTE MCPAL MALAGA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68547">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68547"/>
+        <field name="name">STRIA TTOyMOV PIEDECUESTA/SANTANDER</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68679">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68679"/>
+        <field name="name">INSP MCPAL TTOyTTE SAN GIL</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68689">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68689"/>
+        <field name="name">INS MCPAL TTOyTTE SAN VICENTE CHUCURI</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68755">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68755"/>
+        <field name="name">STRIA TTOyTTE MCPAL EL SOCORRO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito68861">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_68861"/>
+        <field name="name">STRIA TTOyTTE VELEZ</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito70001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_70001"/>
+        <field name="name">STRIA MCPAL TTEyTTO SINCELEJO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito70215">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_70215"/>
+        <field name="name">INS MCPAL DE TyTO DE COROZAL</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito70670">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_70670"/>
+        <field name="name">DIR DPTAL TTOyTTE SUCRE/SAMPUES</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito73001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_73001"/>
+        <field name="name">STRIA MCPAL TTOyTTE IBAGUE</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito73026">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_73026"/>
+        <field name="name">DPTO ADTVO TTOyTTE TOLIMA/ ALVARADO</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito73055">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_73055"/>
+        <field name="name">DPTO ADTVO TTOyTTE TOLIMA/GUAYABAL</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito73168">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_73168"/>
+        <field name="name">DPTO ADTVO TTOyTTE TOLIMA/CHAPARRAL</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito73268">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_73268"/>
+        <field name="name">STRIA MCPAL TTOyTTE ESPINAL</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito73283">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_73283"/>
+        <field name="name">STRIA TTOyTTE MCPAL FRESNO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito73319">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_73319"/>
+        <field name="name">DPTO ADTVO TTOyTTE TOLIMA/GUAMO</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito73349">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_73349"/>
+        <field name="name">STRIA MCPAL TTOyTTE HONDA </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito73411">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_73411"/>
+        <field name="name">STRIA TTOyTTE MCPAL LIBANO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito73443">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_73443"/>
+        <field name="name">STRIA DE TTOyTTE MCPAL DE SAN SEBASTIAN DE MARIQUITA TOLIMA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito73449">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_73449"/>
+        <field name="name">STRIA GOB TTOyTTE MELGAR</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito73585">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_73585"/>
+        <field name="name">DPTO ADTVO TTOyTTE TOLIMA/PURIFICACIÓN</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76001"/>
+        <field name="name">STRIA MCPAL TTO CALI</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76036">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76036"/>
+        <field name="name">STRIA TTOyTTE ANDALUCIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76109">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76109"/>
+        <field name="name">STRIA TTOyTTE MCPAL BUENAVENTURA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76111">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76111"/>
+        <field name="name">INSP TTEyTTO GUADALAJARA DE BUGA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76122">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76122"/>
+        <field name="name">STRIA MCPAL TTOyTTE CAICEDONIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76130">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76130"/>
+        <field name="name">STRIA TTOyTTE MCPAL CANDELARIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76147">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76147"/>
+        <field name="name">INST DE TTO Y TTE CARTAGO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76248">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76248"/>
+        <field name="name">STRIA MCPAL TTOyTTE EL CERRITO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76275">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76275"/>
+        <field name="name">STRIA TTOyTTE FLORIDA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76306">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76306"/>
+        <field name="name">STRIA DE TTOyTTE MCPAL DE GINEBRA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76318">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76318"/>
+        <field name="name">STRIA TTOyTTE MCPAL GUACARI</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76364">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76364"/>
+        <field name="name">STRIA TTOyTTE MCPAL JAMUNDI</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76400">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76400"/>
+        <field name="name">STRIA TTO MCPAL LA UNION</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76520">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76520"/>
+        <field name="name">STRIA TTOyTTE PALMIRA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76563">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76563"/>
+        <field name="name">STRIA TTOyTTE MCPAL PRADERA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76622">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76622"/>
+        <field name="name">INSP TTOyTTE ROLDANILLO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76736">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76736"/>
+        <field name="name">STRIA TTOyTTE SEVILLA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76834">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76834"/>
+        <field name="name">STRIA TTO MCPAL TULUA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76890">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76890"/>
+        <field name="name">STRIA TTOyTTE MCPAL YOTOCO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">C</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76892">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76892"/>
+        <field name="name">STRIA TTOyTTE YUMBO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito76895">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_76895"/>
+        <field name="name">INSP TTOyTTE ZARZAL</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito81001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_81001"/>
+        <field name="name">INST TTOyTTE  ARAUCA/ARAUCA</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito81736">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_81736"/>
+        <field name="name">STRIA TTOyTTE MCPAL SARAVENA </field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">B</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito81794">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_81794"/>
+        <field name="name">INST MOVyTTE MCPAL TAME</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito85001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_85001"/>
+        <field name="name">STRIA TTOyTTE MCPAL YOPAL</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito85010">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_85010"/>
+        <field name="name">DIR DPTAL TTOyTTE CASANARE/AGUAZUL</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito86001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_86001"/>
+        <field name="name">STRIA TTOyTTE MOCOA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito86320">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_86320"/>
+        <field name="name">STRIA TTOyTTE MCPAL ORITO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito86568">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_86568"/>
+        <field name="name">INST MCPAL TTE Y MOVILIDAD-IMTRAM PTO ASIS</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito86865">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_86865"/>
+        <field name="name">SRIA TTOyTTE MPAL VALLE GUAMUEZ/HORMIGA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito86885">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_86885"/>
+        <field name="name">DEPTO ADMTVO DE TTO Y TTE PUTUMAYO</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito88001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_88001"/>
+        <field name="name">DIR DPTAL TTOyTTE SAN ANDRES ISLAS</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito91001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_91001"/>
+        <field name="name">INSP MCPAL TTOyREG VIAL LETICIA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito94001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_94001"/>
+        <field name="name">STRIA TTOyTTE MCPAL INIRIDA</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">B</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito95001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_95001"/>
+        <field name="name">STRIA TTOyTTE MCPAL SAN JOSE GUAVIARE</field>
+        <field name="jurisdiccion">MUNICIPAL</field>
+        <field name="categoria">A</field>
+    </record>
+    <record model="fleet.vehicle.transito" id="fleet_vehicle_transito99001">
+        <field name="state_id" ref="l10n_co_toponyms.res_country_state_co_99001"/>
+        <field name="name">F. DPTAL TTO VICHADA/PUERTO CARREÑO</field>
+        <field name="jurisdiccion">DEPARTAMENTAL</field>
+        <field name="categoria">A</field>
+    </record>
+
+  </data>
+</odoo>
