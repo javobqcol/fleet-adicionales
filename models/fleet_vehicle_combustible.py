@@ -4,6 +4,7 @@ from odoo import api, fields, models, _, tools
 from odoo.exceptions import UserError
 from odoo.osv import expression
 
+# cambio 1
 
 
 class FleetVehicleLogFuel(models.Model):
