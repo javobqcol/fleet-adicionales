@@ -10,8 +10,24 @@
           <button name="open_monitor_logs"
               type="object"
               class="oe_stat_button"
-              icon="fa-history">
-              <field name="monitor_count" widget="statinfo" string="Historia de partes"/>
+              icon="fa-gear">
+            <field name="monitor_count" widget="statinfo" string="Partes"/>
+          </button>
+          <button name="return_action_to_open_adic"
+            type="object"
+            class="oe_stat_button"
+            icon="fa-gears"
+            context="{'xml_id':'fleet_vehicle_viajes_action'}"
+            help="Muestra los viajes de este vehiculo"
+            attrs="{'invisible':[('code','in',('maquinaria'))]}">-->
+            <field name="viajes_count" widget="statinfo" string="Viajes"/>
+            <field name="code" invisible="1"/>
+<!--          <button name="open_viajes_logs"-->
+<!--              type="object"-->
+<!--              class="oe_stat_button"-->
+<!--              icon="fa-gears"-->
+<!--              attrs="{'invisible':[('code','in',('maquinaria'))]}">-->
+<!--            <field name="viajes_count" widget="statinfo" string="Viajes"/>-->
           </button>
         </xpath>
         <xpath expr="//form/sheet/group/group[5]" position="attributes">
@@ -161,6 +177,7 @@
       <field name="arch" type="xml">
         <xpath expr="//field[@name='name']" position="after">
           <field string="Tipo vehiculo" name="vehicle_type_id"/>
+          <field string="Parte" name="partes_ids" filter_domain="[('partes_ids.product_id', 'ilike', self)]"/>
         </xpath>
         <xpath expr="//filter[@name='groupby_status']" position="after">
            <filter string="Tipo Vehiculo" name="groupby_vehicle_type_id" context="{'group_by': 'vehicle_type_id'}"/>
@@ -462,7 +479,7 @@
       <field name="name">fleet.vehicle.monitor.log.view.tree</field>
       <field name="model">fleet.vehicle.monitor.log</field>
       <field name="arch" type="xml">
-        <tree string="Assignation Logs">
+        <tree string="Monitor Logs">
           <field name="vehicle_id"/>
           <field name="template_id"/>
           <field name="fecha"/>

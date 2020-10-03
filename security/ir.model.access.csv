@@ -54,6 +54,6 @@ fl_ve_ma_admin,fl_ve_ma_admin,model_fleet_vehicle_material,fleet.fleet_group_man
 fl_ve_vi_user_read,fl_ve_vi_user_read,model_fleet_vehicle_viaje,fleet_group_user_read,1,0,0,0
 fl_ve_vi_user,fl_ve_vi_user,model_fleet_vehicle_viaje,fleet.fleet_group_user,1,1,1,0
 fl_ve_vi_admin,fl_ve_vi_admin,model_fleet_vehicle_viaje,fleet.fleet_group_manager,1,1,1,1
-fl_ve_vi_det_user_read,fl_ve_vi_det_user_read,model_fleet_vehicle_viaje_det,fleet_group_user_read,1,0,0,0
-fl_ve_vi_det_user,fl_ve_vi_det_user,model_fleet_vehicle_viaje_det,fleet.fleet_group_user,1,1,1,0
-fl_ve_vi_det_admin,fl_ve_vi_det_admin,model_fleet_vehicle_viaje_det,fleet.fleet_group_manager,1,1,1,1
+fl_ve_pr_li_user_read,fl_ve_pr_li_user_read,model_fleet_vehicle_product_line,fleet_group_user_read,1,0,0,0
+fl_ve_pr_li_user,fl_ve_pr_li_user,model_fleet_vehicle_product_line,fleet.fleet_group_user,1,1,1,0
+fl_ve_pr_li_admin,fl_ve_pr_li_admin,model_fleet_vehicle_product_line,fleet.fleet_group_manager,1,1,1,1

@@ -53,7 +53,50 @@
                     <field name="amount" sum="Total servicios" string="Costo Indicativo" widget="monetary" options="{'currency_field': 'currency_id'}"/>
                   </tree>
                 </field>
-                </page>
+              </page>
+              <page string="Partes Usadas" >
+                <group colspan="4">
+                  <field name="parts_ids" nolabel="1">
+                    <tree string="Partes">
+                       <field name='product_id' string="Producto" required="1"
+                           attrs="{'readonly':[('is_deliver','=',True)]}"
+                           options="{'no_open': True, 'create': false, 'create_edit': false}"/>
+                       <field name="qty_hand" readonly="1" force_save="1"/>
+                       <field name='qty' required="1" attrs="{'readonly':[('is_deliver','=',True)]}"/>
+                       <field name='product_uom' attrs="{'readonly':[('is_deliver','=',True)]}" required="1"/>
+                       <field name='price_unit' attrs="{'readonly':[('is_deliver','=',True)]}"/>
+                       <field name='total' readonly="1" force_save="1"/>
+                       <field name="date_issued"/>
+                       <field name="issued_by" readonly="1"
+                           options="{'no_open': True, 'create': false, 'create_edit': false}" />
+                       <field name="is_deliver" invisible="1"/>
+                    </tree>
+                      <form string="Partes">
+                        <group>
+                          <field name='product_id' string="Part No" required="1"
+                           attrs="{'readonly':[('is_deliver','=',True)]}"
+                           options="{'no_open': True, 'create': false, 'create_edit': false}"/>
+                          <field name="qty_hand" readonly="1" force_save="1"/>
+                          <field name='qty' required="1" attrs="{'readonly':[('is_deliver','=',True)]}"/>
+                          <field name='product_uom' attrs="{'readonly':[('is_deliver','=',True)]}" required="1"/>
+                          <field name='price_unit' attrs="{'readonly':[('is_deliver','=',True)]}"/>
+                          <field name='total' readonly="1" force_save="1"/>
+                          <field name="date_issued"/>
+                          <field name="issued_by" readonly="1"
+                           options="{'no_open': True, 'create': false, 'create_edit': false}" />
+                          <field name="is_deliver" invisible="1"/>
+                        </group>
+                      </form>
+                  </field>
+                </group>
+                <group class="oe_subtotal_footer oe_right" col="2">
+                  <div class="oe_subtotal_footer_separator oe_inline">
+                    <label for="sub_total"/>
+                  </div>
+                  <field name="sub_total" nolabel="1" class="oe_subtotal_footer_separator"
+                         widget="monetary"/>
+                </group>
+              </page>
               <page string="Documentos adjuntos servicio">
                 <field name="documentos_ids" widget="many2many_binary" />
               </page>
@@ -173,10 +216,14 @@
                  filter_domain="[('vendor_id','ilike',self)]"/>
           <field name="company_id" string="Compañia" groups="base.group_multi_company"
                  filter_domain="[('company_id','ilike',self)]"/>
+          <field name="inv_ref" string="Referencia factura"
+                 filter_domain="[('inv_ref','ilike',self)]"/>
           <field name="work_id" string="Trabajo"
                      filter_domain="['|',('work_id.name_seq','ilike',self), ('work_id.contractor_id.name','ilike',self)]"/>
           <field name="cost_subtype_id" string="Servicio"
                      filter_domain="['|',('cost_subtype_id','ilike',self), ('cost_ids.cost_subtype_id','ilike',self)]"/>
+          <field name="parts_ids" string="Parte"
+                     filter_domain="['|',('parts_ids.product_id.name','ilike',self), ('parts_ids.product_id.default_code','ilike',self)]"/>
           <group expand="1" string="Agrupado por">
             <filter name="groupby_company_id" context="{'group_by': 'company_id'}" string="Compañia" groups="base.group_multi_company"/>
             <filter name="groupby_vehicle_id" context="{'group_by': 'vehicle_id'}" string="Vehiculo"/>

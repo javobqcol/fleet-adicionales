@@ -24,9 +24,13 @@ class FleetVehicle(models.Model):
     string='Documentos Adjuntos')
   description = fields.Text(string='Acerca del vehículo', translate=True)
   vehicle_type_id = fields.Many2one('vehicle.type', string='Tipo Vehículo', ondelete='restrict', required=True)
+  code = fields.Selection(related='vehicle_type_id.code')
   color_id = fields.Many2one('vehicle.color', string='Color del vehículo', ondelete='restrict')
-  odometer_unit = fields.Selection(selection_add=[('hours', 'Horas')], store=True, readonly=False,
-    compute='_onchange_type')
+  odometer_unit = fields.Selection([
+    ('kilometers', 'Kilometros'),
+    ('miles', 'Millas'),
+    ('hours', 'Horas'),
+  ], 'Uniadades odometro', default='hours', help='Unidades de odometro', required=True)
   numero_motor = fields.Char(string="Número de motor")
   numero_serie = fields.Char(string="Numero de serie")
   numero_chasis = fields.Char(string="Numero de chasis")
@@ -45,8 +49,8 @@ class FleetVehicle(models.Model):
   largo = fields.Integer(string="Largo")
   alto = fields.Integer(string="Alto")
   ancho = fields.Integer(string="ancho")
-  mtto_cada = fields.Integer(string="Mantemimiento cada", store=True, readonly=False, compute='_onchange_type')
-  aviso_a = fields.Integer(string="Aviso cada", store=True, readonly=False, compute='_onchange_type')
+  mtto_cada = fields.Integer(string="Mantemimiento cada")
+  aviso_a = fields.Integer(string="Aviso cada")
   proximo_mtto = fields.Float(String="Proximo mtto", compute='_get_last_odometer_service', readonly=True)
   falta_para_mtto = fields.Float(String="falta para mtto", compute='_get_last_odometer_service', readonly=True)
   falta = fields.Float(string="falta", store=False, readonly=True)
@@ -66,6 +70,7 @@ class FleetVehicle(models.Model):
     domain="[('type_id','=',vehicle_type_id)]",
     options="{'no_create':True, 'color_field':'color'}")
   monitor_count = fields.Integer(compute="_compute_count_all", string="Historia de partes monitoreadas")
+  viajes_count = fields.Integer(compute="_compute_count_all", string="Historia de viajes realizados")
   partes_ids = fields.One2many('fleet.vehicle.monitor', 'vehicle_id', string="Partes")
 
   def _compute_count_all(self):
@@ -75,6 +80,7 @@ class FleetVehicle(models.Model):
     LogContract = self.env['fleet.vehicle.log.contract']
     Cost = self.env['fleet.vehicle.cost']
     LogMonitor = self.env['fleet.vehicle.monitor.log']
+    LogViajes = self.env['fleet.vehicle.viaje']
     for record in self:
       record.odometer_count = Odometer.search_count([('vehicle_id', '=', record.id)])
       record.fuel_logs_count = LogFuel.search_count([('vehicle_id', '=', record.id)])
@@ -83,6 +89,7 @@ class FleetVehicle(models.Model):
       record.cost_count = Cost.search_count([('vehicle_id', '=', record.id), ('parent_id', '=', False)])
       record.history_count = self.env['fleet.vehicle.assignation.log'].search_count([('vehicle_id', '=', record.id)])
       record.monitor_count = LogMonitor.search_count([('vehicle_id', '=', record.id)])
+      record.viajes_count = sum(LogViajes.search([('vehicle_id', '=', record.id)]).mapped('viajes'))
 
   def open_monitor_logs(self):
     self.ensure_one()
@@ -93,6 +100,19 @@ class FleetVehicle(models.Model):
       'res_model': 'fleet.vehicle.monitor.log',
       'domain': [('vehicle_id', '=', self.id)],
     }
+
+  def return_action_to_open_adic(self):
+    """ This opens the xml view specified in xml_id for the current vehicle """
+    self.ensure_one()
+    xml_id = self.env.context.get('xml_id')
+    if xml_id:
+      res = self.env['ir.actions.act_window'].for_xml_id('fleet-adicionales', xml_id)
+      res.update(
+        context=dict(self.env.context, default_vehicle_id=self.id, group_by=False),
+        domain=[('vehicle_id', '=', self.id)]
+      )
+      return res
+    return False
 
   def _get_default_state(self):
     state = self.env.ref('fleet-adicionales.type_activo', raise_if_not_found=False)
@@ -138,6 +158,7 @@ class FleetVehicle(models.Model):
     for rec in self:
       if rec.vehicle_type_id:
         rec.odometer_unit = rec.vehicle_type_id.unidades
+        print("rec.vehicle_type_id.unidades==========", rec.vehicle_type_id.unidades)
         rec.mtto_cada = rec.vehicle_type_id.mtto_cada
         rec.aviso_a = rec.vehicle_type_id.aviso_a
         rec.falta = (rec.mtto_cada or 0) - (rec.aviso_a or 0)
@@ -273,7 +294,7 @@ class VehicleType(models.Model):
     ('kilometers', 'Kilometros'),
     ('miles', 'Millas'),
     ('hours', 'Horas'),
-  ], 'Uniadades odometro', default='kilometers', help='Unidades de odometro', required=True)
+  ], 'Uniadades odometro', default='hours', help='Unidades de odometro', required=True)
 
   mtto_cada = fields.Integer(string="Mantemimiento a ")
   aviso_a = fields.Integer(string="Aviso  ")

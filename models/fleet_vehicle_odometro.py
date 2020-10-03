@@ -26,11 +26,12 @@ class FleetVehiculeOdometer(models.Model):
     descripcion = fields.Text(string='Notas',
       placeholder='Cuualquier informacion pertinente respecto a l trabajo realizado')
 
-
     @api.onchange('vehicle_id')
     def _onchange_vehicle(self):
+      print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
       for rec in self:
         if rec.vehicle_id:
+          print("rec.vehicle_id.odometer_unit==============", rec.vehicle_id.odometer_unit)
           rec.odometer_unit = rec.vehicle_id.odometer_unit
           rec.driver_id = rec.vehicle_id.driver_id.id
           registro = rec.env['fleet.vehicle.odometer'].search([
