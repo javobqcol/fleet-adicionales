@@ -9,7 +9,7 @@ import pytz
 from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 
-Class FleetVehicleMaterial(models.Model):
+class FleetVehicleMaterial(models.Model):
   _name = 'fleet.vehicle.material'
   _description = 'Viajes a facturar realizados por la flota de camiones'
   name = fields.Char('Material')
@@ -49,10 +49,10 @@ class FleetVehiculeViaje(models.Model):
         if trabajo_det:
           rec.work_id = trabajo_det.id
 
+  @api.depends('Km_inicial','Km_final')
   def _cantidad_viajes(self):
     for rec in self:
       km_recorridos = (rec.Km_final or 0) - (rec.Km_inicial or 0)
-      if (rec.km_recorridos or 0) == 0:
-        rec.km_recorridos = km_recorridos
+      rec.km_recorridos = km_recorridos
 
 

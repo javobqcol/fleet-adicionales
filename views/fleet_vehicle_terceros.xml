@@ -100,7 +100,7 @@
         </p>
       </field>
     </record>
-    <menuitem action="res_partner_vehicle_action" parent="fleet.fleet_vehicles" id="res_partner_vehicle_menu" sequence="35" groups="fleet.fleet_group_user"/>
+    <menuitem action="res_partner_vehicle_action" parent="fleet.fleet_vehicles" id="res_partner_vehicle_menu" sequence="25" groups="fleet.fleet_group_user"/>
 
 
     <record id='tipo_licencia_action' model='ir.actions.act_window'>

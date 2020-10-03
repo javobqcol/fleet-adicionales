@@ -30,9 +30,9 @@
                 <field name="date" string="Fecha"/>
                 <field name="recibo_interno" string="Recibo interno" placeholder="Número recibo interno"/>
                 <field name="recibo_cantera" string="Recibo cantera" placeholder="Número recibo cantera"/>
-                <field name="km_recorridos"/>
                 <field name="Km_inicial"/>
                 <field name="Km_final"/>
+                <field name="km_recorridos"/>
                 <field name="galones"/>
                 <field name="viajes" />
               </group>

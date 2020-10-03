@@ -564,6 +564,8 @@
       </field>
     </record>
 
+    <menuitem name="Fleet" id="menu_root"  groups="fleet.fleet_group_user" web_icon="fleet,static/description/icon.png"/>
+
   </data>
 </odoo>
 

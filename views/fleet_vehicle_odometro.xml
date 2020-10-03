@@ -22,7 +22,8 @@
               <group>
                 <field name="value" string="Odometro Inicial" class="oe_inline"/>
                 <field name="value_final" string="Odometro Final" class="oe_inline"/>
-                <field name="total_unidades" string="Diferencia" readonly="1" class="oe_inline"/>
+<!--                <field name="total_unidades" string="Diferencia" readonly="1" class="oe_inline"/>-->
+                <field name="total_unidades" string="Diferencia" class="oe_inline"/>
                 <field name="unit" class="oe_inline"/>
                 <field name="es_standby" groups="fleet.fleet_group_manager"/>
                 <field name="hora_cancelada" groups="fleet.fleet_group_manager"/>
