@@ -182,25 +182,26 @@
         <xpath expr="//filter[@name='groupby_status']" position="after">
            <filter string="Tipo Vehiculo" name="groupby_vehicle_type_id" context="{'group_by': 'vehicle_type_id'}"/>
         </xpath>
+        <xpath expr="//group" position="after">
+          <searchpanel>
+             <field name="vehicle_type_id" string="Tipo Vehiculo" icon="fa-users"/>
+          </searchpanel>
+        </xpath>
       </field>
     </record>
 
     <record id='fleet.fleet_vehicle_action' model='ir.actions.act_window'>
-    <field name="name">Vehicles</field>
-<!--
-        <field name="res_model">fleet.vehicle</field>
-        <field name="view_mode">kanban,tree,form,activity</field>
--->
-      <field name="context">{'search_default_groupby_vehicle_type_id': 1}</field>
-<!--
+      <field name="name">Vehicles</field>
+      <field name="res_model">fleet.vehicle</field>
+      <field name="view_mode">kanban,tree,form,activity</field>
+      <field name="context">{}</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">
             Cree un nuevo vehiculo
           </p><p>
-            Maneje su flota haga seguimiento de sus SOAT, tecnocmecanicas, odometros, servicios y combustibles.
+            Maneje su flota haga seguimiento de sus SOAT, tecnomecanicas, odometros, servicios y combustibles.
           </p>
         </field>
--->
     </record>
 
 
@@ -226,7 +227,7 @@
         <field name="name">fleet.vehicle.kanban</field>
         <field name="model">fleet.vehicle</field>
         <field name="arch" type="xml">
-            <kanban default_group_by="vehicle_type_id" group_create="0" group_delete="0" group_edit="0" records_draggable="0">
+            <kanban group_create="0" group_delete="0" group_edit="0" records_draggable="0">
                 <field name="license_plate" />
                 <field name="model_id" />
                 <field name="driver_id" />
