@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <report
+    id="report_trabajos_maquinarias"
+    string="Trabajos maquinaria"
+    model="fleet.vehicle.work"
+    report_type="qweb-pdf"
+    name="fleet-adicionales.trabajos_maquinarias"
+    file="fleet_adionales.report_irmodeloverview"/>
+
+</odoo>

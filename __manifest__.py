@@ -42,6 +42,8 @@ Main Features
         'views/res_config_settings_views.xml',
         'data/vehicle_type.xml',
         'data/vehicle_color.xml',
+        'reports/report.xml',
+        'reports/work_maquinaria.xml',
         'data/transito.xml',
         'data/sequence.xml',
         'data/car_data.xml',
