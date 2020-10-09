@@ -327,11 +327,6 @@ class VehicleWork(models.Model):
   fecha_final = fields.Date(string='Fecha final')
   contacto_id = fields.Many2one('res.partner', 'Responsable')
   active = fields.Boolean(string="Trabajo activo?", default=True)
-  country_id = fields.Many2one('res.country', string='Pais', ondelete='restrict')
-  state_id = fields.Many2one("res.country.state", string='Departamento', ondelete='restrict',
-    domain="[('country_id', '=', country_id)]")
-  city = fields.Char(string=" Sitio de trabajo")
-
   state = fields.Selection([('activo', 'Activo'),
                             ('inactivo', 'Inactivo'),
                             ('cancelado', 'Cancelado'),
@@ -345,6 +340,7 @@ class VehicleWork(models.Model):
     placeholder="Espacio para describir detalles propios del trabajo")
 
   detalle_ids = fields.One2many('fleet.vehicle.work.det', 'work_id')
+  alias_work = fields.Char(string="Nombre del trabajo", help="Digite el nombre con el que se conoce el trabajo")
 
   @api.model
   def create(self, vals):
@@ -358,7 +354,7 @@ class VehicleWork(models.Model):
     res = []
     for field in self:
       res.append(
-        (field.id, '%s (%s) / %s' % (field.name_seq, field.contractor_id.name, field.state_id.complete_name or "")))
+        (field.id, '%s (%s) / %s' % (field.name_seq, field.contractor_id.name, field.alias_work or "")))
     return res
 
   @api.model

@@ -59,6 +59,11 @@
           <field name="unit" class="oe_inline"/>
           <field name="es_standby" invisible="1"/>
           <field name="hora_cancelada" invisible="1"/>
+          <field name="precio_unidad" optional="show"/>
+          <field name="valor_unidades" sum="Valor unidades" optional="show"/>
+          <field name="valor_standby" sum="Valor standby" optional="show"/>
+          <field name="hora_cancelada" invisible="1"/>
+
         </tree>
       </field>
     </record>

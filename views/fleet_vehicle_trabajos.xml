@@ -21,17 +21,10 @@
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="contractor_id"
                        string="contratista"/>
+                 <field name="alias_work"
+                       string="Nombre del trabajo"/>
                 <field name="contacto_id"
                        string="Responsable"/>
-                <field name="country_id"
-                       placeholder="Pais"
-                       options='{"no_open": True, "no_create": True}'/>
-                <field name="state_id"
-                       placeholder="Departamento"
-                       options='{"no_open": True, "no_create": True}'
-                       context="{'country_id': country_id}"/>
-                <field name="city"
-                       placeholder="Ciudad - sitio de trabajo"/>
                </group>
               <group>
                 <field name="fecha_inicio"
@@ -77,6 +70,7 @@
           <field name="name_seq"/>
           <field name="company_id"  groups="base.group_multi_company"/>
           <field name="contractor_id"/>
+          <field name="alias_work"/>
           <field name="contacto_id"/>
           <field name="fecha_inicio"/>
           <field name="fecha_final"/>

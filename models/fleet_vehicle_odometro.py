@@ -14,9 +14,14 @@ class FleetVehiculeOdometer(models.Model):
 
 
     company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company)
-    value = fields.Float('Odometro inicial',store=True, readonly=False)
-    value_final = fields.Float('Odometro final', readonly=False, store=True)
-    total_unidades = fields.Float("Total odometro",compute="_total_horas",group_operator="sum",readonly=False, store=True)
+    value = fields.Float('Odometro inicial', digits=(10, 2), store=True, readonly=False)
+    value_final = fields.Float('Odometro final',  digits=(10, 2), readonly=False, store=True)
+    total_unidades = fields.Float("Total odometro",
+      digits=(10, 2),
+      compute="_total_horas",
+      group_operator="sum",
+      readonly=False,
+      store=True)
     work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo', domain="[('state', '=', 'activo')]")
     driver_id = fields.Many2one('res.partner', related=None, string="Conductor", required=False)
     es_standby = fields.Boolean(string="Standby", default=False)
@@ -35,11 +40,13 @@ class FleetVehiculeOdometer(models.Model):
       compute="_total_horas",
       group_operator="sum",
       readonly=False,
+      digits=(10, 2),
       store=True)
     valor_standby = fields.Float("Precio standby",
       compute="_total_horas",
       group_operator="sum",
       readonly=False,
+      digits=(10, 2),
       store=True)
     recibo = fields.Char(string='Recibo', help="Numero del recibo de la empresa")
 
