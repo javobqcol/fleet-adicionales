@@ -48,12 +48,14 @@
                     <field name="currency_id"
                            invisible="1"/>
                     <field name="vehicle_id"/>
-                    <field name="unidades_standby"/>
                     <field name="precio_unidad"
-                           sum="Total Unidades"
+                           sum="Total unidades"
                            string="Precio unidad"
                            widget="monetary"
                            options="{'currency_field': 'currency_id'}"/>
+                    <field name="standby"/>
+                    <field name="unidades_standby" attrs="{'readonly':[('standby','==',False)]}"/>
+
                   </tree>
                 </field>
               </page>

@@ -22,16 +22,34 @@ class FleetVehiculeOdometer(models.Model):
     es_standby = fields.Boolean(string="Standby", default=False)
     hora_cancelada = fields.Boolean(string="Hora cancelada", default=False)
     tipo_odometro = fields.Char(string='Tipo odometro', default='odometer')
-    total_standby = fields.Float("Total standby",compute="_total_horas", group_operator="sum",readonly=False, store=True)
+    total_standby = fields.Float("Total standby",
+      compute="_total_horas",
+      group_operator="sum",
+      readonly=False,
+      store=True)
     descripcion = fields.Text(string='Notas',
-      placeholder='Cuualquier informacion pertinente respecto a l trabajo realizado')
+      placeholder='Cualquier información pertinente respecto al trabajo realizado')
+    unidades_standby = fields.Float(string="Unidades minimas", help="Unidades de standby")
+    precio_unidad = fields.Float(string="Valor Hora/maquina")
+    valor_unidades = fields.Float("Precio unidades",
+      compute="_total_horas",
+      group_operator="sum",
+      readonly=False,
+      store=True)
+    valor_standby = fields.Float("Precio standby",
+      compute="_total_horas",
+      group_operator="sum",
+      readonly=False,
+      store=True)
+    recibo = fields.Char(string='Recibo', help="Numero del recibo de la empresa")
+
+
 
     @api.onchange('vehicle_id')
     def _onchange_vehicle(self):
-      print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+
       for rec in self:
         if rec.vehicle_id:
-          print("rec.vehicle_id.odometer_unit==============", rec.vehicle_id.odometer_unit)
           rec.odometer_unit = rec.vehicle_id.odometer_unit
           rec.driver_id = rec.vehicle_id.driver_id.id
           registro = rec.env['fleet.vehicle.odometer'].search([
@@ -46,13 +64,23 @@ class FleetVehiculeOdometer(models.Model):
             limit=1)
           if trabajo_det:
             rec.work_id = trabajo_det.id
+            work_det = rec.env['fleet.vehicle.work.det'].search([
+                         ('work_id', '=', trabajo_det.id),
+                         ('vehicle_id', '=', rec.vehicle_id.id)],
+                          limit = 1)
+            if work_det:
+              rec.es_standby = work_det.standby
+              rec.precio_unidad = work_det.precio_unidad
+              rec.unidades_standby = work_det.unidades_standby
 
-    @api.depends('value','value_final')
+    @api.depends('value', 'value_final', 'total_unidades')
     def _total_horas(self):
       for record in self:
-        record.total_unidades = (record.value_final or 0) - (record.value or 0)
-        record.total_unidades = record.total_unidades if record.total_unidades >= 0 else 0
-        record.total_standby = record.total_unidades
+        if record.value_final != 0:
+          record.total_unidades = (record.value_final or 0) - (record.value or 0)
+        record.total_standby = record.total_unidades if record.total_unidades >= record.unidades_standby else record.unidades_standby
+        record.valor_unidades = record.total_unidades * record.precio_unidad
+        record.valor_standby = record.total_standby * record.precio_unidad
 
     @api.model
     def create(self, vals):

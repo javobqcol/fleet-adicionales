@@ -17,16 +17,20 @@
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="driver_id" string="Conductor"/>
                 <field name="work_id" string="Trabajo"/>
-                <field name="date" string="Fecha"/>
+                <field name="recibo"/>
               </group>
               <group>
+                <field name="date" string="Fecha"/>
                 <field name="value" string="Odometro Inicial" class="oe_inline"/>
                 <field name="value_final" string="Odometro Final" class="oe_inline"/>
-<!--                <field name="total_unidades" string="Diferencia" readonly="1" class="oe_inline"/>-->
                 <field name="total_unidades" string="Diferencia" class="oe_inline"/>
                 <field name="unit" class="oe_inline"/>
                 <field name="es_standby" groups="fleet.fleet_group_manager"/>
                 <field name="hora_cancelada" groups="fleet.fleet_group_manager"/>
+                <field name="unidades_standby" invisible="1"/>
+                <field name="precio_unidad" invisible="1"/>
+                <field name="valor_unidades" invisible="1"/>
+                <field name="valor_standby" invisible="1"/>
               </group>
             </group>
             <group string="Notas">
@@ -48,6 +52,7 @@
           <field name="driver_id"  optional="show" string="Conductor"/>
           <field name="tipo_odometro" optional="show" string="Tipo"/>
           <field name="work_id" optional="show" string="Trabajo"/>
+          <field name="recibo" optional="show" string="Recibo"/>
           <field name="value" string="Od. Inicial" class="oe_inline"/>
           <field name="value_final" string="Od. Final" class="oe_inline"/>
           <field name="total_unidades" sum="suma Unidades" string="Dif." class="oe_inline"/>
@@ -94,6 +99,7 @@
         <search string="Odometros de los vehiculos" >
           <field name="vehicle_id" string="Vehiculo"
                  filter_domain="[('vehicle_id.name','ilike',self)]"/>
+          <field name="recibo" string="Recibo"/>
           <field name="driver_id" string="Conductor"
                  filter_domain="[('driver_id.name','ilike',self)]"/>
           <field name="work_id" string="Trabajo"

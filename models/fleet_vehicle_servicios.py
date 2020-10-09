@@ -5,6 +5,9 @@ from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError
 from odoo.osv import expression
+from datetime import datetime, timedelta
+from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+import pytz
 
 
 class FleetVehicleProductLine(models.Model):
@@ -12,6 +15,17 @@ class FleetVehicleProductLine(models.Model):
 
   _name = 'fleet.vehicle.product.line'
   _description = 'Linea de producto'
+
+  @api.model
+  def default_get(self, default_fields):
+    res = super().default_get(default_fields)
+    fecha = self._context.get('default_date')
+    tz = pytz.timezone(self.env.user.tz) if self.env.user.tz else pytz.utc
+    if fecha:
+      res.update({'date_issued': tz.localize(fields.Datetime.from_string(str(fecha) + ' 00:00:00')).astimezone(pytz.utc)
+                  })
+    return res
+
 
   # task_id = fields.Many2one('service.task',
   #   string='task reference')
@@ -28,6 +42,7 @@ class FleetVehicleProductLine(models.Model):
   issued_by = fields.Many2one('res.users', string='Emitido por',
     default=lambda self: self._uid)
   is_deliver = fields.Boolean(string="Fue entregada?")
+
 
 
   @api.constrains('qty', 'qty_hand')
@@ -72,8 +87,8 @@ class FleetVehicleLogServices(models.Model):
     service = self.env.ref('fleet-adicionales.type_service_service_8', raise_if_not_found=False)
     dt = fields.Date.context_today(self)
     res.update({'date': dt, 'cost_subtype_id': service and service.id or False, 'cost_type': 'services'})
-
     return res
+
   @api.depends('parts_ids')
   def _compute_get_total(self):
       for rec in self:
