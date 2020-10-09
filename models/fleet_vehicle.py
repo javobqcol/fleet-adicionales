@@ -380,6 +380,7 @@ class VehicleWorkDet(models.Model):
 
   vehicle_id = fields.Many2one('fleet.vehicle', 'vehículo a Asignar')
   company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company, ondelete='restrict')
+  standby = fields.Boolean(string="Standby?", default=False)
   unidades_standby = fields.Float(string="Unidades minimas", help="Unidades de standby")
   precio_unidad = fields.Float(string='Valor de la Hora')
   currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
@@ -484,7 +485,7 @@ class FleetVehicleMonitor(models.Model):
   vehicle_id = fields.Many2one('fleet.vehicle', string="Vehiculo")
   template_id = fields.Many2one('fleet.vehicle.template', string='Parte')
   product_id = fields.Many2one('product.product',
-    string="Producto", default=False,
+    string="Producto", default=False, track_visivility="always",
     domain="['|', ('vehicle_id','=',vehicle_id),'&',('assign','=',False),('invisible','=',True)]")
 
   @api.model
