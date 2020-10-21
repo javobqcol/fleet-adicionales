@@ -19,7 +19,7 @@
             icon="fa-gears"
             context="{'xml_id':'fleet_vehicle_viajes_action'}"
             help="Muestra los viajes de este vehiculo"
-            attrs="{'invisible':[('code','in',('maquinaria'))]}">-->
+            attrs="{'invisible':[('code','in',('maquinaria', 'menor'))]}">-->
             <field name="viajes_count" widget="statinfo" string="Viajes"/>
             <field name="code" invisible="1"/>
 <!--          <button name="open_viajes_logs"-->
@@ -109,7 +109,7 @@
                   <label for="odometer"/>
                   <div class="o_row">
                     <field name="odometer" groups="fleet.fleet_group_manager"/>
-                    <field name="odometer_unit" agroups="fleet.fleet_group_manager"/>
+                    <field name="odometer_unit" groups="fleet.fleet_group_manager"/>
                   </div>
                   <label for="mtto_cada"/>
                   <div class="o_row">
@@ -563,7 +563,7 @@
       </field>
     </record>
 
-    <menuitem name="Fleet" id="menu_root"  groups="fleet.fleet_group_user" web_icon="fleet,static/description/icon.png"/>
+    <menuitem name="Fleet" id="menu_root" sequence="1" groups="fleet.fleet_group_user" web_icon="fleet,static/description/icon.png"/>
 
   </data>
 </odoo>

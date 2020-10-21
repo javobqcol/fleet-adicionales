@@ -18,41 +18,92 @@ class FleetVehiculeViaje(models.Model):
   _name = 'fleet.vehicle.viaje'
   _order = 'date desc'
   company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company)
-  work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo', domain="[('state', '=', 'activo')]")
+  vehicle_id = fields.Many2one('fleet.vehicle',
+    string='Vehiculo',
+    domain="[('vehicle_type_id.code', '=', 'vehiculo')]")
+  work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo',
+    domain="[('state', '=', 'activo'), ('detalle_ids.vehicle_id', '=', vehicle_id)]")
   driver_id = fields.Many2one('res.partner', string='Conductor')
-  vehicle_id = fields.Many2one('fleet.vehicle', string='Vehiculo')
   date = fields.Date(string='Fecha viaje')
   material_id = fields.Many2one('fleet.vehicle.material', 'Material Trasportado')
   km_recorridos = fields.Float('Kilometros recorridos', readonly=False, store=True, compute='_cantidad_viajes')
-  m3 = fields.Float('Metros cubicos trasportados')
-  viajes = fields.Integer('Cantidad de viaje', default=1)
+  m3 = fields.Float(string='Cantidad material', digits='Volume', help='Cantidad material transportado')
+  unidad = fields.Selection([
+    ('m3', 'Metro cubico'),
+    ('ton', 'Tonelada'),
+    ('Hor', 'Horas')
+  ], 'Unidades material', default='m3', help='Unidades de material trasportado', required=True)
+  viajes = fields.Integer('Cantidad de viajes', default=1)
   cantera_id = fields.Many2one('res.partner', 'Origen')
   destino_id = fields.Many2one('res.partner', 'Destino')
   recibo_cantera = fields.Char('Número recibo cantera')
   recibo_interno = fields.Char('Número recibo interno')
   Km_inicial = fields.Float('Kilometro inicial')
   Km_final = fields.Float('Kilometro Final')
-  galones = fields.Float('Galones')
+  galones = fields.Float('Galones', digits='Volume')
   descripcion = fields.Text(string='Notas',
     placeholder='Cualquier informacion pertinente respecto a los viajes del dia')
+  total_cantidad = fields.Float('Total trasportado', digits='Volume', readonly=False, store=True, compute='_total_material_trasportado')
+  documentos_ids = fields.Many2many(
+    'ir.attachment',
+    'fleet_vehicle_viajes_attachment_rel',
+    'viajes_id',
+    'attachment_id',
+    string='Recibos')
 
   @api.onchange('vehicle_id')
   def _onchange_vehicle(self):
     for rec in self:
-      if rec.vehicle_id:
-        rec.driver_id = rec.vehicle_id.driver_id
-        trabajo_det = rec.env['fleet.vehicle.work'].search([
-          ('state', '=', 'activo'),
-          ('detalle_ids.vehicle_id.id', '=', rec.vehicle_id.id)],
-          order="fecha_inicio desc",
-          limit=1)
-        if trabajo_det:
-          rec.work_id = trabajo_det.id
+      rec.driver_id = rec.vehicle_id.driver_id
+      if not rec.m3:
+        rec.m3 = rec.vehicle_id.cubicaje
+      trabajo_det = rec.env['fleet.vehicle.work'].search([
+        ('state', '=', 'activo'),
+        ('detalle_ids.vehicle_id.id', '=', rec.vehicle_id.id)],
+        order="fecha_inicio desc",
+        limit=1)
+      if trabajo_det:
+        rec.work_id = trabajo_det.id
+      # return {'domain': {'work_id': [('detalle_ids.vehicle_id.id', '=', rec.vehicle_id.id), ('state', '=', 'activo')]}}
+
+  def name_get(self):
+    res = []
+    for field in self:
+      res.append((field.id, '%s (%s)' % (field.work_id.alias_work, field.vehicle_id.name)))
+    return res
 
   @api.depends('Km_inicial','Km_final')
   def _cantidad_viajes(self):
     for rec in self:
-      km_recorridos = (rec.Km_final or 0) - (rec.Km_inicial or 0)
+      km_recorridos = (rec.m3 or 0) * (rec.viajes or 0)
       rec.km_recorridos = km_recorridos
 
+  @api.depends('m3', 'viajes')
+  def _total_material_trasportado(self):
+    for rec in self:
+      total = (rec.m3 or 0) * (rec.viajes or 0)
+      rec.total_cantidad = total
 
+  @api.constrains('date', 'cantera_id', 'destino_id')
+  def _check_date(self):
+    for record in self:
+      if not record.date:
+        raise ValidationError("Error, Debe dar un valor de fecha")
+      if not record.cantera_id:
+        raise ValidationError("Error, Debe dar un valor de origen")
+      if not record.destino_id:
+        raise ValidationError("Error, Debe dar un valor de destino, si es viaje interno "
+                              "especifique destino igual al origen")
+
+
+  @api.onchange('recibo_cantera')
+  def _onchange_inv_ref(self):
+    for reg in self:
+      if reg.recibo_cantera:
+        reg.recibo_cantera = reg.recibo_cantera.upper()
+
+  @api.onchange('recibo_interno')
+  def _onchange_inv_ref(self):
+    for reg in self:
+      if reg.recibo_interno:
+        reg.recibo_interno = reg.recibo_interno.upper()

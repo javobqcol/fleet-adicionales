@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, _, tools
-from odoo.exceptions import ValidationError
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 from odoo.osv import expression
 from datetime import datetime, timedelta
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
@@ -85,7 +84,9 @@ class FleetVehicleLogServices(models.Model):
   def default_get(self, default_fields):
     res = super().default_get(default_fields)
     service = self.env.ref('fleet-adicionales.type_service_service_8', raise_if_not_found=False)
-    dt = fields.Date.context_today(self)
+    # dt = fields.Date.context_today(self)
+    dt = False
+
     res.update({'date': dt, 'cost_subtype_id': service and service.id or False, 'cost_type': 'services'})
     return res
 
@@ -113,6 +114,20 @@ class FleetVehicleLogServices(models.Model):
   sub_total = fields.Float(compute="_compute_get_total", string='Total de partes',
     store=True)
 
+  @api.constrains('date_emp')
+  def _check_date(self):
+    for record in self:
+      if not record.date_emp:
+        raise ValidationError("Error, Debe dar un valor de fecha")
+
+  @api.constrains('cost_amount')
+  def _check_date(self):
+    for record in self:
+      if not record.cost_amount or record.cost_amount == 0.0:
+        raise ValidationError("Error, Debe dar un valor de Precio total")
+
+
+
   @api.model
   def create(self, vals):
     if vals.get('name_seq', _('New')) == _('New'):
@@ -134,6 +149,15 @@ class FleetVehicleLogServices(models.Model):
           limit=1)
         if trabajo_det:
           rec.work_id = trabajo_det.id
+        return {
+          'domain': {'work_id': [('detalle_ids.vehicle_id.id', '=', rec.vehicle_id.id), ('state', '=', 'activo')]}}
+
+  @api.onchange('inv_ref')
+  def _onchange_inv_ref(self):
+    for reg in self:
+      if reg.inv_ref:
+        reg.inv_ref = reg.inv_ref.upper()
+
 
   def name_get(self):
     res = []

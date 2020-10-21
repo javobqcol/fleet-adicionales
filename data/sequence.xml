@@ -17,6 +17,14 @@
       <field name="padding">5</field>
       <field name="company_id" eval="False"/>
     </record>
+
+    <record id="seq_fleet_vehicle_work_lig" model="ir.sequence">
+      <field name="name">fleet vehicle work liquidacion sequence</field>
+      <field name="code">fleet-adicionales.fleet.vehicle.work.liq.sequence</field>
+      <field name="prefix">LIQ-</field>
+      <field name="padding">5</field>
+      <field name="company_id" eval="False"/>
+    </record>
   </data>
 </odoo>
 

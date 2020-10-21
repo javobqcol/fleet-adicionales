@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record model="decimal.precision" id="10">
+      <field name="name">liter</field>
+      <field name="digits">4</field>
+    </record>
+    <record model="decimal.precision" id="11">
+      <field name="name">Price per liter</field>
+      <field name="digits">4</field>
+    </record>
+    <record model="decimal.precision" id="12">
+      <field name="name">amount</field>
+      <field name="digits">4</field>
+    </record>
+  </data>
+</odoo>  
+

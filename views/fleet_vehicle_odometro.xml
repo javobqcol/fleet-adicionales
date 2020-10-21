@@ -11,11 +11,11 @@
             <group col="2">
               <group>
                 <field name="vehicle_id" string="Vehiculo"/>
+                <field name="driver_id" string="Conductor"/>
                 <field name="company_id"
                        string="Compañia"
                        groups="base.group_multi_company"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                <field name="driver_id" string="Conductor"/>
                 <field name="work_id" string="Trabajo"/>
                 <field name="recibo"/>
               </group>
@@ -27,15 +27,21 @@
                 <field name="unit" class="oe_inline"/>
                 <field name="es_standby" groups="fleet.fleet_group_manager"/>
                 <field name="hora_cancelada" groups="fleet.fleet_group_manager"/>
-                <field name="unidades_standby" invisible="1"/>
-                <field name="precio_unidad" invisible="1"/>
-                <field name="valor_unidades" invisible="1"/>
-                <field name="valor_standby" invisible="1"/>
+<!--                <field name="unidades_standby" invisible="1"/>-->
+<!--                <field name="precio_unidad" invisible="1"/>-->
+<!--                <field name="valor_unidades" invisible="1"/>-->
+<!--                <field name="valor_standby" invisible="1"/>-->
               </group>
             </group>
-            <group string="Notas">
-              <field nolabel="1" name="descripcion" placeholder="Escriba aqui cualquier otra informacion relativa al servicio que considere relevante."/>
-            </group>
+            <notebook>
+              <page string="Notas">
+                <field name="descripcion" nolabel="1" placeholder="Describa cualquier informacion adicional de la compra de combustible"/>
+              </page>
+              <page string="Archivos Adjuntos">
+                <field name="documentos_ids" widget="many2many_binary"/>
+              </page>
+            </notebook>
+
           </sheet>
        </form>
      </field>
@@ -59,9 +65,9 @@
           <field name="unit" class="oe_inline"/>
           <field name="es_standby" invisible="1"/>
           <field name="hora_cancelada" invisible="1"/>
-          <field name="precio_unidad" optional="show"/>
-          <field name="valor_unidades" sum="Valor unidades" optional="show"/>
-          <field name="valor_standby" sum="Valor standby" optional="show"/>
+<!--          <field name="precio_unidad" optional="show"/>-->
+<!--          <field name="valor_unidades" sum="Valor unidades" optional="show"/>-->
+<!--          <field name="valor_standby" sum="Valor standby" optional="show"/>-->
           <field name="hora_cancelada" invisible="1"/>
 
         </tree>

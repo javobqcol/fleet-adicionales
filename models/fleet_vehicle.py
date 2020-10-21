@@ -284,6 +284,7 @@ class VehicleType(models.Model):
   code = fields.Selection([
     ('vehiculo', 'Vehículo'),
     ('maquinaria', 'Maquinaria Amarilla'),
+    ('menor', 'Herramienta menor'),
   ], 'Tipo de maquinaria', default='vehiculo', help='Tipo de maquinaria', required=True)
 
   name = fields.Char(string='Name',
@@ -341,6 +342,7 @@ class VehicleWork(models.Model):
 
   detalle_ids = fields.One2many('fleet.vehicle.work.det', 'work_id')
   alias_work = fields.Char(string="Nombre del trabajo", help="Digite el nombre con el que se conoce el trabajo")
+  liquidacion_ids = fields.One2many('fleet.vehicle.work.liq', 'work_id')
 
   @api.model
   def create(self, vals):
@@ -357,13 +359,27 @@ class VehicleWork(models.Model):
         (field.id, '%s (%s) / %s' % (field.name_seq, field.contractor_id.name, field.alias_work or "")))
     return res
 
+  # @api.model
+  # def _name_search(self, name='', args=None, operator='ilike', limit=100):
+  #   if args is None:
+  #       args = []
+  #   domain = args + ['|', '|', ('name_seq', operator, name), ('contractor_id.name', operator, name), ('alias_work', operator, name)]
+  #   return super().search(domain, limit=limit).name_get()
+
+  @api.model
+  def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
+    if args is None:
+      args = []
+    domain = args + ['|', '|', ('name_seq', operator, name), ('contractor_id.name', operator, name), ('alias_work', operator, name)]
+    model_ids = self._search(domain, limit=limit, access_rights_uid=name_get_uid)
+    return models.lazy_name_get(self.browse(model_ids).with_user(name_get_uid))
+
   @api.model
   def default_get(self, default_fields):
     res = super().default_get(default_fields)
     country = self.env.ref('base.co', raise_if_not_found=False)
     res.update({
-      'fecha_inicio': fields.Date.context_today(self),
-      'country_id': country and country.id or False
+      'fecha_inicio': fields.Date.context_today(self)
     })
     return res
 
@@ -381,8 +397,57 @@ class VehicleWorkDet(models.Model):
   precio_unidad = fields.Float(string='Valor de la Hora')
   currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
 
+class VehicleWorkLiquidacion(models.Model):
+  _name = 'fleet.vehicle.work.liq'
+  _description = 'liquidacion de trabajo segun fecha trabajo'
 
+  work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo')
+  company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company, ondelete='restrict')
+  name_seq = fields.Char(string='Liquidacion',
+    required=True,
+    copy=False,
+    readonly=True,
+    index=True,
+    default=lambda self: _('New'))
+  date = fields.Date(string='Fecha liquidacion', default=fields.Date.today)
+  total_liquidacion = fields.Float(string="Total liquidacion")
+  currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
 
+  @api.model
+  def create(self, vals):
+    if vals.get('name_seq', _('New'))==_('New'):
+      vals['name_seq'] = self.env['ir.sequence'].next_by_code('fleet-adicionales.fleet.vehicle.work.liq.sequence') or _(
+        'New')
+    result = super().create(vals)
+    return (result)
+
+  def liquidar_maquinaria(self):
+    for rec in self:
+      work = self.work_id
+      if work :
+        equipos = work.detalle_ids
+        for eq in equipos:
+          vehiculo = eq.vehicle_id
+
+    return True
+
+class VehicleLiquidacion(models.Model):
+    _name = 'fleet.vehicle.liquidacion'
+    _description = 'liquidacion de maquinas $$$ por fecha trabajo'
+
+    company_id = fields.Many2one('res.company', string='Compañia', default=lambda self: self.env.company,
+      ondelete='restrict')
+    vehicle_id = fields.Many2one('fleet.vehicle', 'Vehículo')
+    work_id =  fields.Many2one('fleet.vehicle.work', 'Trabajo')
+    liq_id = fields.Many2one('fleet.vehicle.work.liq', 'Liquidación')
+    name_ve = fields.Char(string='Vehiculo')
+    name_sec_wor = fields.Char(string='Consecutivo trabajo')
+    name_sec_liq = fields.Char(string='Consecutivo liquidación')
+    unidades = fields.Float(string="unidades a liquidar")
+    tipo_unidad = fields.Char(string='Tipo unidad')
+    precio_unidad = fields.Float(string="unidades a liquidar")
+    valor_unidades = fields.Float(string="unidades a liquidar")
+    currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
 
 class FleetVehicletemplate(models.Model):
   _name = 'fleet.vehicle.template'
@@ -429,6 +494,7 @@ class ProductProduct(models.Model):
       else:
         res.append((field.id, '[%s]-%s' % (field.default_code or "", field.name)))
     return res
+
 
   def _set_invisible(self, vals):
     trazable = self.env.ref('fleet-adicionales.category_all_Trazable_herramienta', raise_if_not_found=False)

@@ -22,6 +22,7 @@ class FleetVehicleCost(models.Model):
     help='Odometro nuevo')
   work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo', domain="[('state', '=', 'activo')]")
   diferencia = fields.Float(compute='_get_odometer', string='Diferencia')
+  amount = fields.Float('Total Price', digits='Amount')
 
   @api.model
   def default_get(self, default_fields):
@@ -147,3 +148,15 @@ class FleetVehicleCost(models.Model):
         # odometer log with 0, which is to be avoided
         del data['odometer']
       return super().create(vals_list)
+
+
+  @api.constrains('amount', 'date')
+  def _check_date(self):
+    for record in self:
+      if not record.amount or record.amount == 0.0:
+        raise ValidationError("Error, Debe asignar un valor al costo")
+      if record.amount < 0.0:
+        raise ValidationError("Error, No se pueden asignar costos negativos")
+      if not record.date:
+        raise ValidationError("Error, Debe dar un valor de fecha")
+

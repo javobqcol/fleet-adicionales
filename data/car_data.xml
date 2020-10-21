@@ -13,7 +13,7 @@
       	<field name="image_128" type="base64" file="fleet-adicionales/static/img/john-deere-image.png"/>
       </record>      
       <record id="model_novus" model="fleet.vehicle.model">
-          <field name="name">Novus</field>
+          <field name="name">K4DEF</field>
           <field name="brand_id" ref="fleet.brand_daewoo" />
       </record>
 </odoo>

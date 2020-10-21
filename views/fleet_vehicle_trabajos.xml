@@ -34,7 +34,7 @@
                 <field name="state"/>
               </group>
             </group>
-           <notebook>
+            <notebook>
               <page string="Maquinaria incluida">
                 <field name="detalle_ids">
                   <tree string="Vehiculos destinados al trabajo" editable="top">
@@ -48,7 +48,14 @@
                            options="{'currency_field': 'currency_id'}"/>
                     <field name="standby"/>
                     <field name="unidades_standby" attrs="{'readonly':[('standby','==',False)]}"/>
-
+                  </tree>
+                </field>
+              </page>
+              <page string="Liquidacion maquinaria">
+                <field name="liquidacion_ids">
+                  <tree string="Liquidacion de maquinaria">
+                    <field name="name_seq"/>
+                    <field name="date"/>
                   </tree>
                 </field>
               </page>
@@ -61,6 +68,41 @@
       </field>
     </record>
 
+    <record id='fleet_vehicle_work_liq_form' model='ir.ui.view'>
+      <field name="name">fleet.vehicle.work.liq.form</field>
+      <field name="model">fleet.vehicle.work.liq</field>
+      <field name="arch" type="xml">
+        <form string="Liquidacion">
+          <header>
+            <button name="liquidar_maquinaria"
+                    class="oe_highlight"
+                    type="object" string="Liquidacion"
+                    groups="fleet.fleet_group_manager"
+                    help="Liquidacion de maquinaria">
+            </button>
+          </header>
+          <sheet>
+            <div class="oe_title">
+              <h1>
+                <field name="name_seq" readonly="1"/>
+              </h1>
+            </div>
+            <group col="2">
+              <group>
+                <field name="date"/>
+              </group>
+              <group>
+                <field name="total_liquidacion"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Maquinaria incluida">
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
 
     <record id="fleet_vehicle_work_view_tree" model="ir.ui.view">
       <field name="name">fleet.vehicle.work.tree</field>
@@ -94,6 +136,9 @@
                 string="Compañia"
                 groups="base.group_multi_company"
                 filter_domain="[('company_id.name','ilike',self)]"/>
+         <field name="alias_work"
+                string="Nombre del trabajo"
+                filter_domain="[('alias_work','ilike',self)]"/>
          <field name="detalle_ids"
                 string="Vehiculos"
                 filter_domain="[('detalle_ids.vehicle_id.name','ilike',self)]"/>

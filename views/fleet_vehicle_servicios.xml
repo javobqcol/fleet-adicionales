@@ -16,12 +16,12 @@
             <group col="2">
               <group string="Detalle del servicio">
                 <field name="vehicle_id" string="Vehiculo"/>
-                <field name="work_id" invisible="1"/>
                 <field name="driver_id" string="Conductor"/>
                 <field name="company_id"
                        string="Compañia"
                        groups="base.group_multi_company"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <field name="work_id" string="Trabajo"/>
                 <field name="cost_subtype_id" string="Tipo de servicio" domain="['|',('category','=','service'),('category','=','both')]" required="1"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="amount" widget="monetary"  options="{'currency_field': 'currency_id'}" />
@@ -50,7 +50,11 @@
                     <field name="work_id" invisible="1"/>
                     <field name="currency_id" invisible="1" />
                     <field name="cost_subtype_id"/>
-                    <field name="amount" sum="Total servicios" string="Costo Indicativo" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                    <field name="amount"
+                           sum="Total servicios"
+                           string="Costo Indicativo"
+                           widget="monetary"
+                           options="{'currency_field': 'currency_id'}"/>
                   </tree>
                 </field>
               </page>
@@ -119,7 +123,7 @@
       <field name="model">fleet.vehicle.log.services</field>
       <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_view_tree"/>
       <field name="arch" type="xml">
-        <field name="date" position="before">
+        <field name="date" position="after">
           <field name="name_seq" string="Consecutivo"/>
         </field>
         <field name="inv_ref" position="attributes">

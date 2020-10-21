@@ -16,13 +16,23 @@
                        string="Compañia"
                        groups="base.group_multi_company"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                <field name="date" string="Fecha"/>
-                <field name="purchaser_id" string="Responsable"/>
+                <field name="purchaser_id" string="Comprador"/>
                 <field name="work_id" string="trabajo"/>
               </group>
               <group string="Detalle del tanqueo">
+                <field name="date" string="Fecha"/>
                 <field name="vendor_id" string="Vendedor"/>
                 <field name="inv_ref" string="Referencia factura"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="liter" string="Galones"/>
+                <field name="price_per_liter"
+                       string="Precio x galon"
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id'}" />
+                <field name="amount"
+                       string="total"
+                       widget="monetary"
+                       options="{'currency_field': 'currency_id'}" />
                 <label for="odometer"/>
                 <div class="o_row">
                   <field name="odometer" groups="fleet.fleet_group_manager"/>
@@ -33,10 +43,6 @@
                   <field name="odometer_final" string="Odometro"/>
                   <field name="odometer_unit"/>
                 </div>
-                <field name="currency_id" invisible="1"/>
-                <field name="liter" string="Galones"/>
-                <field name="price_per_liter" string="Precio x galon"/>
-                <field name="amount" string="total"/>
                 <field name="calculo"/>
               </group>
             </group>
@@ -115,6 +121,8 @@
             <filter name="groupby_vehicle_id" context="{'group_by': 'vehicle_id'}" string="Vehiculo"/>
             <filter name="groupby_purchaser_id" context="{'group_by': 'purchaser_id'}" string="Responsable"/>
             <filter name="groupby_vendor_id" context="{'group_by': 'vendor_id'}" string="Proveedor"/>
+            <filter name="groupby_work_id" context="{'group_by': 'work_id'}" string="Trabajo"/>
+            <filter name="groupby_date" context="{'group_by': 'date'}" string="Fecha"/>
           </group>
         </search>
       </field>
