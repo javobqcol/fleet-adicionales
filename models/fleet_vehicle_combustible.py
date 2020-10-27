@@ -65,9 +65,22 @@ class FleetVehicleLogFuel(models.Model):
 
   @api.onchange('inv_ref')
   def _onchange_inv_ref(self):
+    res = {}
     for reg in self:
       if reg.inv_ref:
         reg.inv_ref = reg.inv_ref.upper()
+        hay_recibo = self.search([
+          ('inv_ref', '=', reg.inv_ref),
+          ('vendor_id', '=', reg.vendor_id.id),
+        ])
+        if hay_recibo:
+          warning = {'title': 'Atención:',
+                     'message': 'En el sistema hay un recibo de combustible para el proveedor %s con el numero %s'
+                                % (reg.vendor_id.name or "", reg.inv_ref or ""),
+                     'type': 'notification'}
+          res.update({'warning': warning})
+      return res
+
 
   @api.onchange('vehicle_id')
   def _onchange_vehicle(self):
@@ -81,17 +94,7 @@ class FleetVehicleLogFuel(models.Model):
           order="value_final desc, value desc",
           limit=1)
         rec.odometer = rec.odometer if rec.odometer else (registro.value_final or 0)
-        trabajo_det = rec.env['fleet.vehicle.work'].search([
-          ('state', '=', 'activo'),
-          ('detalle_ids.vehicle_id.id', '=', rec.vehicle_id.id)],
-          order="fecha_inicio desc",
-          limit=1)
-        if trabajo_det:
-          rec.work_id = trabajo_det.id
-        return {
-          'domain': {'work_id':
-                       [('detalle_ids.vehicle_id.id', '=', rec.vehicle_id.id),
-                        ('state', '=', 'activo')]}}
+
 
   @api.constrains('date')
   def _check_date(self):

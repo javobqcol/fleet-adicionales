@@ -20,9 +20,13 @@ class FleetVehicleCost(models.Model):
     help='Odometro anterior')
   odometer_final = fields.Float(compute='_get_odometer', inverse='_set_odometer2', string='Odometro nuevo',
     help='Odometro nuevo')
-  work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo', domain="[('state', '=', 'activo')]")
+  work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo',
+    domain="[('state', '=', 'activo'), ('detalle_ids.vehicle_id', '=', vehicle_id)]")
   diferencia = fields.Float(compute='_get_odometer', string='Diferencia')
   amount = fields.Float('Total Price', digits='Amount')
+  parent_id = fields.Many2one('fleet.vehicle.cost', 'Parent',
+    help='Parent cost to this current cost',
+    on_delete='cascade')
 
   @api.model
   def default_get(self, default_fields):
@@ -78,7 +82,8 @@ class FleetVehicleCost(models.Model):
     for record in self:
       if not record.odometer:
         raise UserError(_('Emptying the odometer value of a vehicle is not allowed.'))
-      if record.cost_type == 'contract':
+      # if record.cost_type == 'contract':
+      if record.cost_type in ['contract', 'service']:
         record.odometer_final = record.odometer
       data = {'value': record.odometer,
               'total_unidades': ((record.odometer_final or 0) - (record.odometer or 0))
@@ -101,7 +106,8 @@ class FleetVehicleCost(models.Model):
     for record in self:
       if record.odometer_final < record.odometer:
         raise UserError(_('Revise el valor del odometro, este no puede ser menor que el valor del tanqueo anterior.'))
-      if record.cost_type=='contract':
+      # if record.cost_type=='contract':
+      if record.cost_type in ['contract', 'service']:
         record.odometer_final = record.odometer
       if (record.cost_type in ('services') and (record.odometer_final or 0)==0):
         record.odometer_final = record.odometer
@@ -121,6 +127,19 @@ class FleetVehicleCost(models.Model):
         # odo_id tiene el valor del id del registro creado
         else:
           odo_id = temp.update(data)
+
+  def write(self, vals):
+    for reg in self:
+      if reg.cost_ids:
+        cambios = []
+        for costos in reg.cost_ids:
+          costos.write({
+            'vehicle_id': reg.vehicle_id,
+            'work_id': reg.work_id,
+            'date' : reg.date,
+            'name': reg.name})
+
+    return super(FleetVehicleCost, self).write(vals)
 
   @api.model_create_multi
   def create(self, vals_list):
@@ -148,6 +167,7 @@ class FleetVehicleCost(models.Model):
         # odometer log with 0, which is to be avoided
         del data['odometer']
       return super().create(vals_list)
+
 
 
   @api.constrains('amount', 'date')

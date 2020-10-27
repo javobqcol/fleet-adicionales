@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, _, tools
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, Warning
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError
 from odoo.osv import expression
@@ -50,6 +50,14 @@ class FleetVehiculeViaje(models.Model):
     'viajes_id',
     'attachment_id',
     string='Recibos')
+  viaje_cancelado = fields.Boolean(string="Viaje cancelado", default=False)
+  tiene_adjunto = fields.Boolean(compute='_set_adjunto')
+
+  def _set_adjunto(self):
+    for reg in self:
+      reg.tiene_adjunto = False
+      if reg.documentos_ids:
+        reg.tiene_adjunto = True
 
   @api.onchange('vehicle_id')
   def _onchange_vehicle(self):
@@ -57,14 +65,6 @@ class FleetVehiculeViaje(models.Model):
       rec.driver_id = rec.vehicle_id.driver_id
       if not rec.m3:
         rec.m3 = rec.vehicle_id.cubicaje
-      trabajo_det = rec.env['fleet.vehicle.work'].search([
-        ('state', '=', 'activo'),
-        ('detalle_ids.vehicle_id.id', '=', rec.vehicle_id.id)],
-        order="fecha_inicio desc",
-        limit=1)
-      if trabajo_det:
-        rec.work_id = trabajo_det.id
-      # return {'domain': {'work_id': [('detalle_ids.vehicle_id.id', '=', rec.vehicle_id.id), ('state', '=', 'activo')]}}
 
   def name_get(self):
     res = []
@@ -75,7 +75,7 @@ class FleetVehiculeViaje(models.Model):
   @api.depends('Km_inicial','Km_final')
   def _cantidad_viajes(self):
     for rec in self:
-      km_recorridos = (rec.m3 or 0) * (rec.viajes or 0)
+      km_recorridos = (rec.Km_final or 0) - (rec.Km_inicial or 0)
       rec.km_recorridos = km_recorridos
 
   @api.depends('m3', 'viajes')
@@ -97,13 +97,25 @@ class FleetVehiculeViaje(models.Model):
 
 
   @api.onchange('recibo_cantera')
-  def _onchange_inv_ref(self):
+  def _onchange_recibo_cantera(self):
     for reg in self:
       if reg.recibo_cantera:
         reg.recibo_cantera = reg.recibo_cantera.upper()
 
   @api.onchange('recibo_interno')
-  def _onchange_inv_ref(self):
+  def _onchange_recibo_interno(self):
+    res = {}
     for reg in self:
       if reg.recibo_interno:
         reg.recibo_interno = reg.recibo_interno.upper()
+        hay_recibo = self.search([
+          ('recibo_interno', '=', reg.recibo_interno),
+          ('work_id', '=', reg.work_id.id),
+        ])
+        if hay_recibo:
+          warning = {'title': 'Atención:',
+                     'message': 'En el sistema hay un recibo  de %s con el numero %s'
+                                % (hay_recibo.material_id.name or "", reg.recibo_interno or ""),
+                     'type': 'notification'}
+          res.update({'warning': warning})
+      return res

@@ -482,7 +482,7 @@ class ProductProduct(models.Model):
   assign = fields.Boolean(string="Asignado", default=False)
   employee_id = fields.Many2one('res.partner', string='Empleado', tracking=True, copy=False)
   invisible = fields.Boolean()
-
+  service_id = fields.Many2one('fleet.service.type', string='Tipo servicio', domain="[('category', '=', 'service')]")
 
   def name_get(self):
     res = []

@@ -36,20 +36,15 @@
                   <field name="odometer"/>
                   <field name="odometer_unit" readonly="True"/>
                 </div>
-                <label for="odometer_final"/>
-                <div class="o_row">
-                  <field name="odometer_final"/>
-                  <field name="odometer_unit" readonly="True"/>
-                </div>
+                <field name="odometer_final" invisible="1"/>
               </group>
             </group>
             <notebook>
               <page string="Servicios incluidos">
                 <field name="cost_ids" nolabel="1">
                   <tree string="Servicios Incluidos" editable="bottom">
-                    <field name="work_id" invisible="1"/>
                     <field name="currency_id" invisible="1" />
-                    <field name="cost_subtype_id"/>
+                    <field name="cost_subtype_id" string="Tipo de servicio" domain="['|',('category','=','service'),('category','=','both')]" required="1"/>
                     <field name="amount"
                            sum="Total servicios"
                            string="Costo Indicativo"

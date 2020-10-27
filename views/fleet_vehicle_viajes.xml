@@ -39,6 +39,7 @@
                 <field name="galones"/>
                 <field name="viajes" />
                 <field name="total_cantidad" groups="fleet.fleet_group_manager"/>
+                <field name="viaje_cancelado"/>
               </group>
             </group>
             <notebook>
@@ -58,7 +59,7 @@
       <field name="name">fleet.vehicle.viaje.tree</field>
       <field name="model">fleet.vehicle.viaje</field>
       <field name="arch" type="xml">
-        <tree string="Viajes">
+        <tree string="Viajes" decoration-muted="viaje_cancelado == True" >
           <field name="date" string="Fecha"/>
           <field name="vehicle_id" string="Vehiculo"/>
           <field name="driver_id" string="Conductor" optional="show"/>
@@ -66,12 +67,14 @@
           <field name="work_id" string="Trabajo" optional="show"/>
           <field name="cantera_id" optional="show"/>
           <field name="destino_id" optional="show"/>
-          <field name="recibo_cantera" string="Cantera"/>
-          <field name="recibo_interno" string="Interno"/>
-          <field name="material_id" string="Material"/>
-          <field name="viajes" sum="Total viajes"/>
+          <field name="recibo_cantera" string="Cantera" optional="show"/>
+          <field name="recibo_interno" string="Interno" optional="show"/>
+          <field name="material_id" string="Material" optional="show"/>
+          <field name="viajes" string="Viajes" sum="Total viajes" optional="show"/>
           <field name="km_recorridos" string="KM" sum="Total KM" optional="hide"/>
-          <field name="total_cantidad" optional="show"/>
+          <field name="total_cantidad" string="Cant" optional="show"/>
+          <field name="viaje_cancelado" string="Liq?" optional="show"/>
+          <field name="tiene_adjunto" string="Adj?" optional="show"/>
         </tree>
       </field>
     </record>
@@ -86,6 +89,12 @@
          <field name="vehicle_id"
                 string="Vehiculo"
                 filter_domain="[('vehicle_id','ilike',self)]"/>
+         <field name="recibo_interno"
+                string="Recibo interno"
+                filter_domain="[('recibo_interno','ilike',self)]"/>
+         <field name="recibo_cantera"
+                string="Recibo cantera"
+                filter_domain="[('recibo_cantera','ilike',self)]"/>
          <field name="company_id"
                 string="Compañia"
                 groups="base.group_multi_company"
@@ -96,12 +105,12 @@
          <field name="driver_id"
                 string="Conductor"
                 filter_domain="[('driver_id','ilike',self)]"/>
-         <field name="recibo_cantera"
-                string="Recibo cantera"
-                filter_domain="[('recibo_cantera','ilike',self)]"/>
-         <field name="recibo_interno"
-                string="Recibo interno"
-                filter_domain="[('recibo_interno','ilike',self)]"/>
+         <field name="cantera_id"
+                string="Origen"
+                filter_domain="[('cantera_id','ilike',self)]"/>
+         <field name="destino_id"
+                string="Destino"
+                filter_domain="[('destino_id','ilike',self)]"/>
          <field name="material_id"
                 string="Material trasportado"
                 filter_domain="[('material_id','ilike',self)]"/>
@@ -134,6 +143,7 @@
         <field name="arch" type="xml">
           <pivot string="Viajes de los vehiculos" >
             <field name="work_id" type="row"/>
+            <field name="material_id" type="row"/>
             <field name="vehicle_id" type="row"/>
             <field name="date" interval="day" type="col"/>
             <field name="viajes" string="Viajes" type="measure"/>

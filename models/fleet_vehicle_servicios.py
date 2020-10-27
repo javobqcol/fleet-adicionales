@@ -92,11 +92,11 @@ class FleetVehicleLogServices(models.Model):
 
   @api.depends('parts_ids')
   def _compute_get_total(self):
-      for rec in self:
-          total = 0.0
-          for line in rec.parts_ids:
-              total += line.total
-          rec.sub_total = total
+    for rec in self:
+      total = 0.0
+      for line in rec.parts_ids:
+        total += line.total
+      rec.sub_total = total
 
   name_seq = fields.Char(string='Consecutivo',
                          required=True,
@@ -140,27 +140,42 @@ class FleetVehicleLogServices(models.Model):
     for rec in self:
       if rec.vehicle_id:
         rec.odometer_unit = rec.vehicle_id.odometer_unit
-        rec.purchaser_id = rec.vehicle_id.driver_id.id
         rec.driver_id = rec.vehicle_id.driver_id.id
-        trabajo_det = rec.env['fleet.vehicle.work'].search([
-          ('state', '=', 'activo'),
-          ('detalle_ids.vehicle_id.id', '=', rec.vehicle_id.id)],
-          order="fecha_inicio desc",
-          limit=1)
-        if trabajo_det:
-          rec.work_id = trabajo_det.id
-        return {
-          'domain': {'work_id': [('detalle_ids.vehicle_id.id', '=', rec.vehicle_id.id), ('state', '=', 'activo')]}}
+
 
   @api.onchange('inv_ref')
   def _onchange_inv_ref(self):
+    res = {}
     for reg in self:
       if reg.inv_ref:
         reg.inv_ref = reg.inv_ref.upper()
-
+        reg.inv_ref = reg.inv_ref.upper()
+        hay_recibo = self.search([
+          ('inv_ref', '=', reg.inv_ref),
+          ('vendor_id', '=', reg.vendor_id.id),
+        ])
+        if hay_recibo:
+          warning = {'title': 'Atención:',
+                   'message': 'En el sistema hay un recibo de servicio del  proveedor %s con el numero %s'
+                                % (reg.vendor_id.name or "", reg.inv_ref or ""),
+                     'type': 'notification'}
+          res.update({'warning': warning})
+      return res
 
   def name_get(self):
     res = []
     for field in self:
       res.append((field.id, '%s (%s) [%s]' % (field.name_seq, field.date or "", field.odometer or "")))
     return res
+
+  def unlink(self):
+    for record in self:
+      if record.parts_ids:
+        for partes in record.parts_ids:
+          partes.unlink()
+      if record.cost_id:
+        if record.cost_id.cost_ids:
+          for services in record.cost_id.cost_ids:
+            services.unlink()
+        record.cost_id.unlink()
+    return super(FleetVehicleLogServices, self).unlink()
