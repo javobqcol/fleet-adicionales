@@ -10,7 +10,6 @@ class FleetVehiculeOdometer(models.Model):
   _name = 'fleet.vehicle.odometer'
   _order = 'date desc, value desc'
 
-
   company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company)
   value = fields.Float('Odometro inicial', digits=(10, 2),
     store=True,
@@ -45,7 +44,8 @@ class FleetVehiculeOdometer(models.Model):
   odometer_unit = fields.Char(string="unidades horometro")
   able_to_modify_odometer = fields.Boolean(compute='set_access_for_odometer', string='Is user able to modify product?')
   tiene_adjunto = fields.Boolean(compute='_set_adjunto')
-
+  gal = fields.Float(string="Galones")
+  liq_id = fields.Many2one('fleet.vehicle.work.liq', 'liquidacion')
   def _set_adjunto(self):
     for reg in self:
       reg.tiene_adjunto = False
@@ -60,28 +60,19 @@ class FleetVehiculeOdometer(models.Model):
       if rec.vehicle_id:
         rec.odometer_unit = rec.vehicle_id.odometer_unit
         rec.driver_id = rec.vehicle_id.driver_id.id
-        # trabajo_det = rec.env['fleet.vehicle.work'].search([
-        #   ('state', '=', 'activo'),
-        #   ('detalle_ids.vehicle_id.id', '=', rec.vehicle_id.id)],
-        #   order="fecha_inicio desc",
-        #   limit=1)
-        # if trabajo_det:
-        #   rec.work_id = trabajo_det.id
-        #   work_det = rec.env['fleet.vehicle.work.det'].search([
-        #                ('work_id', '=', trabajo_det.id),
-        #                ('vehicle_id', '=', rec.vehicle_id.id)],
-        #                 limit=1)
-        #   if work_det:
-        #     rec.es_standby = work_det.standby
 
 
- # codigo en evaluacion, parrece que no funciona se suponiea que permitia guardar regstros dependiendo en si `perteneces o
- # no al grupo de administradores
+ # codigo ok adicional colocar force_save="1" en campo
 
   def set_access_for_odometer(self):
-    for reg in self:
-      reg.able_to_modify_odometer = reg.env['res.users'].has_group('fleet.fleet_group_manager')
-
+    for record in self:
+      record['able_to_modify_odometer'] = False
+      if self.env.user.has_group('fleet.fleet_group_manager'):
+        record['able_to_modify_odometer'] = True
+    #
+    # for reg in self:
+    #   # reg.able_to_modify_odometer = reg.env['res.users'].has_group('fleet.fleet_group_manager')
+    #   reg.able_to_modify_odometer = True
 
   @api.onchange('date')
   def _onchange_date(self):
@@ -110,6 +101,7 @@ class FleetVehiculeOdometer(models.Model):
     for reg in self:
       if reg.recibo:
         reg.recibo = reg.recibo.upper()
+        reg.recibo = " ".join(reg.recibo.split())
         hay_recibo = self.search([
           ('recibo', '=', reg.recibo),
           ('work_id', '=', reg.work_id.id),

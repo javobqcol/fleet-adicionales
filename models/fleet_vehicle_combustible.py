@@ -24,7 +24,11 @@ class FleetVehicleLogFuel(models.Model):
 
   liter = fields.Float(string='Galon', digits='Volume')
   price_per_liter = fields.Float(string='Precio por galon', digits='Product Price')
-  cost_amount = fields.Float(related='cost_id.amount', string='Precio total', digits='Amount', store=True, readonly=False)
+  cost_amount = fields.Float(related='cost_id.amount',
+    string='Precio total',
+    digits='Amount',
+    store=True,
+    readonly=False)
   documentos_ids = fields.Many2many('ir.attachment',
                                     'fleet_vehicle_fuel_log_attachment_rel',
                                     'service_id', 'attachment_id',
@@ -69,6 +73,7 @@ class FleetVehicleLogFuel(models.Model):
     for reg in self:
       if reg.inv_ref:
         reg.inv_ref = reg.inv_ref.upper()
+        reg.inv_ref = " ".join(reg.inv_ref.split())
         hay_recibo = self.search([
           ('inv_ref', '=', reg.inv_ref),
           ('vendor_id', '=', reg.vendor_id.id),

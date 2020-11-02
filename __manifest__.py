@@ -45,6 +45,7 @@ Main Features
         'data/fleet_presicion.xml',
         'reports/report.xml',
         'reports/work_maquinaria.xml',
+        'reports/monitor_part.xml',
         'data/transito.xml',
         'data/sequence.xml',
         'data/car_data.xml',

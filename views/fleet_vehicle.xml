@@ -577,6 +577,18 @@
 
     <menuitem name="Fleet" id="menu_root" sequence="1" groups="fleet.fleet_group_user" web_icon="fleet,static/description/icon.png"/>
 
+    <record id="report_partes_action" model="ir.actions.server">
+      <field name="name">Reporte partes</field>
+      <field name="model_id" ref="model_fleet_vehicle"/>
+      <field name="type">ir.actions.server</field>
+      <field name="code">model.on_partes_server_action()</field>
+     </record>
+
+     <menuitem id="menu_fleet_reporting_costs"
+              name="Reporte partes monitoreadas"
+              parent="fleet.menu_fleet_reporting"
+              action="report_partes_action"
+              groups="fleet.fleet_group_manager"/>
   </data>
 </odoo>
 

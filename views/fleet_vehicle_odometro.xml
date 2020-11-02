@@ -22,18 +22,22 @@
               </group>
               <group>
                 <field name="date" string="Fecha"/>
-                <field name="value" string="Odometro Inicial"
-                       class="oe_inline"
-                       attrs="{'readonly' : [('able_to_modify_odometer','=',False)]}"
-                       force_save="1"/>
-<!--                <field name="value" string="Odometro Inicial" class="oe_inline" />-->
+<!--                <field name="value" string="Odometro Inicial"-->
+<!--                       class="oe_inline"-->
+<!--                       attrs="{'readonly':[('able_to_modify_odometer','=',False)]}"-->
+<!--                       force_save="1"/>-->
+                <field name="value" string="Odometro Inicial" class="oe_inline" />
                 <field name="value_final" string="Odometro Final" class="oe_inline"/>
-                <field name="total_unidades"
-                       string="Diferencia"
-                       class="oe_inline"
-                       attrs="{'readonly' : [('able_to_modify_odometer','=',False)]}"/>
-<!--                <field name="total_unidades" string="Diferencia" class="oe_inline"/>-->
-                <field name="unit" class="oe_inline"/>
+                <label for="total_unidades"/>
+                <div class="o_row">
+                  <field name="total_unidades" string="Diferencia" class="oe_inline"/>
+                  <field name="unit" class="oe_inline"/>
+                </div>
+                <field name="gal" string="Galones" class="oe_inline"/>
+<!--                <field name="total_<unidades"-->
+<!--                       string="Diferencia"-->
+<!--                       class="oe_inline"-->
+<!--                       attrs="{'readonly' : [('able_to_modify_odometer','=',False)]}"/>-->
                 <field name="es_standby" groups="fleet.fleet_group_manager"/>
                 <field name="hora_cancelada" groups="fleet.fleet_group_manager"/>
 <!--                <field name="unidades_standby" invisible="1"/>-->
@@ -72,6 +76,7 @@
           <field name="value_final" string="Od. Final" class="oe_inline"/>
           <field name="total_unidades" sum="suma Unidades" string="Dif." class="oe_inline"/>
           <field name="unit" class="oe_inline"/>
+          <field name="gal" optional="show" sum="Suma galones"/>
           <field name="es_standby" invisible="1"/>
           <field name="hora_cancelada" invisible="1"/>
           <field name="tiene_adjunto" string="Adj?" optional="show"/>

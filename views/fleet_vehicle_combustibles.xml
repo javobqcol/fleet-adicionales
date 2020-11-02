@@ -31,7 +31,7 @@
                        options="{'currency_field': 'currency_id'}" />
                 <field name="amount"
                        string="total"
-                       widget="monetary"
+                       widget="monetary" 
                        options="{'currency_field': 'currency_id'}" />
                 <label for="odometer"/>
                 <div class="o_row">

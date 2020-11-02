@@ -22,7 +22,7 @@
                 <field name="material_id"/>
                 <label for="m3"/>
                 <div class="o_row">
-                  <field name="m3"/>
+                  <field name="m3" digits="[10,2]"/>
                   <field name="unidad"/>
                 </div>
                <field name="cantera_id" placeholder="Sitio de carga"/>
@@ -36,10 +36,11 @@
                 <field name="Km_inicial"/>
                 <field name="Km_final"/>
                 <field name="km_recorridos"/>
-                <field name="galones"/>
+                <field name="galones" digits="[10,2]"/>
                 <field name="viajes" />
-                <field name="total_cantidad" groups="fleet.fleet_group_manager"/>
-                <field name="viaje_cancelado"/>
+                <field name="total_cantidad" digits="[10,2]" groups="fleet.fleet_group_manager"/>
+                <field name="viaje_cancelado" groups="base.group_multi_company"/>
+                <field name="liq_id" string="liq" optional="hide" groups="base.group_multi_company"/>
               </group>
             </group>
             <notebook>
@@ -63,7 +64,7 @@
           <field name="date" string="Fecha"/>
           <field name="vehicle_id" string="Vehiculo"/>
           <field name="driver_id" string="Conductor" optional="show"/>
-          <field name="company_id"  groups="base.group_multi_company" optional="show"/>
+          <field name="company_id" groups="base.group_multi_company" optional="show"/>
           <field name="work_id" string="Trabajo" optional="show"/>
           <field name="cantera_id" optional="show"/>
           <field name="destino_id" optional="show"/>
@@ -72,14 +73,13 @@
           <field name="material_id" string="Material" optional="show"/>
           <field name="viajes" string="Viajes" sum="Total viajes" optional="show"/>
           <field name="km_recorridos" string="KM" sum="Total KM" optional="hide"/>
-          <field name="total_cantidad" string="Cant" optional="show"/>
+          <field name="total_cantidad" string="Cant" digits="[10,2]" optional="show"/>
           <field name="viaje_cancelado" string="Liq?" optional="show"/>
           <field name="tiene_adjunto" string="Adj?" optional="show"/>
+          <field name="liq_id" string="liq" optional="hide" groups="base.group_multi_company"/>
         </tree>
       </field>
     </record>
-
-
 
     <record id="fleet_vehicle_viaje_view_search" model="ir.ui.view">
      <field name="name">fleet.vehicle.viaje.view.search</field>

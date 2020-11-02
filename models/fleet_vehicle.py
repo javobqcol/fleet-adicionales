@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from odoo import api, fields, models, _, tools
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError, Warning
 from dateutil.relativedelta import relativedelta
-from odoo.exceptions import UserError
 from odoo.osv import expression
 import pytz
 from datetime import datetime
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class FleetVehicle(models.Model):
@@ -72,6 +74,44 @@ class FleetVehicle(models.Model):
   monitor_count = fields.Integer(compute="_compute_count_all", string="Historia de partes monitoreadas")
   viajes_count = fields.Integer(compute="_compute_count_all", string="Historia de viajes realizados")
   partes_ids = fields.One2many('fleet.vehicle.monitor', 'vehicle_id', string="Partes")
+
+
+  def on_partes_server_action(self):
+    registros = self.env['fleet.vehicle'].search([], order='vehicle_type_id, name')
+    _logger.warning("registros %s" % (registros))
+    # data = {'ids': registros.ids,
+    #   'model': registros._name,
+    #   'form': {},
+    #         }
+
+    docs= []
+
+    for reg in registros:
+      if reg.partes_ids:
+        docs.append({
+          'name':reg.name,
+          'driver_id': reg.driver_id.display_name,
+          'vehicle_type_id': reg.vehicle_type_id.name
+        })
+        data = {
+          'ids':registros.ids,
+          'model':registros._name,
+          'docs':docs
+        }
+
+    _logger.warning("registros %s" % (data))
+    return self.env.ref('fleet-adicionales.report_monitor_part').report_action(self, data=data)
+
+  def action_accept_driver_change(self):
+    # vehicles = self.search([('driver_id', 'in', self.mapped('future_driver_id').ids)])
+    # vehicles.write({'driver_id': False})
+    # un conductor puedr provisionalmente encargarse de otra maquina..
+    self._close_driver_history()
+
+    for vehicle in self:
+      vehicle.future_driver_id.sudo().write({'plan_to_change_car': False})
+      vehicle.driver_id = vehicle.future_driver_id
+      vehicle.future_driver_id = False
 
   def _compute_count_all(self):
     Odometer = self.env['fleet.vehicle.odometer']
@@ -321,9 +361,14 @@ class VehicleWork(models.Model):
     readonly=True,
     index=True,
     default=lambda self: _('New'))
-  company_id = fields.Many2one('res.company', string='Compañia', default=lambda self: self.env.company,
+  company_id = fields.Many2one('res.company',
+    string='Compañia',
+    default=lambda self: self.env.company,
     ondelete='restrict')
-  contractor_id = fields.Many2one('res.partner', string='Contratista', requiered=True, ondelete='restrict')
+  contractor_id = fields.Many2one('res.partner',
+    string='Contratista',
+    requiered=True,
+    ondelete='restrict')
   fecha_inicio = fields.Date(string='Fecha inicial', default=fields.Date.today)
   fecha_final = fields.Date(string='Fecha final')
   contacto_id = fields.Many2one('res.partner', 'Responsable')
@@ -336,10 +381,8 @@ class VehicleWork(models.Model):
     default='activo',
     help='Estado del trabajo',
     required=True)
-
   descripcion = fields.Text(string="Descripcion del trabajo",
     placeholder="Espacio para describir detalles propios del trabajo")
-
   detalle_ids = fields.One2many('fleet.vehicle.work.det', 'work_id')
   alias_work = fields.Char(string="Nombre del trabajo", help="Digite el nombre con el que se conoce el trabajo")
   liquidacion_ids = fields.One2many('fleet.vehicle.work.liq', 'work_id')
@@ -409,9 +452,28 @@ class VehicleWorkLiquidacion(models.Model):
     readonly=True,
     index=True,
     default=lambda self: _('New'))
-  date = fields.Date(string='Fecha liquidacion', default=fields.Date.today)
+  date = fields.Date(string='Fecha inicio', help="Fecha inicio liquidacion en blanco para inicio de los tiempos")
+  date_end =fields.Date(string='Fecha fin', help="Fecha inicio liquidacion en blanco para fin de los tiempos",
+    default=fields.Date.today)
   total_liquidacion = fields.Float(string="Total liquidacion")
   currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
+  descripcion = fields.Text(string="Descripcion del liquidacion",
+    placeholder="Espacio para describir cualquier aspecto")
+
+  def name_get(self):
+    res = []
+    for field in self:
+      res.append(
+        (field.id, '%s' % (field.name_seq or "")))
+    return res
+
+  @api.model
+  def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
+    if args is None:
+      args = []
+    domain = args + [('name_seq', operator, name)]
+    model_ids = self._search(domain, limit=limit, access_rights_uid=name_get_uid)
+    return models.lazy_name_get(self.browse(model_ids).with_user(name_get_uid))
 
   @api.model
   def create(self, vals):
@@ -423,13 +485,29 @@ class VehicleWorkLiquidacion(models.Model):
 
   def liquidar_maquinaria(self):
     for rec in self:
-      work = self.work_id
-      if work :
-        equipos = work.detalle_ids
-        for eq in equipos:
-          vehiculo = eq.vehicle_id
+      inicio = self.date
+      fin = self.date_end
+      if self.work_id:
+        lista = [('work_id', '=', self.work_id.id), ('liq_id', '=', False)]
+        lista_new = [('work_id', '=', self.work_id.id), ('liq_id', '=', rec.id)]
+        if inicio:
+          lista.append(('date', '>=', inicio))
+        if fin:
+          lista.append(('date', '<=', fin))
+        yaliquido = rec.env['fleet.vehicle.viaje'].search(lista_new)
+        if yaliquido:
+          pass
+          # for record in yaliquido:
+          #   viaje_cancelado = not record.viaje_cancelado
+          #   record.write({'viaje_cancelado': viaje_cancelado})
+        else:
+          registros = rec.env['fleet.vehicle.viaje'].search(lista)
+          if registros:
+            for record in registros:
+              # viaje_cancelado = True
+              record.write({'liq_id': rec.id})
 
-    return True
+
 
 class VehicleLiquidacion(models.Model):
     _name = 'fleet.vehicle.liquidacion'
@@ -542,7 +620,7 @@ class ProductProduct(models.Model):
 class FleetVehicleMonitor(models.Model):
   _name = 'fleet.vehicle.monitor'
 
-  _description = 'Productos a monitorear en cietas partes del automovil'
+  _description = 'Productos a monitorear en ciertas partes del automovil'
 
   vehicle_id = fields.Many2one('fleet.vehicle', string="Vehiculo")
   template_id = fields.Many2one('fleet.vehicle.template', string='Parte')

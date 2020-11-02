@@ -149,7 +149,7 @@ class FleetVehicleLogServices(models.Model):
     for reg in self:
       if reg.inv_ref:
         reg.inv_ref = reg.inv_ref.upper()
-        reg.inv_ref = reg.inv_ref.upper()
+        reg.inv_ref = " ".join(reg.inv_ref.split())
         hay_recibo = self.search([
           ('inv_ref', '=', reg.inv_ref),
           ('vendor_id', '=', reg.vendor_id.id),

@@ -167,11 +167,15 @@ class LicenciaResPartner(models.Model):
   @api.model
   def default_get(self, default_fields):
     res = super(LicenciaResPartner, self).default_get(default_fields)
+    # res.update({
+    #     'fecha_inicio': fields.Date.context_today(self),
+    #     'fecha_final': fields.Date.context_today(self) + relativedelta(years=+1),
+    #     'state': 'active',
+    #     'country_id': country and country.id or False})
     res.update({
         'fecha_inicio': fields.Date.context_today(self),
         'fecha_final': fields.Date.context_today(self) + relativedelta(years=+1),
-        'state': 'active',
-        'country_id': country and country.id or False})
+        'state': 'active'})
     return res
 
 

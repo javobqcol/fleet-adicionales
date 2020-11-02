@@ -52,6 +52,7 @@ class FleetVehiculeViaje(models.Model):
     string='Recibos')
   viaje_cancelado = fields.Boolean(string="Viaje cancelado", default=False)
   tiene_adjunto = fields.Boolean(compute='_set_adjunto')
+  liq_id = fields.Many2one('fleet.vehicle.work.liq', 'liquidacion')
 
   def _set_adjunto(self):
     for reg in self:
@@ -101,6 +102,8 @@ class FleetVehiculeViaje(models.Model):
     for reg in self:
       if reg.recibo_cantera:
         reg.recibo_cantera = reg.recibo_cantera.upper()
+        reg.recibo_cantera = " ".join(reg.recibo_cantera.split())
+
 
   @api.onchange('recibo_interno')
   def _onchange_recibo_interno(self):
@@ -108,6 +111,7 @@ class FleetVehiculeViaje(models.Model):
     for reg in self:
       if reg.recibo_interno:
         reg.recibo_interno = reg.recibo_interno.upper()
+        reg.recibo_interno = " ".join(reg.recibo_interno.split())
         hay_recibo = self.search([
           ('recibo_interno', '=', reg.recibo_interno),
           ('work_id', '=', reg.work_id.id),
@@ -119,3 +123,4 @@ class FleetVehiculeViaje(models.Model):
                      'type': 'notification'}
           res.update({'warning': warning})
       return res
+

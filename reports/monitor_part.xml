@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<odoo>
+
+  <template id="report_trabajos_maquinarias">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <h2>Primera Impresion</h2>
+      </t>
+    </t>
+  </template>
+
+<!--  <template id="report_partes_monitoreadas">-->
+<!--    <t t-call="web.html_container">-->
+<!--      <t t-foreach="docs" t-as="doc" >-->
+<!--        <t t-call="web.internal_layout">-->
+<!--&lt;!&ndash;          <div class="page">&ndash;&gt;-->
+<!--            <t t-if="doc.partes_ids">-->
+<!--              <table style="width:100%" class="table table-condensed">-->
+<!--                <thead>-->
+<!--                    <tr >-->
+<!--                        <th colspan="10">Vehiculo / Maquinaria</th>-->
+<!--                        <th colspan="10">Conductor / Operador</th>-->
+<!--                        <th colspan="5">Tipo</th>-->
+<!--                    </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                  <td colspan="10">-->
+<!--                      <span t-field="doc.name"/>-->
+<!--                  </td>-->
+<!--                  <td colspan="10">-->
+<!--                      <span t-field="doc.driver_id.display_name"/>-->
+<!--                  </td>-->
+<!--                  <td colspan="5">-->
+<!--                      <span t-field="doc.vehicle_type_id.name"/>-->
+<!--                  </td>-->
+<!--                  <tr t-foreach="doc.partes_ids" t-as="part">-->
+<!--                    <t t-if="part.product_id">-->
+<!--                      <thead>-->
+<!--                        <tr>-->
+<!--                          <th colspan="1"></th>-->
+<!--                          <th colspan="7">Parte</th>-->
+<!--                          <th colspan="17">Referencia</th>-->
+<!--                        </tr>-->
+<!--                      </thead>-->
+<!--                      <tbody>-->
+<!--                        <td colspan="1"></td>-->
+<!--                        <td colspan="7">-->
+<!--                            <span t-field="part.template_id.name"/>-->
+<!--                        </td>-->
+<!--                        <td colspan="17">-->
+<!--                            <span t-field="part.product_id.display_name"/>-->
+<!--                        </td>-->
+<!--                      </tbody>-->
+<!--                    </t>-->
+<!--                  </tr>-->
+<!--                </tbody>-->
+<!--              </table>-->
+<!--            </t>-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+<!--        </t>-->
+<!--      </t>-->
+<!--    </t>-->
+<!--  </template>-->
+
+
+  <template id="report_partes_monitoreadas">
+    <t t-call="web.html_container">
+      <div class="header" style="border-bottom: 2px solid black">
+         <h3 class="text-center">Reporte repuestos monitoreados</h3>
+      </div>
+      <table style="width:100%" class="table table-condensed">
+        <thead>
+            <tr >
+                <th class="text-center" colspan="10">Vehiculo / Maquinaria</th>
+                <th class="text-center" colspan="10">Conductor / Operador</th>
+                <th class="text-center" colspan="5">Tipo</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr t-foreach="docs" t-as="doc" >
+<!--            <t t-if="doc.partes_ids">-->
+              <td colspan="10">
+                  <span t-field="doc['name']"/>
+              </td>
+              <td colspan="10">
+                  <span t-field="doc['driver_id']"/>
+              </td>
+              <td colspan="5">
+                  <span t-field="doc['vehicle_type_id']"/>
+              </td>
+<!--                <thead>-->
+<!--                  <tr>-->
+<!--                    <th colspan="1"></th>-->
+<!--                    <th class="text-center" colspan="7">Parte</th>-->
+<!--                    <th class="text-center" colspan="17">Referencia</th>-->
+<!--                  </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                  <tr t-foreach="doc.partes_ids" t-as="part">-->
+<!--                    <t t-if="part.product_id">-->
+<!--                      <td colspan="1"></td>-->
+<!--                      <td colspan="7">-->
+<!--                          <span t-field="part.template_id.name"/>-->
+<!--                      </td>-->
+<!--                      <td colspan="17">-->
+<!--                          <span t-field="part.product_id.display_name"/>-->
+<!--                      </td>-->
+<!--                    </t>-->
+<!--                  </tr>-->
+<!--                </tbody>-->
+<!--            </t>-->
+          </tr>
+        </tbody>
+      </table>
+    </t>
+  </template>
+
+
+<!--  <template id="report_partes_monitoreadas">-->
+<!--    <t t-call="web.html_container">-->
+<!--&lt;!&ndash;    <t t-call="web.internal_layout">&ndash;&gt;-->
+<!--      <t t-call="web.internal_layout">-->
+<!--&lt;!&ndash;      <t t-call="web.html_container">&ndash;&gt;-->
+<!--        <table style="width:100%" class="table table-condensed">-->
+<!--          <thead>-->
+<!--              <tr >-->
+<!--                  <th colspan="10">Vehiculo / Maquinaria</th>-->
+<!--                  <th colspan="10">Conductor / Operador</th>-->
+<!--                  <th colspan="5">Tipo</th>-->
+<!--              </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--            <tr t-foreach="docs" t-as="doc" >-->
+<!--              <t t-if="doc.partes_ids">-->
+<!--                <td colspan="10">-->
+<!--                    <span t-field="doc.name"/>-->
+<!--                </td>-->
+<!--                <td colspan="10">-->
+<!--                    <span t-field="doc.driver_id.display_name"/>-->
+<!--                </td>-->
+<!--                <td colspan="5">-->
+<!--                    <span t-field="doc.vehicle_type_id.name"/>-->
+<!--                </td>-->
+<!--                  <thead>-->
+<!--                    <tr>-->
+<!--                      <th colspan="1"></th>-->
+<!--                      <th colspan="7">Parte</th>-->
+<!--                      <th colspan="17">Referencia</th>-->
+<!--                    </tr>-->
+<!--                  </thead>-->
+<!--                  <tbody>-->
+<!--                    <tr t-foreach="doc.partes_ids" t-as="part">-->
+<!--                      <t t-if="part.product_id">-->
+<!--                        <td colspan="1"></td>-->
+<!--                        <td colspan="7">-->
+<!--                            <span t-field="part.template_id.name"/>-->
+<!--                        </td>-->
+<!--                        <td colspan="17">-->
+<!--                            <span t-field="part.product_id.display_name"/>-->
+<!--                        </td>-->
+<!--                      </t>-->
+<!--                    </tr>-->
+<!--                  </tbody>-->
+<!--              </t>-->
+<!--            </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </t>-->
+<!--    </t>-->
+<!--  </template>-->
+
+
+</odoo>
+

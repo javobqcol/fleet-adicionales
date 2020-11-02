@@ -36,7 +36,11 @@
                   <field name="odometer"/>
                   <field name="odometer_unit" readonly="True"/>
                 </div>
-                <field name="odometer_final" invisible="1"/>
+                <label for="odometer_final"/>
+                <div class="o_row">
+                  <field name="odometer_final"/>
+                  <field name="odometer_unit" readonly="True"/>
+                </div>
               </group>
             </group>
             <notebook>
