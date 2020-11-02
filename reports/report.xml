@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <record model="report.paperformat" id="paperformat_partes_monitoreadas">
-      <field name="name">paperformat.partes.monitoreadas</field>
-      <field name="default" eval="True"/>
-      <field name="format">Letter</field>
-      <field name="page_width">0</field>
-      <field name="page_width">0</field>
-      <field name="orientation">Portrait</field>
-      <field name="margin_top">30</field>
-      <field name="margin_right">5</field>
-      <field name="margin_bottom">10</field>
-      <field name="margin_left">5</field>
-      <field name="header_line" eval="False"/>
-      <field name="header_spacing">20</field>
-      <field name="dpi">90</field>
-  </record>
+<!--  <record model="report.paperformat" id="paperformat_partes_monitoreadas">-->
+<!--      <field name="name">paperformat.partes.monitoreadas</field>-->
+<!--      <field name="default" eval="True"/>-->
+<!--      <field name="format">Letter</field>-->
+<!--      <field name="page_width">0</field>-->
+<!--      <field name="page_width">0</field>-->
+<!--      <field name="orientation">Portrait</field>-->
+<!--      <field name="margin_top">30</field>-->
+<!--      <field name="margin_right">5</field>-->
+<!--      <field name="margin_bottom">10</field>-->
+<!--      <field name="margin_left">5</field>-->
+<!--      <field name="header_line" eval="False"/>-->
+<!--      <field name="header_spacing">20</field>-->
+<!--      <field name="dpi">90</field>-->
+<!--  </record>-->
 
   <report
     id="report_trabajos_maquinarias"
@@ -22,15 +22,13 @@
     model="fleet.vehicle.work"
     report_type="qweb-pdf"
     name="fleet-adicionales.trabajos_maquinarias"
-    file="fleet_adionales.report_irmodeloverview"/>
+    file="fleet-adicionales.report_irmodeloverview"/>
 
   <report
     id="report_monitor_part"
     string="Partes Monitoreadas"
     model="fleet.vehicle"
     report_type="qweb-pdf"
-    paperformat="paperformat_partes_monitoreadas"
     name="fleet-adicionales.report_partes_monitoreadas"
-    file="fleet-adicionales.report_partes_monitoreadas"
-    menu="False"/>
+    file="fleet-adicionales.report_partes_monitoreadas"/>
 </odoo>

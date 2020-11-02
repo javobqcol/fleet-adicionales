@@ -77,30 +77,9 @@ class FleetVehicle(models.Model):
 
 
   def on_partes_server_action(self):
-    registros = self.env['fleet.vehicle'].search([], order='vehicle_type_id, name')
-    _logger.warning("registros %s" % (registros))
-    # data = {'ids': registros.ids,
-    #   'model': registros._name,
-    #   'form': {},
-    #         }
-
-    docs= []
-
-    for reg in registros:
-      if reg.partes_ids:
-        docs.append({
-          'name':reg.name,
-          'driver_id': reg.driver_id.display_name,
-          'vehicle_type_id': reg.vehicle_type_id.name
-        })
-        data = {
-          'ids':registros.ids,
-          'model':registros._name,
-          'docs':docs
-        }
-
-    _logger.warning("registros %s" % (data))
-    return self.env.ref('fleet-adicionales.report_monitor_part').report_action(self, data=data)
+    registros = self.search([])
+    _logger.warning("registros %s" % (registros.ids))
+    return self.env.ref('fleet-adicionales.report_monitor_part_h').report_action(registros.ids)
 
   def action_accept_driver_change(self):
     # vehicles = self.search([('driver_id', 'in', self.mapped('future_driver_id').ids)])

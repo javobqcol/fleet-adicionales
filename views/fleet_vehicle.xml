@@ -581,7 +581,8 @@
       <field name="name">Reporte partes</field>
       <field name="model_id" ref="model_fleet_vehicle"/>
       <field name="type">ir.actions.server</field>
-      <field name="code">model.on_partes_server_action()</field>
+      <field name="state">code</field>
+      <field name="code">action=model.on_partes_server_action()</field>
      </record>
 
      <menuitem id="menu_fleet_reporting_costs"
