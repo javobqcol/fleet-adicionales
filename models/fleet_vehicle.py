@@ -77,9 +77,9 @@ class FleetVehicle(models.Model):
 
 
   def on_partes_server_action(self):
-    registros = self.search([])
+    registros = self.search([], order="vehicle_type_id")
     _logger.warning("registros %s" % (registros.ids))
-    return self.env.ref('fleet-adicionales.report_monitor_part_h').report_action(registros.ids)
+    return self.env.ref('fleet-adicionales.report_monitor_part').report_action(registros.ids)
 
   def action_accept_driver_change(self):
     # vehicles = self.search([('driver_id', 'in', self.mapped('future_driver_id').ids)])
@@ -438,19 +438,20 @@ class VehicleWorkLiquidacion(models.Model):
   currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
   descripcion = fields.Text(string="Descripcion del liquidacion",
     placeholder="Espacio para describir cualquier aspecto")
+  viaje_ids = fields.One2many('fleet.vehicle.viaje', 'liq_id', string='Vehiculo')
+  odometer_ids = fields.One2many('fleet.vehicle.odometer', 'liq_id', string='maquinaria')
 
   def name_get(self):
     res = []
     for field in self:
-      res.append(
-        (field.id, '%s' % (field.name_seq or "")))
+      res.append((field.id, '%s - %s' % (field.name_seq or "", field.work_id.display_name or "")))
     return res
 
   @api.model
   def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
     if args is None:
       args = []
-    domain = args + [('name_seq', operator, name)]
+    domain = args + ['|', ('name_seq', operator, name), ('work_id', operator, name)]
     model_ids = self._search(domain, limit=limit, access_rights_uid=name_get_uid)
     return models.lazy_name_get(self.browse(model_ids).with_user(name_get_uid))
 
@@ -464,8 +465,8 @@ class VehicleWorkLiquidacion(models.Model):
 
   def liquidar_maquinaria(self):
     for rec in self:
-      inicio = self.date
-      fin = self.date_end
+      inicio = rec.date
+      fin = rec.date_end
       if self.work_id:
         lista = [('work_id', '=', self.work_id.id), ('liq_id', '=', False)]
         lista_new = [('work_id', '=', self.work_id.id), ('liq_id', '=', rec.id)]
@@ -473,8 +474,8 @@ class VehicleWorkLiquidacion(models.Model):
           lista.append(('date', '>=', inicio))
         if fin:
           lista.append(('date', '<=', fin))
-        yaliquido = rec.env['fleet.vehicle.viaje'].search(lista_new)
-        if yaliquido:
+        yaliquido_viajes = rec.env['fleet.vehicle.viaje'].search(lista_new)
+        if yaliquido_viajes:
           pass
           # for record in yaliquido:
           #   viaje_cancelado = not record.viaje_cancelado
@@ -485,26 +486,39 @@ class VehicleWorkLiquidacion(models.Model):
             for record in registros:
               # viaje_cancelado = True
               record.write({'liq_id': rec.id})
+        yaliquido_odometer = rec.env['fleet.vehicle.odometer'].search(lista_new)
+        if yaliquido_odometer:
+          pass
+          # for record in yaliquido:
+          #   viaje_cancelado = not record.viaje_cancelado
+          #   record.write({'viaje_cancelado': viaje_cancelado})
+        else:
+          registros = rec.env['fleet.vehicle.odometer'].search(lista)
+          if registros:
+            for record in registros:
+              # viaje_cancelado = True
+              record.write({'liq_id': rec.id})
+
 
 
 
 class VehicleLiquidacion(models.Model):
-    _name = 'fleet.vehicle.liquidacion'
-    _description = 'liquidacion de maquinas $$$ por fecha trabajo'
+  _name = 'fleet.vehicle.liquidacion'
+  _description = 'liquidacion de maquinas $$$ por fecha trabajo'
 
-    company_id = fields.Many2one('res.company', string='Compañia', default=lambda self: self.env.company,
-      ondelete='restrict')
-    vehicle_id = fields.Many2one('fleet.vehicle', 'Vehículo')
-    work_id =  fields.Many2one('fleet.vehicle.work', 'Trabajo')
-    liq_id = fields.Many2one('fleet.vehicle.work.liq', 'Liquidación')
-    name_ve = fields.Char(string='Vehiculo')
-    name_sec_wor = fields.Char(string='Consecutivo trabajo')
-    name_sec_liq = fields.Char(string='Consecutivo liquidación')
-    unidades = fields.Float(string="unidades a liquidar")
-    tipo_unidad = fields.Char(string='Tipo unidad')
-    precio_unidad = fields.Float(string="unidades a liquidar")
-    valor_unidades = fields.Float(string="unidades a liquidar")
-    currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
+  company_id = fields.Many2one('res.company', string='Compañia', default=lambda self: self.env.company,
+    ondelete='restrict')
+  vehicle_id = fields.Many2one('fleet.vehicle', 'Vehículo')
+  work_id =  fields.Many2one('fleet.vehicle.work', 'Trabajo')
+  liq_id = fields.Many2one('fleet.vehicle.work.liq', 'Liquidación')
+  name_ve = fields.Char(string='Vehiculo')
+  name_sec_wor = fields.Char(string='Consecutivo trabajo')
+  name_sec_liq = fields.Char(string='Consecutivo liquidación')
+  unidades = fields.Float(string="unidades a liquidar")
+  tipo_unidad = fields.Char(string='Tipo unidad')
+  precio_unidad = fields.Float(string="unidades a liquidar")
+  valor_unidades = fields.Float(string="unidades a liquidar")
+  currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
 
 class FleetVehicletemplate(models.Model):
   _name = 'fleet.vehicle.template'
@@ -673,6 +687,5 @@ class ResUsers(models.Model):
   def name_get(self):
     res = []
     for field in self:
-      res.append(
-        (field.id, '%s' % (field.name or "")))
+      res.append((field.id, '%s' % (field.name or "")))
     return res

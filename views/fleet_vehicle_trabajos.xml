@@ -85,6 +85,7 @@
                     class="oe_highlight"
                     type="object" string="Liquidacion"
                     groups="fleet.fleet_group_manager"
+                    attrs="{'invisible': [('name_seq', '=', 'Nuevo')]}"
                     help="Liquidacion de maquinaria">
             </button>
           </header>
@@ -133,11 +134,44 @@
       </field>
     </record>
 
+   <record id="fleet_vehicle_work_liq_search" model="ir.ui.view">
+     <field name="name">fleet.vehicle.work.view.search</field>
+     <field name="model">fleet.vehicle.work.liq</field>
+     <field name="arch" type="xml">
+       <search string="Trabajos realizados por los automotores">
+         <field name="name_seq"
+                string="Consecutivo"
+                filter_domain="[('name_seq','ilike',self)]"/>
+
+         <field name="company_id"
+                string="Compañia"
+                groups="base.group_multi_company"
+                filter_domain="[('company_id.name','ilike',self)]"/>
+         <field name="work_id"
+                string="Nombre del trabajo"
+                filter_domain="[('work_id', 'ilike', self)]"/>
+         <field name="viaje_ids" string = "Maquinaria / volquetas"
+                filter_domain="['|',
+                ('viaje_ids.vehicle_id.name', 'ilike',self),
+                ('odometer_ids.vehicle_id.name', 'ilike', self)]"/>
+         <group expand="1" string="Agrupado por">
+           <filter name="groupby_company_id"
+                   context="{'group_by': 'company_id'}"
+                   string="Compañia"
+                   groups="base.group_multi_company"/>
+           <filter name="groupby_trabajo"
+                   context="{'group_by': 'work_id'}"
+                   string="Trabajo"/>
+         </group>
+       </search>
+     </field>
+    </record>
+
     <record id='fleet_vehicle_work_liq_action' model='ir.actions.act_window'>
       <field name="name">Registro de liquidaciones de trabajos</field>
       <field name="res_model">fleet.vehicle.work.liq</field>
       <field name="view_mode">tree,form</field>
-<!--      <field name="search_view_id" ref="fleet_vehicle_work_liq_search"/>-->
+      <field name="search_view_id" ref="fleet_vehicle_work_liq_search"/>
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
           Ingrese un nueva liquidacion
@@ -148,7 +182,7 @@
     </record>
     <menuitem action="fleet_vehicle_work_liq_action" parent="fleet.fleet_vehicles" id="fleet_vehihicle_work_liq"/>
 
-    <record id="fleet_vehicle_work_view_tree" model="ir.ui.view">
+    <record id="fleet_vehicle_work_liq_view_tree" model="ir.ui.view">
       <field name="name">fleet.vehicle.work.tree</field>
       <field name="model">fleet.vehicle.work</field>
       <field name="arch" type="xml">
@@ -182,7 +216,7 @@
                 filter_domain="[('company_id.name','ilike',self)]"/>
          <field name="alias_work"
                 string="Nombre del trabajo"
-                filter_domain="[('alias_work','ilike',self)]"/>
+                filter_domain="[('display_name,'ilike',self)]"/>
          <field name="detalle_ids"
                 string="Vehiculos"
                 filter_domain="[('detalle_ids.vehicle_id.name','ilike',self)]"/>

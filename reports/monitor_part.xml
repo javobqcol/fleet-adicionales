@@ -33,7 +33,8 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <t t-foreach="doc.partes_ids" t-as="part">
+                  <t t-foreach="doc.partes_ids.sorted(lambda x: (x.template_id.parent_id, x.template_id.orden),
+                     reverse=False)" t-as="part">
                     <tr>
                     <t t-if="part.product_id">
                       <td colspan="1"></td>

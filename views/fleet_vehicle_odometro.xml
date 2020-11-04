@@ -80,6 +80,8 @@
           <field name="es_standby" invisible="1"/>
           <field name="hora_cancelada" invisible="1"/>
           <field name="tiene_adjunto" string="Adj?" optional="show"/>
+          <field name="liq_id" string="Liq" optional="hide"/>
+
         </tree>
       </field>
     </record>
