@@ -161,7 +161,7 @@ class LicenciaResPartner(models.Model):
 
     licencias_vencidas = self.search([
         ('state', 'not in', ['inactive', 'cancel']),
-        ('fecha_final', '>', outdated_days)])
+        ('fecha_final', '<', outdated_days)])
     licencias_vencidas.write({'state': 'inactive'})
 
   @api.model

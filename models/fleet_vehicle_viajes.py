@@ -50,7 +50,6 @@ class FleetVehiculeViaje(models.Model):
     'viajes_id',
     'attachment_id',
     string='Recibos')
-  viaje_cancelado = fields.Boolean(string="Viaje cancelado", default=False)
   tiene_adjunto = fields.Boolean(compute='_set_adjunto')
   liq_id = fields.Many2one('fleet.vehicle.work.liq', 'liquidacion')
 

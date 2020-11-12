@@ -27,7 +27,7 @@ class FleetVehiculeOdometer(models.Model):
     store=True)
   date = fields.Date(string='Fecha', default=False)
   work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo',
-    domain="[('state', '=', 'activo'), ('detalle_ids.vehicle_id', '=', vehicle_id)]")
+    domain="[('state','=','activo'),('detalle_ids.vehicle_id','=',vehicle_id),('detalle_ids.inactivo','=',False)]")
   driver_id = fields.Many2one('res.partner', related=None, string="Conductor", required=False)
   es_standby = fields.Boolean(string="Standby", default=False)
   hora_cancelada = fields.Boolean(string="Hora cancelada", default=False)
@@ -46,6 +46,7 @@ class FleetVehiculeOdometer(models.Model):
   tiene_adjunto = fields.Boolean(compute='_set_adjunto')
   gal = fields.Float(string="Galones")
   liq_id = fields.Many2one('fleet.vehicle.work.liq', 'liquidacion')
+
   def _set_adjunto(self):
     for reg in self:
       reg.tiene_adjunto = False

@@ -39,7 +39,6 @@
                 <field name="galones" digits="[10,2]"/>
                 <field name="viajes" />
                 <field name="total_cantidad" digits="[10,2]" groups="fleet.fleet_group_manager"/>
-                <field name="viaje_cancelado" groups="base.group_multi_company"/>
                 <field name="liq_id" string="liq" optional="hide" groups="base.group_multi_company"/>
               </group>
             </group>
@@ -60,7 +59,7 @@
       <field name="name">fleet.vehicle.viaje.tree</field>
       <field name="model">fleet.vehicle.viaje</field>
       <field name="arch" type="xml">
-        <tree string="Viajes" decoration-muted="viaje_cancelado == True" >
+        <tree string="Viajes" decoration-muted="liq_id != False" >
           <field name="date" string="Fecha"/>
           <field name="vehicle_id" string="Vehiculo"/>
           <field name="driver_id" string="Conductor" optional="show"/>
@@ -74,7 +73,6 @@
           <field name="viajes" string="Viajes" sum="Total viajes" optional="show"/>
           <field name="km_recorridos" string="KM" sum="Total KM" optional="hide"/>
           <field name="total_cantidad" string="Cant" digits="[10,2]" optional="show"/>
-          <field name="viaje_cancelado" string="Liq?" optional="show"/>
           <field name="tiene_adjunto" string="Adj?" optional="show"/>
           <field name="liq_id" string="liq" optional="hide" groups="base.group_multi_company"/>
         </tree>

@@ -46,6 +46,7 @@
                            string="Precio unidad"
                            widget="monetary"
                            options="{'currency_field': 'currency_id'}"/>
+                    <field name="inactivo"/>
                     <field name="standby"/>
                     <field name="unidades_standby" attrs="{'readonly':[('standby','==',False)]}"/>
                   </tree>
@@ -73,7 +74,7 @@
       <field name="name">fleet.vehicle.work.liq.form</field>
       <field name="model">fleet.vehicle.work.liq</field>
       <field name="arch" type="xml">
-        <form string="Liquidacion">
+        <form string="Liquidación">
           <header>
 <!--            <button name="liquidar_maquinaria"-->
 <!--                    class="oe_highlight"-->
@@ -84,10 +85,11 @@
             <button name="liquidar_maquinaria"
                     class="oe_highlight"
                     type="object" string="Liquidacion"
-                    groups="fleet.fleet_group_manager"
-                    attrs="{'invisible': [('name_seq', '=', 'Nuevo')]}"
-                    help="Liquidacion de maquinaria">
-            </button>
+                    attrs="{'invisible': ['|', ('name_seq', '=', 'Nuevo'), ('liquidado', '=', True)]}"
+                    help="Liquidacion de maquinaria"
+                    confirm="Esta seguro que quiere liquidar solo un
+                    administrador podra ingresar manualmente registros
+                    a una liquidacion realizada"/>
           </header>
           <sheet>
             <div class="oe_title">
@@ -97,21 +99,25 @@
             </div>
             <group col="2">
               <group>
-                <field name="work_id" />
+                <field name="work_id" attrs="{'readonly': [('liquidado', '=', True)]}"/>
                 <field name="company_id"
                        string="Compañia"
                        groups="base.group_multi_company"
-                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                <field name="date"/>
-                <field name="date_end"/>
+                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                       attrs="{'readonly': [('liquidado', '=', True)]}"/>
+                <field name="date" attrs="{'readonly': [('liquidado', '=', True)]}"/>
+                <field name="date_end" attrs="{'readonly': [('liquidado', '=', True)]}"/>
               </group>
               <group>
-                <field name="total_liquidacion"/>
+                <field name="total_liquidacion" attrs="{'readonly': [('liquidado', '=', True)]}"/>
+                <field name="liquidado" groups="base.group_multi_company"/>
               </group>
             </group>
             <notebook>
               <page string="Nota">
-                 <field nolabel="1" name="descripcion" placeholder="Escriba aqui cualquier otra info"/>
+                 <field nolabel="1"
+                        name="descripcion"
+                        placeholder="Escriba aqui cualquier otra info" />
               </page>
             </notebook>
           </sheet>
@@ -123,13 +129,14 @@
       <field name="name">fleet.vehicle.work.liq.tree</field>
       <field name="model">fleet.vehicle.work.liq</field>
       <field name="arch" type="xml">
-        <tree string="Trabajos">
+        <tree string="Trabajos" decoration-muted="liquidado == True">
           <field name="name_seq"/>
           <field name="work_id" />
           <field name="company_id" groups="base.group_multi_company"/>
           <field name="date"/>
           <field name="date_end"/>
           <field name="total_liquidacion"/>
+          <field name="liquidado" groups="base.group_multi_company"/>
         </tree>
       </field>
     </record>

@@ -33,4 +33,5 @@
     paperformat="paperformat_partes_monitoreadas"
     name="fleet-adicionales.report_partes_monitoreadas"
     file="fleet-adicionales.report_partes_monitoreadas"/>
+
 </odoo>

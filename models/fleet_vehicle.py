@@ -418,10 +418,12 @@ class VehicleWorkDet(models.Model):
   unidades_standby = fields.Float(string="Unidades minimas", help="Unidades de standby")
   precio_unidad = fields.Float(string='Valor de la Hora')
   currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
+  inactivo = fields.Boolean(string='Inactivo', default=False)
 
 class VehicleWorkLiquidacion(models.Model):
   _name = 'fleet.vehicle.work.liq'
   _description = 'liquidacion de trabajo segun fecha trabajo'
+  _order = 'name_seq desc'
 
   work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo')
   company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company, ondelete='restrict')
@@ -440,6 +442,7 @@ class VehicleWorkLiquidacion(models.Model):
     placeholder="Espacio para describir cualquier aspecto")
   viaje_ids = fields.One2many('fleet.vehicle.viaje', 'liq_id', string='Vehiculo')
   odometer_ids = fields.One2many('fleet.vehicle.odometer', 'liq_id', string='maquinaria')
+  liquidado = fields.Boolean(String="Liquidado", default=False)
 
   def name_get(self):
     res = []
@@ -465,40 +468,25 @@ class VehicleWorkLiquidacion(models.Model):
 
   def liquidar_maquinaria(self):
     for rec in self:
+      # si llevan valores de fecha inicio y fin del formulario inicializo inicio y fin
+      # el proceso se hace ara un trabajo
       inicio = rec.date
       fin = rec.date_end
       if self.work_id:
         lista = [('work_id', '=', self.work_id.id), ('liq_id', '=', False)]
-        lista_new = [('work_id', '=', self.work_id.id), ('liq_id', '=', rec.id)]
         if inicio:
           lista.append(('date', '>=', inicio))
         if fin:
           lista.append(('date', '<=', fin))
-        yaliquido_viajes = rec.env['fleet.vehicle.viaje'].search(lista_new)
-        if yaliquido_viajes:
-          pass
-          # for record in yaliquido:
-          #   viaje_cancelado = not record.viaje_cancelado
-          #   record.write({'viaje_cancelado': viaje_cancelado})
-        else:
-          registros = rec.env['fleet.vehicle.viaje'].search(lista)
-          if registros:
-            for record in registros:
-              # viaje_cancelado = True
-              record.write({'liq_id': rec.id})
-        yaliquido_odometer = rec.env['fleet.vehicle.odometer'].search(lista_new)
-        if yaliquido_odometer:
-          pass
-          # for record in yaliquido:
-          #   viaje_cancelado = not record.viaje_cancelado
-          #   record.write({'viaje_cancelado': viaje_cancelado})
-        else:
-          registros = rec.env['fleet.vehicle.odometer'].search(lista)
-          if registros:
-            for record in registros:
-              # viaje_cancelado = True
-              record.write({'liq_id': rec.id})
-
+        registros = rec.env['fleet.vehicle.viaje'].search(lista)
+        if registros:
+          for record in registros:
+            record.write({'liq_id': rec.id})
+        registros = rec.env['fleet.vehicle.odometer'].search(lista)
+        if registros:
+          for record in registros:
+            record.write({'liq_id': rec.id})
+      rec.liquidado = True
 
 
 

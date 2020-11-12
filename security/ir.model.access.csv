@@ -31,10 +31,10 @@ ve_wo_fac_admin,ve_wo_fac_admin,model_fleet_vehicle_work,fleet.fleet_group_manag
 fl_ve_lo_co_ac_ri_user_rwc,fl_ve_lo_co_ac_ri_user_rwc,fleet.model_fleet_vehicle_log_contract,fleet_group_user_rwc,1,1,1,0
 fl_ve_lo_se_ac_ri_user_rwc,fl_ve_lo_se_ac_ri_user_rwc,fleet.model_fleet_vehicle_log_services,fleet_group_user_rwc,1,1,1,0
 ve_wo_det_user_read,ve_wo_det_user_read,model_fleet_vehicle_work_det,fleet_group_user_read,1,0,0,0
-ve_wo_det_user,ve_wo_det_user,model_fleet_vehicle_work_det,fleet.fleet_group_user,1,1,1,0
+ve_wo_det_user,ve_wo_det_user,model_fleet_vehicle_work_det,fleet.fleet_group_user,1,1,0,0
 ve_wo_det_admin,ve_wo_det_admin,model_fleet_vehicle_work_det,fleet.fleet_group_manager,1,1,1,1
 fl_ve_te_user_read,fl_ve_te_user_read,model_fleet_vehicle_template,fleet_group_user_read,1,0,0,0
-fl_ve_te_user,fl_ve_te_user,model_fleet_vehicle_template,fleet.fleet_group_user,1,1,1,0
+fl_ve_te_user,fl_ve_te_user,model_fleet_vehicle_template,fleet.fleet_group_user,1,1,0,0
 fl_ve_te_admin,fl_ve_te_admin,model_fleet_vehicle_template,fleet.fleet_group_manager,1,1,1,1
 fl_ve_mo_user_read,fl_ve_mo_user_read,model_fleet_vehicle_monitor,fleet_group_user_read,1,0,0,0
 fl_ve_mo_user,fl_ve_mo_user,model_fleet_vehicle_monitor,fleet.fleet_group_user,1,1,1,0

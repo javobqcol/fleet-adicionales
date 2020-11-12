@@ -108,8 +108,10 @@
                   <field name="col" invisible="1"/>
                   <label for="odometer"/>
                   <div class="o_row">
-                    <field name="odometer" groups="fleet.fleet_group_manager"/>
-                    <field name="odometer_unit" groups="fleet.fleet_group_manager"/>
+                    <h2>
+                      <field name="odometer" readonly="1"/>
+                      <field name="odometer_unit" readonly="1"/>
+                    </h2>
                   </div>
                   <label for="mtto_cada"/>
                   <div class="o_row">
@@ -261,10 +263,18 @@
                   <div>
                     <field name="odometer"/>:<field name="falta_para_mtto"/>
                     <span t-if="record.col.raw_value=='amarillo'"
-                      class="fa fa-exclamation-triangle" t-att-style="'color:yellow'" role="img" aria-label="Atencion mantenimiento proximo" title="Atenciòn: Mantenimiento proximo">
+                      class="fa fa-exclamation-triangle"
+                          t-att-style="'color:yellow'"
+                          role="img"
+                          aria-label="Atencion mantenimiento proximo"
+                          title="Atenciòn: Mantenimiento proximo">
                     </span>
                     <span t-if="record.col.raw_value=='rojo'"
-                        class="fa fa-exclamation-triangle" t-att-style="'color:red;'" role="img" aria-label="Atencion mantenimiento inminente" title="Atencion mantenimiento inminente">
+                        class="fa fa-exclamation-triangle"
+                          t-att-style="'color:red;'"
+                          role="img"
+                          aria-label="Atencion mantenimiento inminente"
+                          title="Atencion mantenimiento inminente">
                     </span>
                   </div>
                   <div class="o_kanban_tags_section">
@@ -583,13 +593,14 @@
       <field name="type">ir.actions.server</field>
       <field name="state">code</field>
       <field name="code">action=model.on_partes_server_action()</field>
-     </record>
+    </record>
 
-     <menuitem id="menu_fleet_reporting_costs"
+    <menuitem id="menu_fleet_reporting_costs"
               name="Reporte partes monitoreadas"
               parent="fleet.menu_fleet_reporting"
               action="report_partes_action"
               groups="fleet.fleet_group_manager"/>
+
   </data>
 </odoo>
 

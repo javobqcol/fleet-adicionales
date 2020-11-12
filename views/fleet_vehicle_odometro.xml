@@ -40,6 +40,7 @@
 <!--                       attrs="{'readonly' : [('able_to_modify_odometer','=',False)]}"/>-->
                 <field name="es_standby" groups="fleet.fleet_group_manager"/>
                 <field name="hora_cancelada" groups="fleet.fleet_group_manager"/>
+                <field name="liq_id" groups="base.group_multi_company"/>
 <!--                <field name="unidades_standby" invisible="1"/>-->
 <!--                <field name="precio_unidad" invisible="1"/>-->
 <!--                <field name="valor_unidades" invisible="1"/>-->
@@ -64,7 +65,10 @@
       <field name="name">fleet.vehicle.odometer.tree</field>
       <field name="model">fleet.vehicle.odometer</field>
       <field name="arch" type="xml">
-        <tree string="Registro de odometro" decoration-muted="hora_cancelada == True" decoration-info="tipo_odometro == 'fuel'" decoration-primary="tipo_odometro =='services'" >
+        <tree string="Registro de odometro"
+              decoration-muted="liq_id != False"
+              decoration-info="tipo_odometro == 'fuel'"
+              decoration-primary="tipo_odometro =='services'" >
           <field name="date" string="fecha"/>
           <field name="vehicle_id" optional="show" string="Vehiculo"/>
           <field name="company_id"  optional="show" string="Compañia" groups="base.group_multi_company"/>
