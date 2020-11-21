@@ -488,7 +488,73 @@ class VehicleWorkLiquidacion(models.Model):
             record.write({'liq_id': rec.id})
       rec.liquidado = True
 
+class employeWorkLiquidacion(models.Model):
+  _name = 'fleet.vehicle.driver.liq'
+  _description = 'liquidacion de maquinas y viajes de Conductores'
+  _order = 'name_seq desc'
 
+  company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company, ondelete='restrict')
+  name_seq = fields.Char(string='Liquidacion',
+    required=True,
+    copy=False,
+    readonly=True,
+    index=True,
+    default=lambda self: _('New'))
+  driver_id = fields.Many2one('res.partner', 'Conductor', help='Conductor/operador')
+  date = fields.Date(string='Fecha inicio', help="Fecha inicio liquidacion en blanco para inicio de los tiempos")
+  date_end =fields.Date(string='Fecha fin', help="Fecha inicio liquidacion en blanco para fin de los tiempos",
+    default=fields.Date.today)
+  total_liquidacion = fields.Float(string="Total liquidacion")
+  currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
+  descripcion = fields.Text(string="Descripcion del liquidacion",
+    placeholder="Espacio para describir cualquier aspecto")
+  viaje_ids = fields.One2many('fleet.vehicle.viaje', 'liq_driver_id', string='Vehiculo')
+  odometer_ids = fields.One2many('fleet.vehicle.odometer', 'liq_driver_id', string='Maquinaria')
+  liquidado = fields.Boolean(String="Liquidado", default=False)
+
+  def name_get(self):
+    res = []
+    for field in self:
+      res.append((field.id, '%s - %s' % (field.name_seq or "", field.driver_id.name or "")))
+    return res
+
+  @api.model
+  def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
+    if args is None:
+      args = []
+    domain = args + ['|', ('name_seq', operator, name), ('driver_id', operator, name)]
+    model_ids = self._search(domain, limit=limit, access_rights_uid=name_get_uid)
+    return models.lazy_name_get(self.browse(model_ids).with_user(name_get_uid))
+
+  @api.model
+  def create(self, vals):
+    if vals.get('name_seq', _('New'))==_('New'):
+      vals['name_seq'] = self.env['ir.sequence'].next_by_code('fleet-adicionales.fleet.vehicle.driver.sequence') \
+                         or _('New')
+    result = super().create(vals)
+    return (result)
+
+  def liquidar_maquinaria(self):
+    for rec in self:
+      # si llevan valores de fecha inicio y fin del formulario inicializo inicio y fin
+      # el proceso se hace ara un trabajo
+      inicio = rec.date
+      fin = rec.date_end
+      if self.driver_id:
+        lista = [('driver_id', '=', self.driver_id.id), ('liq_driver_id', '=', False)]
+        if inicio:
+          lista.append(('date', '>=', inicio))
+        if fin:
+          lista.append(('date', '<=', fin))
+        registros = rec.env['fleet.vehicle.viaje'].search(lista)
+        if registros:
+          for record in registros:
+            record.write({'liq_driver_id': rec.id})
+        registros = rec.env['fleet.vehicle.odometer'].search(lista)
+        if registros:
+          for record in registros:
+            record.write({'liq_driver_id': rec.id})
+      rec.liquidado = True
 
 class VehicleLiquidacion(models.Model):
   _name = 'fleet.vehicle.liquidacion'

@@ -25,7 +25,7 @@ class FleetVehiculeViaje(models.Model):
     domain="[('state', '=', 'activo'), ('detalle_ids.vehicle_id', '=', vehicle_id)]")
   driver_id = fields.Many2one('res.partner', string='Conductor')
   date = fields.Date(string='Fecha viaje')
-  material_id = fields.Many2one('fleet.vehicle.material', 'Material Trasportado')
+  material_id = fields.Many2one('fleet.vehicle.material', 'Material')
   km_recorridos = fields.Float('Kilometros recorridos', readonly=False, store=True, compute='_cantidad_viajes')
   m3 = fields.Float(string='Cantidad material', digits='Volume', help='Cantidad material transportado')
   unidad = fields.Selection([
@@ -36,8 +36,8 @@ class FleetVehiculeViaje(models.Model):
   viajes = fields.Integer('Cantidad de viajes', default=1)
   cantera_id = fields.Many2one('res.partner', 'Origen')
   destino_id = fields.Many2one('res.partner', 'Destino')
-  recibo_cantera = fields.Char('Número recibo cantera')
-  recibo_interno = fields.Char('Número recibo interno')
+  recibo_cantera = fields.Char('Recibo cantera')
+  recibo_interno = fields.Char('Recibo interno')
   Km_inicial = fields.Float('Kilometro inicial')
   Km_final = fields.Float('Kilometro Final')
   galones = fields.Float('Galones', digits='Volume')
@@ -51,7 +51,9 @@ class FleetVehiculeViaje(models.Model):
     'attachment_id',
     string='Recibos')
   tiene_adjunto = fields.Boolean(compute='_set_adjunto')
-  liq_id = fields.Many2one('fleet.vehicle.work.liq', 'liquidacion')
+  liq_id = fields.Many2one('fleet.vehicle.work.liq', 'liquidacion Trabajo')
+  liq_driver_id = fields.Many2one('fleet.vehicle.driver.liq', 'liquidacion Conductor')
+
 
   def _set_adjunto(self):
     for reg in self:

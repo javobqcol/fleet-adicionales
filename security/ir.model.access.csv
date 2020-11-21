@@ -65,3 +65,6 @@ fl_ve_li_user,fl_ve_li_user,model_fleet_vehicle_liquidacion,fleet.fleet_group_us
 fl_ve_li_admin,fl_ve_li_admin,model_fleet_vehicle_liquidacion,fleet.fleet_group_manager,1,1,1,1
 fleet.fleet_vehicle_odometer_access_right,fleet_vehicle_odometer_access_right,fleet.model_fleet_vehicle_odometer,fleet.fleet_group_user,1,1,1,0
 fl_ve_od_admin,fl_ve_od_admin,fleet.model_fleet_vehicle_odometer,fleet.fleet_group_manager,1,1,1,1
+fl_ve_dr_li_user_read,fl_ve_dr_li_user_read,model_fleet_vehicle_driver_liq,fleet_group_user_read,1,0,0,0
+fl_ve_dr_li_user,fl_ve_dr_li_user,model_fleet_vehicle_driver_liq,fleet.fleet_group_user,1,1,1,0
+fl_ve_dr_li_admin,fl_ve_dr_li_admin,model_fleet_vehicle_driver_liq,fleet.fleet_group_manager,1,1,1,1

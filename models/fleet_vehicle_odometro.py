@@ -45,7 +45,8 @@ class FleetVehiculeOdometer(models.Model):
   able_to_modify_odometer = fields.Boolean(compute='set_access_for_odometer', string='Is user able to modify product?')
   tiene_adjunto = fields.Boolean(compute='_set_adjunto')
   gal = fields.Float(string="Galones")
-  liq_id = fields.Many2one('fleet.vehicle.work.liq', 'liquidacion')
+  liq_id = fields.Many2one('fleet.vehicle.work.liq', 'liquidacion Trabajo')
+  liq_driver_id = fields.Many2one('fleet.vehicle.driver.liq', 'liquidacion Conductor')
 
   def _set_adjunto(self):
     for reg in self:

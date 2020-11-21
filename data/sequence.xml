@@ -25,6 +25,14 @@
       <field name="padding">5</field>
       <field name="company_id" eval="False"/>
     </record>
+
+    <record id="seq_fleet_vehicle_driver" model="ir.sequence">
+      <field name="name">fleet vehicle driver sequence</field>
+      <field name="code">fleet-adicionales.fleet.vehicle.driver.sequence</field>
+      <field name="prefix">DRV-</field>
+      <field name="padding">5</field>
+      <field name="company_id" eval="False"/>
+    </record>
   </data>
 </odoo>
 

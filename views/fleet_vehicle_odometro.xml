@@ -40,7 +40,8 @@
 <!--                       attrs="{'readonly' : [('able_to_modify_odometer','=',False)]}"/>-->
                 <field name="es_standby" groups="fleet.fleet_group_manager"/>
                 <field name="hora_cancelada" groups="fleet.fleet_group_manager"/>
-                <field name="liq_id" groups="base.group_multi_company"/>
+                <field name="liq_id" string="liq Trabajo"  groups="base.group_multi_company"/>
+                <field name="liq_driver_id" string="Liq conductor." groups="base.group_multi_company"/>
 <!--                <field name="unidades_standby" invisible="1"/>-->
 <!--                <field name="precio_unidad" invisible="1"/>-->
 <!--                <field name="valor_unidades" invisible="1"/>-->
@@ -84,8 +85,8 @@
           <field name="es_standby" invisible="1"/>
           <field name="hora_cancelada" invisible="1"/>
           <field name="tiene_adjunto" string="Adj?" optional="show"/>
-          <field name="liq_id" string="Liq" optional="hide"/>
-
+          <field name="liq_id" string="liq" optional="hide" groups="base.group_multi_company"/>
+          <field name="liq_driver_id" string="Liq cond." optional="hide" groups="base.group_multi_company"/>
         </tree>
       </field>
     </record>

@@ -34,4 +34,13 @@
     name="fleet-adicionales.report_partes_monitoreadas"
     file="fleet-adicionales.report_partes_monitoreadas"/>
 
+  <report
+    id="report_monitor_part_xlsx"
+    string="Partes Monitoreadas excel"
+    model="fleet.vehicle"
+    report_type="xlsx"
+    name="report_partes_monitoreadas_xls"
+    file="report_partes_monitoreadas_xls"/>
+
+
 </odoo>

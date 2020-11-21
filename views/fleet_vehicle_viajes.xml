@@ -25,7 +25,7 @@
                   <field name="m3" digits="[10,2]"/>
                   <field name="unidad"/>
                 </div>
-               <field name="cantera_id" placeholder="Sitio de carga"/>
+                <field name="cantera_id" placeholder="Sitio de carga"/>
                 <field name="destino_id" placeholder="Sitio de descarga"/>
 
               </group>
@@ -39,7 +39,8 @@
                 <field name="galones" digits="[10,2]"/>
                 <field name="viajes" />
                 <field name="total_cantidad" digits="[10,2]" groups="fleet.fleet_group_manager"/>
-                <field name="liq_id" string="liq" optional="hide" groups="base.group_multi_company"/>
+                <field name="liq_id" string="liq Trabajo"  groups="base.group_multi_company"/>
+                <field name="liq_driver_id" string="Liq conductor." groups="base.group_multi_company"/>
               </group>
             </group>
             <notebook>
@@ -75,6 +76,7 @@
           <field name="total_cantidad" string="Cant" digits="[10,2]" optional="show"/>
           <field name="tiene_adjunto" string="Adj?" optional="show"/>
           <field name="liq_id" string="liq" optional="hide" groups="base.group_multi_company"/>
+          <field name="liq_driver_id" string="Liq cond." optional="hide" groups="base.group_multi_company"/>
         </tree>
       </field>
     </record>
