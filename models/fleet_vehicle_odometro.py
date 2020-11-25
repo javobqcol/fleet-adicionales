@@ -11,15 +11,20 @@ class FleetVehiculeOdometer(models.Model):
   _order = 'date desc, value desc'
 
   company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company)
-  value = fields.Float('Odometro inicial', digits=(10, 2),
+  value = fields.Float(string='Inicial',
+    help="Odometro Inicial",
+    digits=(10, 2),
     store=True,
     readonly=False,
     group_operator="min")
-  value_final = fields.Float('Odometro final', digits=(10, 2),
+  value_final = fields.Float(string='Final',
+    digits=(10, 2),
+    help="Odometro Final",
     readonly=False,
     store=True,
     group_operator="max")
-  total_unidades = fields.Float("Total odometro",
+  total_unidades = fields.Float("Total",
+    help="Total odometro",
     digits=(10, 2),
     compute="_total_horas",
     group_operator="sum",
@@ -45,8 +50,12 @@ class FleetVehiculeOdometer(models.Model):
   able_to_modify_odometer = fields.Boolean(compute='set_access_for_odometer', string='Is user able to modify product?')
   tiene_adjunto = fields.Boolean(compute='_set_adjunto')
   gal = fields.Float(string="Galones")
-  liq_id = fields.Many2one('fleet.vehicle.work.liq', 'liquidacion Trabajo')
-  liq_driver_id = fields.Many2one('fleet.vehicle.driver.liq', 'liquidacion Conductor')
+  liq_id = fields.Many2one('fleet.vehicle.work.liq',
+    'liquidacion Trabajo',
+    domain="[('work_id','=',work_id)]")
+  liq_driver_id = fields.Many2one('fleet.vehicle.driver.liq',
+    'liquidacion Conductor',
+    domain="[('driver_id','=',driver_id)]")
 
   def _set_adjunto(self):
     for reg in self:
@@ -80,6 +89,13 @@ class FleetVehiculeOdometer(models.Model):
   def _onchange_date(self):
     for rec in self:
       if rec.date:
+        fecha_actual = fields.Date.context_today(rec)
+        if rec.date > fecha_actual:
+          return {
+            'warning': {'title': 'Error:',
+                        'message': 'Fecha es mayor que la fecha actual', },
+            'value': {'date': fecha_actual},
+          }
         registro = rec.env['fleet.vehicle.odometer'].search([
           ('vehicle_id', '=', rec.vehicle_id.id),
           ('tipo_odometro', '=', rec.tipo_odometro),
@@ -88,14 +104,13 @@ class FleetVehiculeOdometer(models.Model):
           limit=1)
         rec.value = (registro.value_final or 0)
 
+
+
   @api.depends('value', 'value_final', 'total_unidades')
   def _total_horas(self):
     for record in self:
       if record.value_final != 0:
         record.total_unidades = (record.value_final or 0) - (record.value or 0)
-      # record.total_standby = record.total_unidades if record.total_unidades >= record.unidades_standby else record.unidades_standby
-      # record.valor_unidades = record.total_unidades * record.precio_unidad
-      # record.valor_standby = record.total_standby * record.precio_unidad
 
   @api.onchange('recibo')
   def _onchange_inv_ref(self):

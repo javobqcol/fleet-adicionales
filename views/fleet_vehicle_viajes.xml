@@ -11,15 +11,17 @@
             <group col="2">
               <group>
                  <field name="vehicle_id"
-                       string="Vehiculo"/>
+                       string="Vehiculo" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="driver_id"
                        string="Conductor"/>
                 <field name="company_id"
                        string="Compañia"
                        groups="base.group_multi_company"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                <field name="work_id" string="Trabajo"/>
-                <field name="material_id"/>
+                <field name="work_id"
+                       string="Trabajo"
+                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <field name="material_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <label for="m3"/>
                 <div class="o_row">
                   <field name="m3" digits="[10,2]"/>
@@ -39,8 +41,14 @@
                 <field name="galones" digits="[10,2]"/>
                 <field name="viajes" />
                 <field name="total_cantidad" digits="[10,2]" groups="fleet.fleet_group_manager"/>
-                <field name="liq_id" string="liq Trabajo"  groups="base.group_multi_company"/>
-                <field name="liq_driver_id" string="Liq conductor." groups="base.group_multi_company"/>
+                <field name="liq_id"
+                       string="liq Trabajo"
+                       groups="fleet.fleet_group_manager"
+                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <field name="liq_driver_id"
+                       string="Liq conductor."
+                       groups="fleet.fleet_group_manager"
+                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
               </group>
             </group>
             <notebook>
@@ -60,7 +68,10 @@
       <field name="name">fleet.vehicle.viaje.tree</field>
       <field name="model">fleet.vehicle.viaje</field>
       <field name="arch" type="xml">
-        <tree string="Viajes" decoration-muted="liq_id != False" >
+        <tree string="Viajes"
+              decoration-success="liq_id != False"
+              decoration-primary ="liq_driver_id != False"
+              decoration-muted="(liq_id != False) and (liq_driver_id != False)">
           <field name="date" string="Fecha"/>
           <field name="vehicle_id" string="Vehiculo"/>
           <field name="driver_id" string="Conductor" optional="show"/>
@@ -116,6 +127,13 @@
                 filter_domain="[('material_id','ilike',self)]"/>
          <field name="liq_id"
                 string="Liquidacion"/>
+         <filter name="Viajes sin cancelar"
+                 string="Viajes sin cancelar conductor"
+                 domain="[('liq_driver_id', '=', False)]"/>
+         <separator/>
+         <filter name="Viajes sin Facturar"
+                 string="Viajes sin facturar Empresa"
+                 domain="[('liq_id', '=', False)]"/>
          <group expand="1" string="Agrupado por">
            <filter name="groupby_company_id"
                    context="{'group_by': 'company_id'}"

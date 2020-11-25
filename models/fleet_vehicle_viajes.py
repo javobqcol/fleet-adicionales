@@ -33,17 +33,21 @@ class FleetVehiculeViaje(models.Model):
     ('ton', 'Tonelada'),
     ('Hor', 'Horas')
   ], 'Unidades material', default='m3', help='Unidades de material trasportado', required=True)
-  viajes = fields.Integer('Cantidad de viajes', default=1)
+  viajes = fields.Integer(string='Viajes', default=1, help="Cantidad e viajes")
   cantera_id = fields.Many2one('res.partner', 'Origen')
   destino_id = fields.Many2one('res.partner', 'Destino')
-  recibo_cantera = fields.Char('Recibo cantera')
-  recibo_interno = fields.Char('Recibo interno')
-  Km_inicial = fields.Float('Kilometro inicial')
-  Km_final = fields.Float('Kilometro Final')
-  galones = fields.Float('Galones', digits='Volume')
+  recibo_cantera = fields.Char(string='Recibo cantera')
+  recibo_interno = fields.Char(string='Recibo interno')
+  Km_inicial = fields.Float(string='Kilometro inicial')
+  Km_final = fields.Float(string='Kilometro Final')
+  galones = fields.Float(string='Galones', digits='Volume')
   descripcion = fields.Text(string='Notas',
     placeholder='Cualquier informacion pertinente respecto a los viajes del dia')
-  total_cantidad = fields.Float('Total trasportado', digits='Volume', readonly=False, store=True, compute='_total_material_trasportado')
+  total_cantidad = fields.Float(string='Cantidad',
+    digits='Volume',
+    readonly=False,
+    store=True,
+    compute='_total_material_trasportado')
   documentos_ids = fields.Many2many(
     'ir.attachment',
     'fleet_vehicle_viajes_attachment_rel',
@@ -51,8 +55,12 @@ class FleetVehiculeViaje(models.Model):
     'attachment_id',
     string='Recibos')
   tiene_adjunto = fields.Boolean(compute='_set_adjunto')
-  liq_id = fields.Many2one('fleet.vehicle.work.liq', 'liquidacion Trabajo')
-  liq_driver_id = fields.Many2one('fleet.vehicle.driver.liq', 'liquidacion Conductor')
+  liq_id = fields.Many2one('fleet.vehicle.work.liq',
+    'liquidacion Trabajo',
+    domain="[('work_id','=',work_id)]")
+  liq_driver_id = fields.Many2one('fleet.vehicle.driver.liq',
+    'liquidacion Conductor',
+    domain="[('driver_id','=',driver_id)]")
 
 
   def _set_adjunto(self):
@@ -87,8 +95,10 @@ class FleetVehiculeViaje(models.Model):
       rec.total_cantidad = total
 
   @api.constrains('date', 'cantera_id', 'destino_id')
-  def _check_date(self):
+  def _onchange_date(self):
     for record in self:
+      if record.date > fields.Date.context_today(record):
+        raise ValidationError("Error, inconsistente registrar viajes a futuro")
       if not record.date:
         raise ValidationError("Error, Debe dar un valor de fecha")
       if not record.cantera_id:
@@ -97,6 +107,17 @@ class FleetVehiculeViaje(models.Model):
         raise ValidationError("Error, Debe dar un valor de destino, si es viaje interno "
                               "especifique destino igual al origen")
 
+  @api.onchange('date')
+  def _onchange_date(self):
+    for record in self:
+      if record.date:
+        fecha_actual = fields.Date.context_today(record)
+        if record.date > fecha_actual:
+          return {
+            'warning': {'title': 'Error:',
+                        'message': 'No se pueden dar viajes a futuro', },
+            'value': {'date': fecha_actual},
+          }
 
   @api.onchange('recibo_cantera')
   def _onchange_recibo_cantera(self):

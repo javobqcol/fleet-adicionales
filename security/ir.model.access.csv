@@ -26,12 +26,12 @@ fl_ve_lo_fu_ac_ri_user_read,fl_ve_lo_fu_ac_ri_user_read,fleet.model_fleet_vehicl
 ac_fl_ve_as_lo_fl_gr_user_read,fleet_vehicle_assignation_log_user_read fleet_group_user_read,fleet.model_fleet_vehicle_assignation_log,fleet_group_user_read,1,0,0,0
 fl_re_pa_user_read,fl_re_pa_user_read,model_res_partner,fleet_group_user_read,1,0,0,0
 ve_wo_fac_user_read,ve_wo_fac_user_read,model_fleet_vehicle_work,fleet_group_user_read,1,0,0,0
-ve_wo_fac_user,ve_wo_fac_user,model_fleet_vehicle_work,fleet.fleet_group_user,1,1,1,0
+ve_wo_fac_user,ve_wo_fac_user,model_fleet_vehicle_work,fleet.fleet_group_user,1,0,0,0
 ve_wo_fac_admin,ve_wo_fac_admin,model_fleet_vehicle_work,fleet.fleet_group_manager,1,1,1,1
 fl_ve_lo_co_ac_ri_user_rwc,fl_ve_lo_co_ac_ri_user_rwc,fleet.model_fleet_vehicle_log_contract,fleet_group_user_rwc,1,1,1,0
 fl_ve_lo_se_ac_ri_user_rwc,fl_ve_lo_se_ac_ri_user_rwc,fleet.model_fleet_vehicle_log_services,fleet_group_user_rwc,1,1,1,0
 ve_wo_det_user_read,ve_wo_det_user_read,model_fleet_vehicle_work_det,fleet_group_user_read,1,0,0,0
-ve_wo_det_user,ve_wo_det_user,model_fleet_vehicle_work_det,fleet.fleet_group_user,1,1,0,0
+ve_wo_det_user,ve_wo_det_user,model_fleet_vehicle_work_det,fleet.fleet_group_user,1,0,0,0
 ve_wo_det_admin,ve_wo_det_admin,model_fleet_vehicle_work_det,fleet.fleet_group_manager,1,1,1,1
 fl_ve_te_user_read,fl_ve_te_user_read,model_fleet_vehicle_template,fleet_group_user_read,1,0,0,0
 fl_ve_te_user,fl_ve_te_user,model_fleet_vehicle_template,fleet.fleet_group_user,1,1,0,0
@@ -58,10 +58,10 @@ fl_ve_pr_li_user_read,fl_ve_pr_li_user_read,model_fleet_vehicle_product_line,fle
 fl_ve_pr_li_user,fl_ve_pr_li_user,model_fleet_vehicle_product_line,fleet.fleet_group_user,1,1,1,0
 fl_ve_pr_li_admin,fl_ve_pr_li_admin,model_fleet_vehicle_product_line,fleet.fleet_group_manager,1,1,1,1
 fl_ve_wo_li_user_read,fl_ve_wo_li_user_read,model_fleet_vehicle_work_liq,fleet_group_user_read,1,0,0,0
-fl_ve_wo_li_user,fl_ve_wo_li_user,model_fleet_vehicle_work_liq,fleet.fleet_group_user,1,1,1,0
+fl_ve_wo_li_user,fl_ve_wo_li_user,model_fleet_vehicle_work_liq,fleet.fleet_group_user,1,0,0,0
 fl_ve_wo_li_admin,fl_ve_wo_li_admin,model_fleet_vehicle_work_liq,fleet.fleet_group_manager,1,1,1,1
 fl_ve_li_user_read,fl_ve_li_user_read,model_fleet_vehicle_liquidacion,fleet_group_user_read,1,0,0,0
-fl_ve_li_user,fl_ve_li_user,model_fleet_vehicle_liquidacion,fleet.fleet_group_user,1,1,1,0
+fl_ve_li_user,fl_ve_li_user,model_fleet_vehicle_liquidacion,fleet.fleet_group_user,1,0,0,0
 fl_ve_li_admin,fl_ve_li_admin,model_fleet_vehicle_liquidacion,fleet.fleet_group_manager,1,1,1,1
 fleet.fleet_vehicle_odometer_access_right,fleet_vehicle_odometer_access_right,fleet.model_fleet_vehicle_odometer,fleet.fleet_group_user,1,1,1,0
 fl_ve_od_admin,fl_ve_od_admin,fleet.model_fleet_vehicle_odometer,fleet.fleet_group_manager,1,1,1,1

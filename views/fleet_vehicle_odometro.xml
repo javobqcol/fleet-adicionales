@@ -34,19 +34,16 @@
                   <field name="unit" class="oe_inline"/>
                 </div>
                 <field name="gal" string="Galones" class="oe_inline"/>
-<!--                <field name="total_<unidades"-->
-<!--                       string="Diferencia"-->
-<!--                       class="oe_inline"-->
-<!--                       attrs="{'readonly' : [('able_to_modify_odometer','=',False)]}"/>-->
                 <field name="es_standby" groups="fleet.fleet_group_manager"/>
                 <field name="hora_cancelada" groups="fleet.fleet_group_manager"/>
-                <field name="liq_id" string="liq Trabajo"  groups="base.group_multi_company"/>
-                <field name="liq_driver_id" string="Liq conductor." groups="base.group_multi_company"/>
-<!--                <field name="unidades_standby" invisible="1"/>-->
-<!--                <field name="precio_unidad" invisible="1"/>-->
-<!--                <field name="valor_unidades" invisible="1"/>-->
-<!--                <field name="valor_standby" invisible="1"/>-->
-              </group>
+                <field name="liq_id"
+                       string="liq Trabajo"
+                       groups="fleet.fleet_group_manager"
+                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <field name="liq_driver_id"
+                       string="Liq conductor."
+                       groups="fleet.fleet_group_manager"
+                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>              </group>
             </group>
             <notebook>
               <page string="Notas">
@@ -67,9 +64,11 @@
       <field name="model">fleet.vehicle.odometer</field>
       <field name="arch" type="xml">
         <tree string="Registro de odometro"
-              decoration-muted="liq_id != False"
+              decoration-success="liq_id != False"
+              decoration-primary ="liq_driver_id != False"
+              decoration-muted="(liq_id != False) and (liq_driver_id != False)"
               decoration-info="tipo_odometro == 'fuel'"
-              decoration-primary="tipo_odometro =='services'" >
+              decoration-warning="tipo_odometro == 'services'" >
           <field name="date" string="fecha"/>
           <field name="vehicle_id" optional="show" string="Vehiculo"/>
           <field name="company_id"  optional="show" string="Compañia" groups="base.group_multi_company"/>
@@ -133,6 +132,14 @@
           <field name="work_id" string="Trabajo"/>
           <field name="value" string="Odometro"/>
           <field name="date" string="Fecha"/>
+          <filter name="Horas sin cancelar"
+                  string="Horas sin cancelar operador"
+                  domain="[('liq_driver_id', '=', False)]"/>
+          <separator/>
+          <filter name="Horas sin Facturar"
+                  string="Horas sin facturar Empresa"
+                  domain="[('liq_id', '=', False)]"/>
+
           <group expand="1" string="Agrupado por">
             <filter name="groupby_company_id" context="{'group_by': 'company_id'}" string="Compañia" groups="base.group_multi_company"/>
             <filter name="groupby_vehicle_id" context="{'group_by': 'vehicle_id'}" string="Vehiculo"/>
