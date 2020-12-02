@@ -103,7 +103,8 @@ class FleetVehicle(models.Model):
     LogMonitor = self.env['fleet.vehicle.monitor.log']
     LogViajes = self.env['fleet.vehicle.viaje']
     for record in self:
-      record.odometer_count =sum(Odometer.search([('vehicle_id', '=', record.id), ('liq_id', '=', False)]).mapped('total_unidades'))
+      record.odometer_count = sum(Odometer.search([('vehicle_id', '=', record.id),
+                                                   ('liq_id', '=', False)]).mapped('total_unidades'))
       record.fuel_logs_count = LogFuel.search_count([('vehicle_id', '=', record.id)])
       record.service_count = LogService.search_count([('vehicle_id', '=', record.id)])
       record.contract_count = LogContract.search_count([('vehicle_id', '=', record.id), ('state', '!=', 'closed')])
