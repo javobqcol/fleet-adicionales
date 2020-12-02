@@ -11,6 +11,7 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+# para ver
 
 class FleetVehicle(models.Model):
   _inherit = 'fleet.vehicle'
@@ -57,6 +58,7 @@ class FleetVehicle(models.Model):
   falta_para_mtto = fields.Float(String="falta para mtto", compute='_get_last_odometer_service', readonly=True)
   falta = fields.Float(string="falta", store=False, readonly=True)
   col = fields.Char(compute='_get_last_odometer_service', store=False)
+  odometer_count = fields.Float(compute="_compute_count_all", string='Odometro')
   servicio_ultimo_mtto = fields.Many2one('fleet.vehicle.log.services',
     string="Ultimo mtto preventivo",
     readonly=True,
@@ -101,14 +103,14 @@ class FleetVehicle(models.Model):
     LogMonitor = self.env['fleet.vehicle.monitor.log']
     LogViajes = self.env['fleet.vehicle.viaje']
     for record in self:
-      record.odometer_count = Odometer.search_count([('vehicle_id', '=', record.id)])
+      record.odometer_count =sum(Odometer.search([('vehicle_id', '=', record.id), ('liq_id', '=', False)]).mapped('total_unidades'))
       record.fuel_logs_count = LogFuel.search_count([('vehicle_id', '=', record.id)])
       record.service_count = LogService.search_count([('vehicle_id', '=', record.id)])
       record.contract_count = LogContract.search_count([('vehicle_id', '=', record.id), ('state', '!=', 'closed')])
       record.cost_count = Cost.search_count([('vehicle_id', '=', record.id), ('parent_id', '=', False)])
       record.history_count = self.env['fleet.vehicle.assignation.log'].search_count([('vehicle_id', '=', record.id)])
       record.monitor_count = LogMonitor.search_count([('vehicle_id', '=', record.id)])
-      record.viajes_count = sum(LogViajes.search([('vehicle_id', '=', record.id)]).mapped('viajes'))
+      record.viajes_count = sum(LogViajes.search([('vehicle_id', '=', record.id), ('liq_id', '=', False)]).mapped('viajes'))
 
   def open_monitor_logs(self):
     self.ensure_one()
