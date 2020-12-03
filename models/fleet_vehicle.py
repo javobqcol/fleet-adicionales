@@ -78,6 +78,8 @@ class FleetVehicle(models.Model):
   partes_ids = fields.One2many('fleet.vehicle.monitor', 'vehicle_id', string="Partes")
 
 
+
+
   def on_partes_server_action(self):
     registros = self.search([], order="vehicle_type_id")
     _logger.warning("registros %s" % (registros.ids))
