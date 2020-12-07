@@ -124,11 +124,9 @@
       <field name="model">fleet.vehicle.odometer</field>
       <field name="arch" type="xml">
         <search string="Odometros de los vehiculos" >
-          <field name="vehicle_id" string="Vehiculo"
-                 filter_domain="[('vehicle_id.name','ilike',self)]"/>
+          <field name="vehicle_id" string="Vehiculo"/>
           <field name="recibo" string="Recibo"/>
-          <field name="driver_id" string="Conductor"
-                 filter_domain="[('driver_id.name','ilike',self)]"/>
+          <field name="driver_id" string="Conductor"/>
           <field name="work_id" string="Trabajo"/>
           <field name="value" string="Odometro"/>
           <field name="date" string="Fecha"/>
@@ -139,6 +137,10 @@
           <filter name="Horas sin Facturar"
                   string="Horas sin facturar Empresa"
                   domain="[('liq_id', '=', False)]"/>
+          <separator/>
+          <filter name="odometro"
+                 string="Odometro"
+                 domain="[('tipo_odometro', '=', 'odometer')]"/>
 
           <group expand="1" string="Agrupado por">
             <filter name="groupby_company_id" context="{'group_by': 'company_id'}" string="Compañia" groups="base.group_multi_company"/>
@@ -150,6 +152,20 @@
         </search>
       </field>
     </record>
+
+    <record id='fleet_vehicle_odometer_view_pivot' model='ir.ui.view'>
+      <field name="name">fleet.vehicle.odometer.pivot</field>
+      <field name="model">fleet.vehicle.odometer</field>
+      <field name="arch" type="xml">
+        <pivot string="Odometro de maquinaria" >
+          <field name="work_id" type="row"/>
+          <field name="vehicle_id" type="row"/>
+          <field name="date" interval="day" type="col"/>
+          <field name="total_unidades" string="Horas" type="measure"/>
+        </pivot>
+      </field>
+    </record>
+
 
     <record id="fleet.fleet_vehicle_odometer_view_graph" model="ir.ui.view">
      <field name="name">fleet.vehicle.odometer.graph</field>
@@ -165,8 +181,8 @@
     <record id='fleet.fleet_vehicle_odometer_action' model='ir.actions.act_window'>
       <field name="name">Odometros de los Vehiculos</field>
       <field name="res_model">fleet.vehicle.odometer</field>
-      <field name="view_mode">tree,form,kanban,graph</field>
-      <field name="context">{"search_default_groupby_vehicle" : True}</field>
+      <field name="view_mode">tree,form,kanban,graph,pivot</field>
+      <field name="context">{"search_default_groupby_vehicle_id":True, "search_default_odometro":True}</field>
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
           Cree unanueva entrada de odometro
