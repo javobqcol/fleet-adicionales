@@ -139,12 +139,12 @@
                    context="{'group_by': 'company_id'}"
                    string="Compañia"
                    groups="base.group_multi_company"/>
-           <filter name="groupby_vehicle_id"
-                   context="{'group_by': 'vehicle_id'}"
-                   string="Vehiculo"/>
            <filter name="groupby_driver_id"
                    context="{'group_by': 'driver_id'}"
                    string="Conductor"/>
+           <filter name="groupby_vehicle_id"
+                   context="{'group_by': 'vehicle_id'}"
+                   string="Vehiculo"/>
            <filter name="groupby_work_id"
                    context="{'group_by': 'work_id'}"
                    string="Trabajo"/>
@@ -176,6 +176,10 @@
       <field name="res_model">fleet.vehicle.viaje</field>
       <field name="view_mode">tree,form,pivot</field>
       <field name="search_view_id" ref="fleet_vehicle_viaje_view_search"/>
+      <field name="context">{
+        "search_default_groupby_driver_id":True,
+        "search_default_groupby_vehicle_id":True}
+      </field>
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
           Ingrese un nuevo viaje de vehiculo

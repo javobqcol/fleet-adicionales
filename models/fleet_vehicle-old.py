@@ -223,14 +223,14 @@ class LicenciaResPartner(models.Model):
 
         params = self.env['ir.config_parameter'].sudo()
         delay_alert = int(params.get_param('hr_fleet.delay_alert_contract', default=30))
-        print('delay_alert', delay_alert)
+      #  print('delay_alert', delay_alert)
         date_today = fields.Date.from_string(fields.Date.today())
-        print('date_today', date_today)
+       # print('date_today', date_today)
         outdated_days = fields.Date.to_string(date_today + relativedelta(days=+delay_alert))
-        print('outdated_days', outdated_days)
+     #   print('outdated_days', outdated_days)
 
         licencias_proximas_vencer = self.search([('state', '=', '2.active'), ('fecha_final', '<', outdated_days)])
-        print('licencias_proximas_vencer', licencias_proximas_vencer)
+      #  print('licencias_proximas_vencer', licencias_proximas_vencer)
         licencias_proximas_vencer.write({'state': '3.diesoon'})
         for licencia in licencias_proximas_vencer:
             licencia.do_enviar_correo()

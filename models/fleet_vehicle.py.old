@@ -161,8 +161,8 @@ class FleetVehicle(models.Model):
     vehiculos_activos = self.search([])
 
     for mtto in vehiculos_activos:
-      print (mtto.state_id.id != mtto_urgente.id)
-      print (mtto.state_id.id,' ', mtto_urgente.id)
+      #print (mtto.state_id.id != mtto_urgente.id)
+      #print (mtto.state_id.id,' ', mtto_urgente.id)
       if (mtto.falta_para_mtto < 0.0) and (mtto.state_id.id != mtto_urgente.id) :
         mtto.write({'state_id': mtto_urgente.id})
         mtto.do_enviar_correo()

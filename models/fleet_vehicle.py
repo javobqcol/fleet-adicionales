@@ -182,7 +182,7 @@ class FleetVehicle(models.Model):
     for rec in self:
       if rec.vehicle_type_id:
         rec.odometer_unit = rec.vehicle_type_id.unidades
-        print("rec.vehicle_type_id.unidades==========", rec.vehicle_type_id.unidades)
+        #print("rec.vehicle_type_id.unidades==========", rec.vehicle_type_id.unidades)
         rec.mtto_cada = rec.vehicle_type_id.mtto_cada
         rec.aviso_a = rec.vehicle_type_id.aviso_a
         rec.falta = (rec.mtto_cada or 0) - (rec.aviso_a or 0)
@@ -280,8 +280,8 @@ class FleetVehicle(models.Model):
     vehiculos_activos = self.search([])
 
     for mtto in vehiculos_activos:
-      print(mtto.state_id.id!=mtto_urgente.id)
-      print(mtto.state_id.id, ' ', mtto_urgente.id)
+    #  print(mtto.state_id.id!=mtto_urgente.id)
+    #  print(mtto.state_id.id, ' ', mtto_urgente.id)
       if (mtto.falta_para_mtto < 0.0) and (mtto.state_id.id!=mtto_urgente.id):
         mtto.write({'state_id': mtto_urgente.id})
         mtto.do_enviar_correo(correo_vehicles, cc_todo)

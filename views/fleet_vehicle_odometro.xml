@@ -144,9 +144,9 @@
 
           <group expand="1" string="Agrupado por">
             <filter name="groupby_company_id" context="{'group_by': 'company_id'}" string="Compañia" groups="base.group_multi_company"/>
+            <filter name="groupby_driver_id" context="{'group_by': 'driver_id'}" string="Conductor"/>
             <filter name="groupby_vehicle_id" context="{'group_by': 'vehicle_id'}" string="Vehiculo"/>
             <filter name="groupby_date" context="{'group_by':'date:month'}" string="Fecha"/>
-            <filter name="groupby_driver_id" context="{'group_by': 'driver_id'}" string="Conductor"/>
             <filter name="groupby_work" context="{'group_by': 'work_id'}" string="Trabajo"/>
           </group>
         </search>
@@ -182,7 +182,11 @@
       <field name="name">Odometros de los Vehiculos</field>
       <field name="res_model">fleet.vehicle.odometer</field>
       <field name="view_mode">tree,form,kanban,graph,pivot</field>
-      <field name="context">{"search_default_groupby_vehicle_id":True, "search_default_odometro":True}</field>
+      <field name="context">{
+        "search_default_groupby_driver_id":True,
+        "search_default_groupby_vehicle_id":True,
+        "search_default_odometro":True}
+      </field>
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
           Cree unanueva entrada de odometro

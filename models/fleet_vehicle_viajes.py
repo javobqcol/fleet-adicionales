@@ -20,12 +20,12 @@ class FleetVehiculeViaje(models.Model):
   company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company)
   vehicle_id = fields.Many2one('fleet.vehicle',
     string='Vehiculo',
-    domain="[('vehicle_type_id.code', '=', 'vehiculo')]")
+    domain="[('vehicle_type_id.code', '=', 'vehiculo')]", ondelete='restrict')
   work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo',
-    domain="[('state', '=', 'activo'), ('detalle_ids.vehicle_id', '=', vehicle_id)]")
-  driver_id = fields.Many2one('res.partner', string='Conductor')
+    domain="[('state', '=', 'activo'), ('detalle_ids.vehicle_id', '=', vehicle_id)]", ondelete='restrict')
+  driver_id = fields.Many2one('res.partner', string='Conductor', ondelete='restrict')
   date = fields.Date(string='Fecha viaje')
-  material_id = fields.Many2one('fleet.vehicle.material', 'Material')
+  material_id = fields.Many2one('fleet.vehicle.material', 'Material', ondelete='restrict')
   km_recorridos = fields.Float('Kilometros recorridos', readonly=False, store=True, compute='_cantidad_viajes')
   m3 = fields.Float(string='Cantidad material', digits='Volume', help='Cantidad material transportado')
   unidad = fields.Selection([
@@ -34,8 +34,8 @@ class FleetVehiculeViaje(models.Model):
     ('Hor', 'Horas')
   ], 'Unidades material', default='m3', help='Unidades de material trasportado', required=True)
   viajes = fields.Integer(string='Viajes', default=1, help="Cantidad e viajes")
-  cantera_id = fields.Many2one('res.partner', 'Origen')
-  destino_id = fields.Many2one('res.partner', 'Destino')
+  cantera_id = fields.Many2one('res.partner', 'Origen', ondelete='restrict')
+  destino_id = fields.Many2one('res.partner', 'Destino', ondelete='restrict')
   recibo_cantera = fields.Char(string='Recibo cantera')
   recibo_interno = fields.Char(string='Recibo interno')
   Km_inicial = fields.Float(string='Kilometro inicial')
@@ -57,10 +57,10 @@ class FleetVehiculeViaje(models.Model):
   tiene_adjunto = fields.Boolean(compute='_set_adjunto')
   liq_id = fields.Many2one('fleet.vehicle.work.liq',
     'liquidacion Trabajo',
-    domain="[('work_id','=',work_id)]")
+    domain="[('work_id','=',work_id)]", ondelete='restrict')
   liq_driver_id = fields.Many2one('fleet.vehicle.driver.liq',
     'liquidacion Conductor',
-    domain="[('driver_id','=',driver_id)]")
+    domain="[('driver_id','=',driver_id)]", ondelete='restrict')
 
 
   def _set_adjunto(self):
