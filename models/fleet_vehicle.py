@@ -11,7 +11,6 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
-# para ver
 
 class FleetVehicle(models.Model):
   _inherit = 'fleet.vehicle'
