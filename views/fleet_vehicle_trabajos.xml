@@ -131,7 +131,7 @@
       <field name="arch" type="xml">
         <tree string="Trabajos" decoration-muted="liquidado == True">
           <field name="name_seq"/>
-          <field name="work_id" />
+          <field name="work_id"/>
           <field name="company_id" groups="base.group_multi_company"/>
           <field name="date"/>
           <field name="date_end"/>
@@ -157,8 +157,7 @@
                 groups="base.group_multi_company"
                 filter_domain="[('company_id.name','ilike',self)]"/>
          <field name="work_id"
-                string="Nombre del trabajo"
-                filter_domain="[('work_id', 'ilike', self)]"/>
+                string="Nombre trabajo"/>
          <field name="viaje_ids" string = "Maquinaria / volquetas"
                 filter_domain="['|',
                 ('viaje_ids.vehicle_id.name', 'ilike',self),
@@ -224,8 +223,7 @@
                 groups="base.group_multi_company"
                 filter_domain="[('company_id.name','ilike',self)]"/>
          <field name="alias_work"
-                string="Nombre del trabajo"
-                filter_domain="[('display_name,'ilike',self)]"/>
+                string="Nombre trabajo"/>
          <field name="detalle_ids"
                 string="Vehiculos"
                 filter_domain="[('detalle_ids.vehicle_id.name','ilike',self)]"/>
