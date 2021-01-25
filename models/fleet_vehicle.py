@@ -337,6 +337,7 @@ class VehicleColor(models.Model):
 class VehicleWork(models.Model):
   _name = 'fleet.vehicle.work'
   _description = 'Fecha inicial, fecha final, estado del trabajo'
+  _order = 'name_seq desc'
 
   name_seq = fields.Char(string='Consecutivo',
     required=True,

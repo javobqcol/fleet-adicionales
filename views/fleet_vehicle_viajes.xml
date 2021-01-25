@@ -22,10 +22,18 @@
                        string="Trabajo"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="material_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+                <field name="unidad"/>
                 <label for="m3"/>
                 <div class="o_row">
-                  <field name="m3" digits="[10,2]"/>
-                  <field name="unidad"/>
+                  <field name="inicial" digits="[10,2]" attrs="{'invisible': [('unidad', '!=', 'ton')]}"/>
+                  <field name="final" digits="[10,2]" attrs="{'invisible': [('unidad', '!=', 'ton')]}"/>
+
+                  <field name="m3"
+                         string='Peso Inicial/final/total'
+                         digits="[10,2]"
+                         attrs="{'invisible': [('unidad', '!=', 'ton')]}"/>
+
+                  <field name="m3" digits="[10,2]" attrs="{'invisible': [('unidad', '=', 'ton')]}"/>
                 </div>
                 <field name="cantera_id" placeholder="Sitio de carga"/>
                 <field name="destino_id" placeholder="Sitio de descarga"/>
@@ -84,7 +92,9 @@
           <field name="material_id" string="Material" optional="show"/>
           <field name="viajes" string="Viajes" sum="Total viajes" optional="show"/>
           <field name="km_recorridos" string="KM" sum="Total KM" optional="hide"/>
-          <field name="total_cantidad" string="Cant" digits="[10,2]" optional="show"/>
+          <field name="total_cantidad" string="Cant" digits="[10,2]" sum="Total cantidad" optional="show"/>
+          <field name="unidad" string="Unidad" optional="show"/>
+
           <field name="tiene_adjunto" string="Adj?" optional="show"/>
           <field name="liq_id" string="liq" optional="hide" groups="base.group_multi_company"/>
           <field name="liq_driver_id" string="Liq cond." optional="hide" groups="base.group_multi_company"/>
@@ -97,44 +107,33 @@
      <field name="model">fleet.vehicle.viaje</field>
      <field name="arch" type="xml">
        <search string="Viajes diarios realizados por los automotores">
-         <field name="vehicle_id"
-                string="Vehiculo"
-                filter_domain="[('vehicle_id','ilike',self)]"/>
-         <field name="recibo_interno"
-                string="Recibo interno"
-                filter_domain="[('recibo_interno','ilike',self)]"/>
-         <field name="recibo_cantera"
-                string="Recibo cantera"
-                filter_domain="[('recibo_cantera','ilike',self)]"/>
-         <field name="company_id"
-                string="Compañia"
-                groups="base.group_multi_company"
-                filter_domain="[('company_id.name','ilike',self)]"/>
-         <field name="work_id"
-                string="Trabajo"
-                filter_domain="[('work_id','ilike',self)]"/>
-         <field name="driver_id"
-                string="Conductor"
-                filter_domain="[('driver_id','ilike',self)]"/>
-         <field name="cantera_id"
-                string="Origen"
-                filter_domain="[('cantera_id','ilike',self)]"/>
-         <field name="destino_id"
-                string="Destino"
-                filter_domain="[('destino_id','ilike',self)]"/>
-         <field name="material_id"
-                string="Material trasportado"
-                filter_domain="[('material_id','ilike',self)]"/>
-         <field name="liq_id"
-                string="Liquidacion"/>
+         <field name="vehicle_id" string="Vehiculo"/>
+         <field name="recibo_interno" string="Recibo interno"/>
+         <field name="recibo_cantera" string="Recibo cantera"/>
+         <field name="company_id" string="Compañia"/>
+         <field name="work_id" string="Trabajo"/>
+         <field name="driver_id" string="Conductor"/>
+         <field name="cantera_id" string="Origen"/>
+         <field name="destino_id" string="Destino"/>
+         <field name="material_id" string="Material trasportado"/>
+         <field name="liq_id" string="Liquidacion"/>
          <filter name="Viajes sin cancelar"
                  string="Viajes sin cancelar conductor"
                  domain="[('liq_driver_id', '=', False)]"/>
+         <filter name="Viajes cancelados"
+                 string="Viajes cancelados conductor"
+                 domain="[('liq_driver_id', '!=', False)]"/>
          <separator/>
-         <filter name="Viajes sin Facturar"
-                 string="Viajes sin facturar Empresa"
+         <filter name="Viajes sin facturar"
+                 string="Viajes sin facturar empresa"
                  domain="[('liq_id', '=', False)]"/>
+         <filter name="Viajes facturados"
+                 string="Viajes facturados empresa"
+                 domain="[('liq_id', '!=', False)]"/>
          <group expand="1" string="Agrupado por">
+           <filter name="groupby_date"
+                   string="Fecha"
+                   context="{'group_by': 'date:day'}" />
            <filter name="groupby_company_id"
                    context="{'group_by': 'company_id'}"
                    string="Compañia"
@@ -151,6 +150,9 @@
            <filter name="groupby_material_id"
                    context="{'group_by': 'material_id'}"
                    string="Material"/>
+           <filter name="groupby_unidad"
+                   context="{'group_by': 'unidad'}"
+                   string="Unidad"/>
          </group>
        </search>
      </field>

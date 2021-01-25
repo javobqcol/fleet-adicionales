@@ -146,20 +146,13 @@
       <field name="model">fleet.vehicle.log.services</field>
       <field name="arch" type="xml">
         <search string="Bitacora de servicios">
-          <field name="vehicle_id" string="Vehiculo"
-                 filter_domain="['|',('vehicle_id.name','ilike',self), ('vehicle_id.vehicle_type_id.name', 'ilike', self)]"/>
-           <field name="name_seq" string="Consecutivo"
-                 filter_domain="[('name_seq','ilike',self)]"/>
-          <field name="vendor_id" string="Proveedor"
-                 filter_domain="[('vendor_id','ilike',self)]"/>
-          <field name="company_id" string="Compañia" groups="base.group_multi_company"
-                 filter_domain="[('company_id','ilike',self)]"/>
-          <field name="inv_ref" string="Referencia factura"
-                 filter_domain="[('inv_ref','ilike',self)]"/>
-          <field name="work_id" string="Trabajo"
-                     filter_domain="['|',('work_id.name_seq','ilike',self), ('work_id.contractor_id.name','ilike',self)]"/>
-          <field name="cost_subtype_id" string="Servicio"
-                     filter_domain="['|',('cost_subtype_id','ilike',self), ('cost_ids.cost_subtype_id','ilike',self)]"/>
+          <field name="vehicle_id" string="Vehiculo"/>
+           <field name="name_seq" string="Consecutivo"/>
+          <field name="vendor_id" string="Proveedor"/>
+          <field name="company_id" string="Compañia" groups="base.group_multi_company"/>
+          <field name="inv_ref" string="Referencia factura"/>
+          <field name="work_id" string="Trabajo"/>
+          <field name="cost_subtype_id" string="Servicio"/>
           <field name="parts_ids" string="Parte"
                      filter_domain="['|',('parts_ids.product_id.name','ilike',self), ('parts_ids.product_id.default_code','ilike',self)]"/>
           <group expand="1" string="Agrupado por">

@@ -27,12 +27,19 @@ class FleetVehiculeViaje(models.Model):
   date = fields.Date(string='Fecha viaje')
   material_id = fields.Many2one('fleet.vehicle.material', 'Material', ondelete='restrict')
   km_recorridos = fields.Float('Kilometros recorridos', readonly=False, store=True, compute='_cantidad_viajes')
-  m3 = fields.Float(string='Cantidad material', digits='Volume', help='Cantidad material transportado')
+  m3 = fields.Float(string='Cantidad',
+    compute='_diferencia',
+    readonly=False,
+    store=True,
+    digits='Volume',
+    help='Cantidad transportada por viaje')
+  inicial = fields.Float(string='Inicial', digits='Volume', help='Peso vacio')
+  final = fields.Float(string='Final', digits='Volume', help='Peso cargado')
   unidad = fields.Selection([
     ('m3', 'Metro cubico'),
     ('ton', 'Tonelada'),
     ('Hor', 'Horas')
-  ], 'Unidades material', default='m3', help='Unidades de material trasportado', required=True)
+  ], 'Unidad', default='m3', help='Unidades de material trasportado', required=True)
   viajes = fields.Integer(string='Viajes', default=1, help="Cantidad e viajes")
   cantera_id = fields.Many2one('res.partner', 'Origen', ondelete='restrict')
   destino_id = fields.Many2one('res.partner', 'Destino', ondelete='restrict')
@@ -43,7 +50,7 @@ class FleetVehiculeViaje(models.Model):
   galones = fields.Float(string='Galones', digits='Volume')
   descripcion = fields.Text(string='Notas',
     placeholder='Cualquier informacion pertinente respecto a los viajes del dia')
-  total_cantidad = fields.Float(string='Cantidad',
+  total_cantidad = fields.Float(string='Total Trasp.',
     digits='Volume',
     readonly=False,
     store=True,
@@ -62,12 +69,36 @@ class FleetVehiculeViaje(models.Model):
     'liquidacion Conductor',
     domain="[('driver_id','=',driver_id)]", ondelete='restrict')
 
+  @api.model
+  def default_get(self, default_fields):
+    res = super().default_get(default_fields)
+    res.update({
+        'inicial': self.vehicle_id.peso or 0
+    })
+    return res
+
+  @api.depends('inicial', 'final')
+  def _diferencia(self):
+    for rec in self:
+      if rec.unidad == 'ton':
+        resultado = (rec.final or 0) - (rec.inicial or 0)
+        rec.m3 = resultado if resultado > 0 else 0
 
   def _set_adjunto(self):
     for reg in self:
       reg.tiene_adjunto = False
       if reg.documentos_ids:
         reg.tiene_adjunto = True
+
+  @api.onchange('unidad')
+  def _onchange_unidad(self):
+    for reg in self:
+      if reg.unidad == 'ton':
+        reg.inicial = reg.vehicle_id.peso or 0
+        reg.m3 = 0
+      else:
+        reg.m3 = reg.vehicle_id.cubicaje
+
 
   @api.onchange('vehicle_id')
   def _onchange_vehicle(self):
@@ -86,13 +117,12 @@ class FleetVehiculeViaje(models.Model):
   def _cantidad_viajes(self):
     for rec in self:
       km_recorridos = (rec.Km_final or 0) - (rec.Km_inicial or 0)
-      rec.km_recorridos = km_recorridos
+      rec.km_recorridos = km_recorridos if km_recorridos > 0 else 0
 
   @api.depends('m3', 'viajes')
   def _total_material_trasportado(self):
     for rec in self:
-      total = (rec.m3 or 0) * (rec.viajes or 0)
-      rec.total_cantidad = total
+      rec.total_cantidad = (rec.m3 or 0) * (rec.viajes or 0)
 
   @api.constrains('date', 'cantera_id', 'destino_id')
   def _onchange_date(self):

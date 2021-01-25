@@ -148,14 +148,10 @@
      <field name="model">fleet.vehicle.work.liq</field>
      <field name="arch" type="xml">
        <search string="Trabajos realizados por los automotores">
-         <field name="name_seq"
-                string="Consecutivo"
-                filter_domain="[('name_seq','ilike',self)]"/>
-
+         <field name="name_seq" string="Consecutivo"/>
          <field name="company_id"
                 string="Compañia"
-                groups="base.group_multi_company"
-                filter_domain="[('company_id.name','ilike',self)]"/>
+                groups="base.group_multi_company"/>
          <field name="work_id"
                 string="Nombre trabajo"/>
          <field name="viaje_ids" string = "Maquinaria / volquetas"
@@ -322,7 +318,7 @@
       <field name="name">fleet.vehicle.driver.liq.tree</field>
       <field name="model">fleet.vehicle.driver.liq</field>
       <field name="arch" type="xml">
-        <tree string="Trabajos" decoration-muted="liquidado == True">
+        <tree string="Trabajos" decoration-primary="liquidado == True">
           <field name="name_seq"/>
           <field name="company_id" groups="base.group_multi_company"/>
           <field name="driver_id" />
