@@ -28,7 +28,14 @@ class FleetVehiculeOdometer(models.Model):
     digits=(10, 2),
     compute="_total_horas",
     group_operator="sum",
-    readonly=False,
+    readonly=False, copy=False,
+    store=True)
+  total_standby = fields.Float("Total",
+    help="Total standby",
+    digits=(10, 2),
+    compute="_total_horas",
+    group_operator="sum",
+    readonly=False, copy=False,
     store=True)
   date = fields.Date(string='Fecha', default=False)
   work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo',
@@ -47,7 +54,7 @@ class FleetVehiculeOdometer(models.Model):
     'attachment_id',
     string='Recibos')
   odometer_unit = fields.Char(string="unidades horometro")
-  able_to_modify_odometer = fields.Boolean(compute='set_access_for_odometer', string='Is user able to modify product?')
+  # able_to_modify_odometer = fields.Boolean(compute='set_access_for_odometer', string='Is user able to modify product?')
   tiene_adjunto = fields.Boolean(compute='_set_adjunto')
   gal = fields.Float(string="Galones")
   liq_id = fields.Many2one('fleet.vehicle.work.liq',
@@ -73,14 +80,15 @@ class FleetVehiculeOdometer(models.Model):
         rec.driver_id = rec.vehicle_id.driver_id.id
 
 
+
  # codigo ok adicional colocar force_save="1" en campo
 
-  def set_access_for_odometer(self):
-    for record in self:
-      record['able_to_modify_odometer'] = False
-      if self.env.user.has_group('fleet.fleet_group_manager'):
-        record['able_to_modify_odometer'] = True
-    #
+  # def set_access_for_odometer(self):
+  #   for record in self:
+  #     record['able_to_modify_odometer'] = False
+  #     if self.env.user.has_group('fleet.fleet_group_manager'):
+  #       record['able_to_modify_odometer'] = True
+  #   #
     # for reg in self:
     #   # reg.able_to_modify_odometer = reg.env['res.users'].has_group('fleet.fleet_group_manager')
     #   reg.able_to_modify_odometer = True
@@ -109,8 +117,26 @@ class FleetVehiculeOdometer(models.Model):
   @api.depends('value', 'value_final', 'total_unidades')
   def _total_horas(self):
     for record in self:
+      registro = record.env['fleet.vehicle.work.det'].search([
+        ('vehicle_id', '=', record.vehicle_id.id),
+        ('work_id', '=', record.work_id.id),
+        ('inactivo', '=', False)], limit=1)
       if record.value_final != 0:
         record.total_unidades = (record.value_final or 0) - (record.value or 0)
+        record.total_standby = record.total_unidades
+        if record.es_standby and registro.standby and record.total_unidades < registro.standby:
+          record.total_standby = registro.unidades_standby
+
+
+  @api.onchange('work_id')
+  def _onchange_work_id(self):
+    for reg in self:
+      registro = reg.env['fleet.vehicle.work.det'].search([
+        ('vehicle_id', '=', reg.vehicle_id.id),
+        ('work_id', '=', reg.work_id.id),
+        ('inactivo', '=', False)], limit=1)
+
+      reg.es_standby = registro.standby
 
   @api.onchange('recibo')
   def _onchange_inv_ref(self):

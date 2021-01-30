@@ -77,12 +77,17 @@ class FleetVehiculeViaje(models.Model):
     })
     return res
 
+
   @api.depends('inicial', 'final')
   def _diferencia(self):
     for rec in self:
       if rec.unidad == 'ton':
         resultado = (rec.final or 0) - (rec.inicial or 0)
         rec.m3 = resultado if resultado > 0 else 0
+      elif rec.unidad == 'm3':
+        rec.m3 = rec.vehicle_id.cubicaje
+      else:
+        rec.m3 = 0.0
 
   def _set_adjunto(self):
     for reg in self:

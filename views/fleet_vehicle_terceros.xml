@@ -69,15 +69,23 @@
         <xpath expr="//notebook/page[1]" position ="before">
           <page string="Licencia Conduccion" autofocus="autofocus" attrs="{'invisible':[('is_company','=',True)]}" >
             <field name="licencia_id" nolabel="1" attrs="{'readonly':[('licencia_cancelada','=',True)]}" >
-              <tree editable="top"
+              <tree string="Licencias"
                     decoration-warning="state == 'diesoon'"
                     decoration-danger="state =='inactive'"
                     decoration-muted="state =='cancel'">
                 <field name="licencia_id" required="1"/>
                 <field name="fecha_inicio"/>
                 <field name="fecha_final"/>
-                <field name="state" readonly="1"/>
+                <field name="state" readonly="1" force_save="1"/>
               </tree>
+              <form string="Licencia">
+                <group>
+                  <field name="licencia_id" required="1"/>
+                  <field name="fecha_inicio"/>
+                  <field name="fecha_final"/>
+                  <field name="state" readonly="1" force_save="1"/>
+                </group>
+              </form>
             </field>
           </page>
           <page string="Documentos Adjuntos" attrs="{'invisible':[('is_company','=',True)]}" >

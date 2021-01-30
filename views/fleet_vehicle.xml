@@ -217,6 +217,9 @@
           <attribute name="decoration-warning">(contract_renewal_due_soon and not contract_renewal_overdue) or (col=='amarillo')</attribute>
           <attribute name="decoration-danger">(contract_renewal_overdue) or (col=='rojo')</attribute>
         </xpath>
+        <field name="license_plate" position="after">
+          <field name="vehicle_type_id"/>
+        </field>
         <field name="acquisition_date" position="after">
           <field name="col" invisible="1"/>
           <field name="odometer" string="Odometro"/>

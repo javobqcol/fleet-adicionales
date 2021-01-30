@@ -74,22 +74,22 @@
                            options="{'no_open': True, 'create': false, 'create_edit': false}" />
                        <field name="is_deliver" invisible="1"/>
                     </tree>
-                      <form string="Partes">
-                        <group>
-                          <field name='product_id' string="Part No" required="1"
-                           attrs="{'readonly':[('is_deliver','=',True)]}"
-                           options="{'no_open': False, 'create': True, 'create_edit': True}"/>
-                          <field name="qty_hand" readonly="1" force_save="1"/>
-                          <field name='qty' required="1" attrs="{'readonly':[('is_deliver','=',True)]}"/>
-                          <field name='product_uom' attrs="{'readonly':[('is_deliver','=',True)]}" required="1"/>
-                          <field name='price_unit' attrs="{'readonly':[('is_deliver','=',True)]}"/>
-                          <field name='total' readonly="1" force_save="1"/>
-                          <field name="date_issued"/>
-                          <field name="issued_by" readonly="1"
-                           options="{'no_open': True, 'create': false, 'create_edit': false}" />
-                          <field name="is_deliver" invisible="1"/>
-                        </group>
-                      </form>
+                    <form string="Partes">
+                      <group>
+                        <field name='product_id' string="Part No" required="1"
+                         attrs="{'readonly':[('is_deliver','=',True)]}"
+                         options="{'no_open': False, 'create': True, 'create_edit': True}"/>
+                        <field name="qty_hand" readonly="1" force_save="1"/>
+                        <field name='qty' required="1" attrs="{'readonly':[('is_deliver','=',True)]}"/>
+                        <field name='product_uom' attrs="{'readonly':[('is_deliver','=',True)]}" required="1"/>
+                        <field name='price_unit' attrs="{'readonly':[('is_deliver','=',True)]}"/>
+                        <field name='total' readonly="1" force_save="1"/>
+                        <field name="date_issued"/>
+                        <field name="issued_by" readonly="1"
+                         options="{'no_open': True, 'create': false, 'create_edit': false}" />
+                        <field name="is_deliver" invisible="1"/>
+                      </group>
+                    </form>
                   </field>
                 </group>
                 <group class="oe_subtotal_footer oe_right" col="2">
@@ -183,7 +183,8 @@
       <field name="name">Registro de servicios a vehiculos</field>
       <field name="res_model">fleet.vehicle.log.services</field>
       <field name="view_mode">tree,kanban,form,graph</field>
-      <field name="context">{"search_default_groupby_vehicle_id" : True}</field>
+<!--      <field name="context">{"search_default_groupby_vehicle_id" : True}</field>-->
+      <field name="context"></field>
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
           Ingrese un nuevo servicio

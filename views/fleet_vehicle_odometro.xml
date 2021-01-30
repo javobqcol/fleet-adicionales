@@ -10,7 +10,7 @@
           <sheet>
             <group col="2">
               <group>
-                <field name="able_to_modify_odometer" invisible="1" />
+<!--                <field name="able_to_modify_odometer" invisible="1" />-->
                 <field name="vehicle_id" string="Vehiculo"/>
                 <field name="driver_id" string="Conductor"/>
                 <field name="company_id"
@@ -32,6 +32,7 @@
                 <div class="o_row">
                   <field name="total_unidades" string="Diferencia" class="oe_inline"/>
                   <field name="unit" class="oe_inline"/>
+                  <field name="total_standby" string="Standby" invisible="1"/>
                 </div>
                 <field name="gal" string="Galones" class="oe_inline"/>
                 <field name="es_standby" groups="fleet.fleet_group_manager"/>
@@ -68,7 +69,7 @@
               decoration-primary ="liq_driver_id != False"
               decoration-muted="(liq_id != False) and (liq_driver_id != False)"
               decoration-info="tipo_odometro == 'fuel'"
-              decoration-warning="tipo_odometro == 'services'" >
+              decoration-warning="(tipo_odometro == 'services') and (total_unidades != total_standby)" >
           <field name="date" string="fecha"/>
           <field name="vehicle_id" optional="show" string="Vehiculo"/>
           <field name="company_id"  optional="show" string="Compañia" groups="base.group_multi_company"/>
@@ -79,6 +80,7 @@
           <field name="value" string="Od. Inicial" class="oe_inline"/>
           <field name="value_final" string="Od. Final" class="oe_inline"/>
           <field name="total_unidades" sum="suma Unidades" string="Dif." class="oe_inline"/>
+          <field name="total_standby" sum="suma standby" string="Stand." optional="hide" class="oe_inline"/>
           <field name="unit" class="oe_inline"/>
           <field name="gal" optional="show" sum="Suma galones"/>
           <field name="es_standby" invisible="1"/>
@@ -199,11 +201,12 @@
       <field name="name">Odometros de los Vehiculos</field>
       <field name="res_model">fleet.vehicle.odometer</field>
       <field name="view_mode">tree,form,kanban,graph,pivot</field>
-      <field name="context">{
-        "search_default_groupby_driver_id":True,
-        "search_default_groupby_vehicle_id":True,
-        "search_default_odometro":True}
-      </field>
+<!--      <field name="context">{-->
+<!--        "search_default_groupby_driver_id":True,-->
+<!--        "search_default_groupby_vehicle_id":True,-->
+<!--        "search_default_odometro":True}-->
+<!--      </field>-->
+      <field name="context"></field>
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
           Cree unanueva entrada de odometro
