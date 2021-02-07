@@ -34,22 +34,22 @@ class FleetVehiculeViaje(models.Model):
     digits='Volume',
     help='Cantidad transportada por viaje')
   inicial = fields.Float(string='Inicial', digits='Volume', help='Peso vacio')
-  final = fields.Float(string='Final', digits='Volume', help='Peso cargado')
+  final = fields.Float(string='Final', digits='Volume', help='Peso cargado', copy=False)
   unidad = fields.Selection([
     ('m3', 'Metro cubico'),
     ('ton', 'Tonelada'),
     ('Hor', 'Horas')
   ], 'Unidad', default='m3', help='Unidades de material trasportado', required=True)
-  viajes = fields.Integer(string='Viajes', default=1, help="Cantidad e viajes")
+  viajes = fields.Integer(string='Viajes', default=1, help="Cantidad e viajes", copy=False)
   cantera_id = fields.Many2one('res.partner', 'Origen', ondelete='restrict')
   destino_id = fields.Many2one('res.partner', 'Destino', ondelete='restrict')
-  recibo_cantera = fields.Char(string='Recibo cantera')
-  recibo_interno = fields.Char(string='Recibo interno')
-  Km_inicial = fields.Float(string='Kilometro inicial')
-  Km_final = fields.Float(string='Kilometro Final')
-  galones = fields.Float(string='Galones', digits='Volume')
+  recibo_cantera = fields.Char(string='Recibo cantera', copy=False)
+  recibo_interno = fields.Char(string='Recibo interno', copy=False)
+  Km_inicial = fields.Float(string='Kilometro inicial', copy=False)
+  Km_final = fields.Float(string='Kilometro Final', copy=False)
+  galones = fields.Float(string='Galones', digits='Volume', copy=False)
   descripcion = fields.Text(string='Notas',
-    placeholder='Cualquier informacion pertinente respecto a los viajes del dia')
+    placeholder='Cualquier informacion pertinente respecto a los viajes del dia', copy=False)
   total_cantidad = fields.Float(string='Total Trasp.',
     digits='Volume',
     readonly=False,
@@ -60,14 +60,14 @@ class FleetVehiculeViaje(models.Model):
     'fleet_vehicle_viajes_attachment_rel',
     'viajes_id',
     'attachment_id',
-    string='Recibos')
+    string='Recibos', copy=False)
   tiene_adjunto = fields.Boolean(compute='_set_adjunto')
   liq_id = fields.Many2one('fleet.vehicle.work.liq',
     'liquidacion Trabajo',
-    domain="[('work_id','=',work_id)]", ondelete='restrict')
+    domain="[('work_id','=',work_id)]", ondelete='restrict', copy=False)
   liq_driver_id = fields.Many2one('fleet.vehicle.driver.liq',
     'liquidacion Conductor',
-    domain="[('driver_id','=',driver_id)]", ondelete='restrict')
+    domain="[('driver_id','=',driver_id)]", ondelete='restrict', copy=False)
 
   @api.model
   def default_get(self, default_fields):
