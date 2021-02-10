@@ -69,7 +69,7 @@
               decoration-primary ="liq_driver_id != False"
               decoration-muted="(liq_id != False) and (liq_driver_id != False)"
               decoration-info="tipo_odometro == 'fuel'"
-              decoration-warning="(tipo_odometro == 'services') and (total_unidades != total_standby)" >
+              decoration-warning="(tipo_odometro == 'services') or (total_unidades != total_standby)" >
           <field name="date" string="fecha"/>
           <field name="vehicle_id" optional="show" string="Vehiculo"/>
           <field name="company_id"  optional="show" string="Compañia" groups="base.group_multi_company"/>
