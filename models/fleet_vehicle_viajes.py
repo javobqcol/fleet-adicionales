@@ -20,11 +20,13 @@ class FleetVehiculeViaje(models.Model):
   company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company)
   vehicle_id = fields.Many2one('fleet.vehicle',
     string='Vehiculo',
-    domain="[('vehicle_type_id.code', '=', 'vehiculo')]", ondelete='restrict')
+    domain="[('vehicle_type_id.code', '=', 'vehiculo')]",
+    ondelete='restrict',
+    required=True)
   work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo',
     domain="[('state', '=', 'activo'), ('detalle_ids.vehicle_id', '=', vehicle_id)]", ondelete='restrict')
   driver_id = fields.Many2one('res.partner', string='Conductor', ondelete='restrict')
-  date = fields.Date(string='Fecha viaje')
+  date = fields.Date(string='Fecha viaje', required=True)
   material_id = fields.Many2one('fleet.vehicle.material', 'Material', ondelete='restrict')
   km_recorridos = fields.Float('Kilometros recorridos', readonly=False, store=True, compute='_cantidad_viajes')
   m3 = fields.Float(string='Cantidad',
