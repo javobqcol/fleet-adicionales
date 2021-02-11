@@ -179,7 +179,26 @@ class FleetVehiculeViaje(models.Model):
           warning = {'title': 'Atención:',
                      'message': 'En el sistema hay un recibo  de %s con el numero %s'
                                 % (hay_recibo.material_id.name or "", reg.recibo_interno or ""),
-                     'type': 'notification'}
+                     }
           res.update({'warning': warning})
       return res
 
+  @api.onchange('recibo_cantera')
+  def _onchange_recibo_cantera(self):
+    res = {}
+    for reg in self:
+      if reg.recibo_cantera:
+        reg.recibo_cantera = reg.recibo_cantera.upper()
+        reg.recibo_cantera = " ".join(reg.recibo_cantera.split())
+        hay_recibo = self.search([
+          ('cantera_id', '=', reg.cantera_id.id),
+          ('recibo_cantera', '=', reg.recibo_cantera),
+          ('work_id', '=', reg.work_id.id),
+        ])
+        if hay_recibo:
+          warning = {'title': 'Atención:',
+                     'message': 'En el sistema hay un recibo de la cantera: %s, material %s, con el numero %s'
+                                % (hay_recibo.cantera_id.name or " ", hay_recibo.material_id.name or "", reg.recibo_cantera or ""),
+                     }
+          res.update({'warning': warning})
+      return res
