@@ -35,8 +35,8 @@
 
                   <field name="m3" digits="[10,2]" attrs="{'invisible': [('unidad', '=', 'ton')]}"/>
                 </div>
-                <field name="cantera_id" placeholder="Sitio de carga"/>
-                <field name="destino_id" placeholder="Sitio de descarga"/>
+                <field name="cantera_id" placeholder="Sitio de carga" options="{'no_quick_create':True}"/>
+                <field name="destino_id" placeholder="Sitio de descarga" options="{'no_quick_create':True}"/>
 
               </group>
               <group>
