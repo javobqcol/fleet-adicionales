@@ -151,8 +151,7 @@ class FleetVehicleLogServices(models.Model):
                 if hay_recibo:
                     warning = {'title': 'Atención:',
                                'message': 'En el sistema hay un recibo de servicio del  proveedor %s con el numero %s'
-                                          % (reg.vendor_id.name or "", reg.inv_ref or ""),
-                               'type': 'notification'}
+                                          % (reg.vendor_id.name or "", reg.inv_ref or "")}
                     res.update({'warning': warning})
             return res
 

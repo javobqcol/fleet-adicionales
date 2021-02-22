@@ -151,8 +151,7 @@ class FleetVehiculeOdometer(models.Model):
         ])
         if hay_recibo:
           warning = {'title': 'Atención:',
-                     'message': 'En el sistema hay un recibo interno con el numero %s' % (reg.recibo),
-                     'type': 'notification'}
+                     'message': 'En el sistema hay un recibo interno con el numero %s' % (reg.recibo)}
           res.update({'warning': warning})
       return res
 
