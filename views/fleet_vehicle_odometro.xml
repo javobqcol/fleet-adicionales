@@ -144,7 +144,7 @@
                   domain="[('liq_id', '=', False)]"/>
           <filter name="Horas facturadas"
                   string="Horas facturardas empresa"
-                  domain="[('liq_id', '=', False)]"/>
+                  domain="[('liq_id', '!=', False)]"/>
           <separator/>
           <filter name="odometro"
                  string="Odometro"
