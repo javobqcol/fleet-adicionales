@@ -41,8 +41,7 @@ class FleetVehiculeOdometer(models.Model):
                                 readonly=False, copy=False,
                                 store=True)
   date = fields.Date(string='Fecha',
-                     default=False,
-                     copy=False)
+                     default=False)
   work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo',
     domain="[('state','=','activo'),('detalle_ids.vehicle_id','=',vehicle_id),('detalle_ids.inactivo','=',False)]")
   driver_id = fields.Many2one('res.partner', related=None, string="Conductor", required=False)
