@@ -12,24 +12,27 @@ class FleetVehiculeOdometer(models.Model):
 
   company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company)
   value = fields.Float(string='Inicial',
-    help="Odometro Inicial",
-    digits=(10, 2),
-    store=True,
-    readonly=False,
-    group_operator="min")
+                       help="Odometro Inicial",
+                       digits=(10, 2),
+                       store=True,
+                       readonly=False,
+                       group_operator="min",
+                       copy=False)
   value_final = fields.Float(string='Final',
-    digits=(10, 2),
-    help="Odometro Final",
-    readonly=False,
-    store=True,
-    group_operator="max")
+                             digits=(10, 2),
+                             help="Odometro Final",
+                             readonly=False,
+                             store=True,
+                             copy=False,
+                             group_operator="max")
   total_unidades = fields.Float("Total",
-    help="Total odometro",
-    digits=(10, 2),
-    compute="_total_horas",
-    group_operator="sum",
-    readonly=False, copy=False,
-    store=True)
+                                help="Total odometro",
+                                digits=(10, 2),
+                                compute="_total_horas",
+                                group_operator="sum",
+                                readonly=False,
+                                copy=False,
+                                store=True)
   total_standby = fields.Float("Total",
     help="Total standby",
     digits=(10, 2),
