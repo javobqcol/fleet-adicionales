@@ -34,13 +34,15 @@ class FleetVehiculeOdometer(models.Model):
                                 copy=False,
                                 store=True)
   total_standby = fields.Float("Total",
-    help="Total standby",
-    digits=(10, 2),
-    compute="_total_horas",
-    group_operator="sum",
-    readonly=False, copy=False,
-    store=True)
-  date = fields.Date(string='Fecha', default=False)
+                                help="Total standby",
+                                digits=(10, 2),
+                                compute="_total_horas",
+                                group_operator="sum",
+                                readonly=False, copy=False,
+                                store=True)
+  date = fields.Date(string='Fecha',
+                     default=False,
+                     copy=False)
   work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo',
     domain="[('state','=','activo'),('detalle_ids.vehicle_id','=',vehicle_id),('detalle_ids.inactivo','=',False)]")
   driver_id = fields.Many2one('res.partner', related=None, string="Conductor", required=False)
