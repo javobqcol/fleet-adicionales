@@ -32,12 +32,18 @@
                 <div class="o_row">
                   <field name="total_unidades" string="Diferencia" class="oe_inline"/>
                   <field name="unit" class="oe_inline"/>
-                  <field name="total_standby" string="Standby" invisible="1"/>
                 </div>
+
                 <field name="gal" string="Galones" class="oe_inline"/>
-                <field name="es_standby" groups="fleet.fleet_group_manager"/>
-                <field name="hora_cancelada" groups="fleet.fleet_group_manager"/>
-                <field name="liq_id"
+                <label for="es_standby"/>
+                <div class="o_row">
+                  <field name="es_standby"/>
+                  <field name="motivo" attrs="{'invisible': [('es_standby', '=', False)]}"/>
+                </div>
+                <field name="total_standby"
+                       string="Horas standby"
+                       attrs="{'invisible': [('es_standby', '=', False)]}"/>
+                 <field name="liq_id"
                        string="liq Trabajo"
                        groups="fleet.fleet_group_manager"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
@@ -84,7 +90,6 @@
           <field name="unit" class="oe_inline"/>
           <field name="gal" optional="show" sum="Suma galones"/>
           <field name="es_standby" invisible="1"/>
-          <field name="hora_cancelada" invisible="1"/>
           <field name="tiene_adjunto" string="Adj?" optional="show"/>
           <field name="liq_id" string="liq" optional="hide" groups="base.group_multi_company"/>
           <field name="liq_driver_id" string="Liq cond." optional="hide" groups="base.group_multi_company"/>
