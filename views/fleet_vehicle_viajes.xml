@@ -177,7 +177,7 @@
       <field name="name">Registro de viajes de los vehiculos</field>
       <field name="res_model">fleet.vehicle.viaje</field>
       <field name="view_mode">tree,form,pivot</field>
-     < <field name="search_view_id" ref="fleet_vehicle_viaje_view_search"/>>
+      <field name="search_view_id" ref="fleet_vehicle_viaje_view_search"/>
 <!--      <field name="context">{-->
 <!--        "search_default_groupby_driver_id":True,-->
 <!--        "search_default_groupby_vehicle_id":True}-->
