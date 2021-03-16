@@ -138,6 +138,9 @@
           <field name="work_id" string="Trabajo"/>
           <field name="value" string="Odometro"/>
           <field name="date" string="Fecha"/>
+          <field name="liq_id" string="Liquidacion trabajo"/>
+          <field name="liq_driver_id" string="Liquidacion conductor"/>
+
           <filter name="Horas sin cancelar"
                   string="Horas sin cancelar operador"
                   domain="[('liq_driver_id', '=', False)]"/>
@@ -207,7 +210,7 @@
       <field name="name">Odometros de los Vehiculos</field>
       <field name="res_model">fleet.vehicle.odometer</field>
       <field name="view_mode">tree,form,kanban,graph,pivot</field>
-       <field name="search_view_id" ref="fleet.fleet_vehicle_odometer_view_search"/>
+      <field name="search_view_id" ref="fleet.fleet_vehicle_odometer_view_search"/>
 <!--      <field name="context">{-->
 <!--        "search_default_groupby_driver_id":True,-->
 <!--        "search_default_groupby_vehicle_id":True,-->

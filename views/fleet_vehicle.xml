@@ -519,15 +519,11 @@
       <field name="name">fleet.vehicle.monitor.log.search</field>
       <field name="model">fleet.vehicle.monitor.log</field>
       <field name="arch" type="xml">
-        <search string="Vitacora de campios">
-          <field name="vehicle_id" string="Vehiculo"
-                 filter_domain="[('vehicle_id.name','ilike',self)]"/>
-          <field name="template_id" string="Parte"
-                 filter_domain="[('template_id.name','ilike',self)]"/>
-          <field name="product_id_old" string="Producto anterior"
-                 filter_domain="[('product_id_old.name','ilike',self)]"/>
-          <field name="product_id_new" string="Producto siguiente"
-                 filter_domain="[('product_id_new.name','ilike',self)]"/>
+        <search string="Vitacora de cammbios">
+          <field name="vehicle_id" string="Vehiculo"/>
+          <field name="template_id" string="Parte"/>
+          <field name="product_id_old" string="Producto anterior"/>
+          <field name="product_id_new" string="Producto siguiente"/>
 
           <group expand="1" string="Agrupado por">
             <filter name="groupby_fecha" context="{'group_by':'fecha:month'}" string="Fecha"/>
