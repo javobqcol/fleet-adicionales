@@ -17,7 +17,7 @@ class FleetVehicleLogContract(models.Model):
     'fleet_vehicle_contract_attachment_rel',
     'contract_id',
     'attachment_id',
-    string = 'Documentos contrato')
+    string='Documentos contrato')
   odometer = fields.Float(
     string='Odometro contrato',
     help='Digite el odometro al momento del contratar')
