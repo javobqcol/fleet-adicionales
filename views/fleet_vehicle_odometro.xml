@@ -87,7 +87,7 @@
           <field name="value" string="Od. Inicial" class="oe_inline"/>
           <field name="value_final" string="Od. Final" class="oe_inline"/>
           <field name="total_unidades" sum="suma Unidades" string="Dif." class="oe_inline"/>
-          <field name="total_standby" sum="suma standby" string="Stand." optional="hide" class="oe_inline"/>
+          <field name="total_standby" sum="suma standby" string="H + Sb" optional="hide" class="oe_inline"/>
           <field name="unit" class="oe_inline"/>
           <field name="gal" optional="show" sum="Suma galones"/>
           <field name="es_standby" invisible="1"/>
@@ -191,6 +191,7 @@
           <field name="vehicle_id" type="row"/>
           <field name="date" interval="day" type="col"/>
           <field name="total_unidades" string="Horas" type="measure"/>
+          <field name="total_standby" string="Horas + Sb" type="measure"/>
         </pivot>
       </field>
     </record>
