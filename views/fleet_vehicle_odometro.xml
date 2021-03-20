@@ -203,7 +203,7 @@
      <field name="arch" type="xml">
         <graph string="Odometer Values Per Vehicle">
           <field name="vehicle_id" string="Vehiculo" type="row"/>
-          <field name="value" string="Odometro" type="measure"/>
+          <field name="total_unidades" string="horas" type="measure"/>
         </graph>
       </field>
     </record>
