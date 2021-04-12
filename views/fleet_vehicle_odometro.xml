@@ -134,11 +134,11 @@
       <field name="arch" type="xml">
         <search string="Odometros de los vehiculos" >
           <field name="vehicle_id" string="Vehiculo"/>
+          <field name="date" string="Fecha"/>
           <field name="recibo" string="Recibo"/>
           <field name="driver_id" string="Conductor"/>
           <field name="work_id" string="Trabajo"/>
           <field name="value" string="Odometro"/>
-          <field name="date" string="Fecha"/>
           <field name="liq_id" string="Liquidacion trabajo"/>
           <field name="liq_driver_id" string="Liquidacion conductor"/>
 
