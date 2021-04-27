@@ -108,7 +108,7 @@
      <field name="arch" type="xml">
        <search string="Viajes diarios realizados por los automotores">
          <field name="vehicle_id" string="Vehiculo"/>
-         <field name="date" string="Fecha"/>
+         <field name="date" string="Fecha" filter_domain="[('date', '=', self)]"/>
          <field name="recibo_interno" string="Recibo interno"/>
          <field name="recibo_cantera" string="Recibo cantera"/>
          <field name="company_id" string="Compañia"/>

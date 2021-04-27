@@ -197,8 +197,8 @@ class FleetVehiculeViaje(models.Model):
         ])
         if hay_recibo:
           warning = {'title': 'Atención:',
-                     'message': 'En el sistema hay un recibo de la cantera: %s, material %s, con el número %s'
-                                % (hay_recibo.cantera_id.name or " ", hay_recibo.material_id.name or "", reg.recibo_cantera or ""),
+                     'message': 'En el sistema hay un recibo de la cantera: %s, con el número %s'
+                                % (hay_recibo.cantera_id.name or " ", reg.recibo_cantera or ""),
                      }
           res.update({'warning': warning})
       return res
