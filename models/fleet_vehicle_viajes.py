@@ -177,8 +177,8 @@ class FleetVehiculeViaje(models.Model):
         ])
         if (hay_recibo or 0) > 0:
           warning = {'title': 'Atención:',
-                     'message': 'En el sistema hay un recibo  de %s con el numero %s'
-                                % (reg.material_id.name or "", reg.recibo_interno or ""),
+                     'message': 'En el sistema hay un recibo con el numero %s'
+                                % (reg.recibo_interno or ""),
                      }
           res.update({'warning': warning})
       return res
