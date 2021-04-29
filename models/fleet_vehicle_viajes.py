@@ -171,14 +171,14 @@ class FleetVehiculeViaje(models.Model):
       if reg.recibo_interno:
         reg.recibo_interno = reg.recibo_interno.upper()
         reg.recibo_interno = " ".join(reg.recibo_interno.split())
-        hay_recibo = self.search([
+        hay_recibo = self.search_count([
           ('recibo_interno', '=', reg.recibo_interno),
           ('work_id', '=', reg.work_id.id),
         ])
-        if hay_recibo:
+        if (hay_recibo or 0) > 0:
           warning = {'title': 'Atención:',
                      'message': 'En el sistema hay un recibo  de %s con el numero %s'
-                                % (hay_recibo.material_id.name or "", reg.recibo_interno or ""),
+                                % (reg.material_id.name or "", reg.recibo_interno or ""),
                      }
           res.update({'warning': warning})
       return res
@@ -190,15 +190,15 @@ class FleetVehiculeViaje(models.Model):
       if reg.recibo_cantera:
         reg.recibo_cantera = reg.recibo_cantera.upper()
         reg.recibo_cantera = " ".join(reg.recibo_cantera.split())
-        hay_recibo = self.search([
+        hay_recibo = self.search_count([
           ('cantera_id', '=', reg.cantera_id.id),
           ('recibo_cantera', '=', reg.recibo_cantera),
           ('work_id', '=', reg.work_id.id),
         ])
-        if hay_recibo:
+        if (hay_recibo or 0) > 0:
           warning = {'title': 'Atención:',
                      'message': 'En el sistema hay un recibo de la cantera: %s, con el número %s'
-                                % (hay_recibo.cantera_id.name or " ", reg.recibo_cantera or ""),
+                                % (reg.cantera_id.name or " ", reg.recibo_cantera or ""),
                      }
           res.update({'warning': warning})
       return res
