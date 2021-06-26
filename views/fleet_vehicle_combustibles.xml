@@ -105,6 +105,7 @@
       <field name="arch" type="xml">
         <search string="Bitacora de combustible">
           <field name="vehicle_id" string="Vehiculo"/>
+          <field name="date" string="Fecha"/>
           <field name="vendor_id" string="Proveedor"/>
           <field name="company_id" string="Compañia" groups="base.group_multi_company"/>
           <field name="inv_ref" string="Numero factura"/>
