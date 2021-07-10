@@ -131,11 +131,13 @@ class FleetVehiculeOdometer(models.Model):
           ('inactivo', '=', False)], limit=1)
       if rec.value_final != 0:
         rec.total_unidades = (rec.value_final or 0) - (rec.value or 0)
-        rec.total_standby = det.unidades_standby if rec.total_unidades < det.unidades_standby else rec.total_unidades
+        rec.total_standby = rec.total_unidades
+    if (rec.motivo == 'ajeno') and (rec.total_unidades < det.unidades_standby):
+          rec.total_standby = det.unidades_standby
 
   @api.onchange('es_standby', 'motivo')
   def _total_standby(self):
-    for rec in self:
+     for rec in self:
       det = rec.env['fleet.vehicle.work.det'].search([
         ('vehicle_id', '=', rec.vehicle_id.id),
         ('work_id', '=', rec.work_id.id),
