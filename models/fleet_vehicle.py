@@ -383,7 +383,9 @@ class VehicleWork(models.Model):
     res = []
     for field in self:
       res.append(
-        (field.id, '%s (%s) / %s' % (field.name_seq, field.contractor_id.name, field.alias_work or "")))
+        (field.id, '%s (%s) / %s' % (field.name_seq,
+                                          field.contractor_id.name,
+                                          field.alias_work or "")))
     return res
 
   # @api.model
