@@ -18,8 +18,9 @@ class FleetVehicle(models.Model):
   responsable_id = fields.Many2one('res.users', 'Responsable')
   cubicaje = fields.Float('Cubicaje en M3')
   carga = fields.Float('Capacidad de carga en Kg')
-  multi_images = fields.One2many('multi.images2', 'vehicle_id',
-    'Multi Imagenes')
+  multi_images = fields.One2many('multi.images2',
+                                 'vehicle_id',
+                                 'Multi Imagenes')
   fleet_attach_ids = fields.Many2many('ir.attachment',
     'fleet_vehicle_attachment_rel',
     'vehicle_id', 'attachment_id',

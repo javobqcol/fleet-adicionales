@@ -2,106 +2,106 @@
 <odoo>
   <data>
 
-    <record id="fleet_group_user_read" model="res.groups">
-      <field name="name">Usuario solo lectura</field>
-      <field name="category_id" ref="base.module_category_human_resources_fleet"/>
-    </record>
+<!--    <record id="fleet_group_user_read" model="res.groups">-->
+<!--      <field name="name">Usuario solo lectura</field>-->
+<!--      <field name="category_id" ref="base.module_category_human_resources_fleet"/>-->
+<!--    </record>-->
 
-    <record model="ir.ui.menu" id="fleet.menu_root">
-      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>
-    </record>
+<!--    <record model="ir.ui.menu" id="fleet.menu_root">-->
+<!--      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>-->
+<!--    </record>-->
 
-    <record model="ir.ui.menu" id="fleet.fleet_vehicle_menu">
-      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>
-    </record>
+<!--    <record model="ir.ui.menu" id="fleet.fleet_vehicle_menu">-->
+<!--      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>-->
+<!--    </record>-->
 
-    <record model="ir.ui.menu" id="fleet.fleet_vehicle_log_contract_menu">
-      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>
-    </record>
+<!--    <record model="ir.ui.menu" id="fleet.fleet_vehicle_log_contract_menu">-->
+<!--      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>-->
+<!--    </record>-->
 
-    <record model="ir.ui.menu" id="fleet.fleet_vehicle_model_menu">
-      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>
-    </record>
+<!--    <record model="ir.ui.menu" id="fleet.fleet_vehicle_model_menu">-->
+<!--      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>-->
+<!--    </record>-->
 
-    <record model="ir.ui.menu" id="fleet.fleet_vehicle_odometer_menu">
-      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>
-    </record>
+<!--    <record model="ir.ui.menu" id="fleet.fleet_vehicle_odometer_menu">-->
+<!--      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>-->
+<!--    </record>-->
 
-    <record model="ir.ui.menu" id="fleet.fleet_vehicle_log_services_menu">
-      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>
-    </record>
+<!--    <record model="ir.ui.menu" id="fleet.fleet_vehicle_log_services_menu">-->
+<!--      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>-->
+<!--    </record>-->
 
-    <record model="ir.ui.menu" id="fleet.fleet_vehicle_log_fuel_menu">
-      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>
-    </record>
+<!--    <record model="ir.ui.menu" id="fleet.fleet_vehicle_log_fuel_menu">-->
+<!--      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>-->
+<!--    </record>-->
 
-    <record model="ir.ui.menu" id="fleet.fleet_vehicle_log_contract_menu">
-      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>
-    </record>
+<!--    <record model="ir.ui.menu" id="fleet.fleet_vehicle_log_contract_menu">-->
+<!--      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>-->
+<!--    </record>-->
 
-    <record model="ir.ui.menu" id="fleet.fleet_vehicle_costs_menu">
-      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>
-    </record>
+<!--    <record model="ir.ui.menu" id="fleet.fleet_vehicle_costs_menu">-->
+<!--      <field name="groups_id" eval="[(4, ref('fleet_group_user_read'))]"/>-->
+<!--    </record>-->
 
-   <record id="fleet_group_user_rwc" model="res.groups">
-      <field name="name">Usuario general</field>
-      <field name="category_id" ref="base.module_category_human_resources_fleet"/>
-      <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_user'))]"/>
-    </record>
-   <record id="fleet_rule_contract_visibility_user" model="ir.rule">
-      <field name="name">User can only see his/her contracts</field>
-      <field name="model_id" ref="model_fleet_vehicle_log_contract"/>
-      <field name="groups" eval="[(4, ref('fleet_group_user_rwc'))]"/>
-      <field name="perm_read" eval="True"/>
-      <field name="perm_write" eval="False"/>
-      <field name="perm_create" eval="False"/>
-      <field name="perm_unlink" eval="False"/>
-    </record>
-    <record id="fleet_rule_cost_visibility_user" model="ir.rule">
-      <field name="name">User can only see his/her costs</field>
-      <field name="model_id" ref="model_fleet_vehicle_cost"/>
-      <field name="groups" eval="[(4, ref('fleet_group_user_rwc'))]"/>
-      <field name="perm_read" eval="True"/>
-      <field name="perm_write" eval="True"/>
-      <field name="perm_create" eval="True"/>
-      <field name="perm_unlink" eval="False"/>
-    </record>
-    <record id="fleet_rule_service_visibility_user" model="ir.rule">
-      <field name="name">User can only see his/her vehicle's services</field>
-      <field name="model_id" ref="model_fleet_vehicle_log_services"/>
-      <field name="groups" eval="[(4, ref('fleet_group_user_rwc'))]"/>
-      <field name="perm_read" eval="True"/>
-      <field name="perm_write" eval="False"/>
-      <field name="perm_create" eval="False"/>
-      <field name="perm_unlink" eval="False"/>
-    </record>
-    <record id="fleet_rule_odometer_visibility_user" model="ir.rule">
-      <field name="name">User can only see his/her vehicle's odometer</field>
-      <field name="model_id" ref="model_fleet_vehicle_odometer"/>
-      <field name="groups" eval="[(4, ref('fleet_group_user_rwc'))]"/>
-      <field name="perm_read" eval="True"/>
-      <field name="perm_write" eval="True"/>
-      <field name="perm_create" eval="True"/>
-      <field name="perm_unlink" eval="True"/>
-    </record>
-    <record id="fleet_rule_fuel_log_visibility_user" model="ir.rule">
-      <field name="name">User can only see his/her vehicle's fuel log</field>
-      <field name="model_id" ref="model_fleet_vehicle_log_fuel"/>
-      <field name="groups" eval="[(4, ref('fleet_group_user_rwc'))]"/>
-      <field name="perm_read" eval="True"/>
-      <field name="perm_write" eval="True"/>
-      <field name="perm_create" eval="True"/>
-      <field name="perm_unlink" eval="True"/>
-    </record>
-    <record id="fleet_rule_vehicle_visibility_user" model="ir.rule">
-      <field name="name">User can only see his/her vehicle</field>
-      <field name="model_id" ref="model_fleet_vehicle"/>
-      <field name="groups" eval="[(4, ref('fleet_group_user_rwc'))]"/>
-      <field name="perm_read" eval="True"/>
-      <field name="perm_write" eval="True"/>
-      <field name="perm_create" eval="False"/>
-      <field name="perm_unlink" eval="False"/>
-    </record>
+<!--   <record id="fleet_group_user_rwc" model="res.groups">-->
+<!--      <field name="name">Usuario general</field>-->
+<!--      <field name="category_id" ref="base.module_category_human_resources_fleet"/>-->
+<!--      <field name="implied_ids" eval="[(4, ref('fleet.fleet_group_user'))]"/>-->
+<!--    </record>-->
+<!--   <record id="fleet_rule_contract_visibility_user" model="ir.rule">-->
+<!--      <field name="name">User can only see his/her contracts</field>-->
+<!--      <field name="model_id" ref="model_fleet_vehicle_log_contract"/>-->
+<!--      <field name="groups" eval="[(4, ref('fleet_group_user_rwc'))]"/>-->
+<!--      <field name="perm_read" eval="True"/>-->
+<!--      <field name="perm_write" eval="False"/>-->
+<!--      <field name="perm_create" eval="False"/>-->
+<!--      <field name="perm_unlink" eval="False"/>-->
+<!--    </record>-->
+<!--    <record id="fleet_rule_cost_visibility_user" model="ir.rule">-->
+<!--      <field name="name">User can only see his/her costs</field>-->
+<!--      <field name="model_id" ref="model_fleet_vehicle_cost"/>-->
+<!--      <field name="groups" eval="[(4, ref('fleet_group_user_rwc'))]"/>-->
+<!--      <field name="perm_read" eval="True"/>-->
+<!--      <field name="perm_write" eval="True"/>-->
+<!--      <field name="perm_create" eval="True"/>-->
+<!--      <field name="perm_unlink" eval="False"/>-->
+<!--    </record>-->
+<!--    <record id="fleet_rule_service_visibility_user" model="ir.rule">-->
+<!--      <field name="name">User can only see his/her vehicle's services</field>-->
+<!--      <field name="model_id" ref="model_fleet_vehicle_log_services"/>-->
+<!--      <field name="groups" eval="[(4, ref('fleet_group_user_rwc'))]"/>-->
+<!--      <field name="perm_read" eval="True"/>-->
+<!--      <field name="perm_write" eval="False"/>-->
+<!--      <field name="perm_create" eval="False"/>-->
+<!--      <field name="perm_unlink" eval="False"/>-->
+<!--    </record>-->
+<!--    <record id="fleet_rule_odometer_visibility_user" model="ir.rule">-->
+<!--      <field name="name">User can only see his/her vehicle's odometer</field>-->
+<!--      <field name="model_id" ref="model_fleet_vehicle_odometer"/>-->
+<!--      <field name="groups" eval="[(4, ref('fleet_group_user_rwc'))]"/>-->
+<!--      <field name="perm_read" eval="True"/>-->
+<!--      <field name="perm_write" eval="True"/>-->
+<!--      <field name="perm_create" eval="True"/>-->
+<!--      <field name="perm_unlink" eval="True"/>-->
+<!--    </record>-->
+<!--    <record id="fleet_rule_fuel_log_visibility_user" model="ir.rule">-->
+<!--      <field name="name">User can only see his/her vehicle's fuel log</field>-->
+<!--      <field name="model_id" ref="model_fleet_vehicle_log_fuel"/>-->
+<!--      <field name="groups" eval="[(4, ref('fleet_group_user_rwc'))]"/>-->
+<!--      <field name="perm_read" eval="True"/>-->
+<!--      <field name="perm_write" eval="True"/>-->
+<!--      <field name="perm_create" eval="True"/>-->
+<!--      <field name="perm_unlink" eval="True"/>-->
+<!--    </record>-->
+<!--    <record id="fleet_rule_vehicle_visibility_user" model="ir.rule">-->
+<!--      <field name="name">User can only see his/her vehicle</field>-->
+<!--      <field name="model_id" ref="model_fleet_vehicle"/>-->
+<!--      <field name="groups" eval="[(4, ref('fleet_group_user_rwc'))]"/>-->
+<!--      <field name="perm_read" eval="True"/>-->
+<!--      <field name="perm_write" eval="True"/>-->
+<!--      <field name="perm_create" eval="False"/>-->
+<!--      <field name="perm_unlink" eval="False"/>-->
+<!--    </record>-->
 
   </data>
 </odoo>
