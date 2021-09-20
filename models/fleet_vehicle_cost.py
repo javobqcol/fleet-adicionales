@@ -109,7 +109,7 @@ class FleetVehicleCost(models.Model):
       # if record.cost_type=='contract':
       if record.cost_type in ['contract', 'service']:
         record.odometer_final = record.odometer
-      if (record.cost_type in ('services') and (record.odometer_final or 0)==0):
+      if record.cost_type in ('services') and (record.odometer_final or 0)==0:
         record.odometer_final = record.odometer
       data = {'value_final': record.odometer_final,
               'total_unidades': ((record.odometer_final or 0) - (record.odometer or 0))
