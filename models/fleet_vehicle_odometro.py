@@ -118,8 +118,9 @@ class FleetVehiculeOdometer(models.Model):
           ('vehicle_id', '=', rec.vehicle_id.id),
           ('tipo_odometro', '=', rec.tipo_odometro),
           ('date', '<=', rec.date)],
-          order="value_final desc, value desc",
+          order="date desc",
           limit=1)
+#        order="value_final desc, value desc",
         rec.value = (registro.value_final or 0)
 
 

@@ -16,12 +16,14 @@
                        string="Compañia"
                        groups="base.group_multi_company"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                <field name="purchaser_id" string="Comprador"/>
+                <field name="purchaser_id" string="Comprador"
+                       options="{'no_quick_create':True,}"/>
                 <field name="work_id" string="trabajo"/>
               </group>
               <group string="Detalle del tanqueo">
                 <field name="date" string="Fecha"/>
-                <field name="vendor_id" string="Vendedor"/>
+                <field name="vendor_id" string="Vendedor"
+                       options="{'no_quick_create':True,}"/>
                 <field name="inv_ref" string="Referencia factura"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="liter" string="Galones"/>

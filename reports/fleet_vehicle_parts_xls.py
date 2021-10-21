@@ -17,10 +17,10 @@ class FleetVehiclePartsXLS(models.AbstractModel):
       sheet.write(indice, 1, reg.driver_id.display_name)
       sheet.write(indice, 2, reg.vehicle_type_id.name)
       indice += 1
-      sheet.write(indice, 0, 'Parte')
-      sheet.write(indice, 1, 'Referencia')
+      sheet.write(indice, 1, 'Parte')
+      sheet.write(indice, 2, 'Referencia')
       indice += 1
       for record in reg.partes_ids:
-        sheet.write(indice, 0, record.template_id.name)
-        sheet.write(indice, 1, record.product_id.display_name)
+        sheet.write(indice, 1, record.template_id.name)
+        sheet.write(indice, 2, record.product_id.display_name)
         indice += 1
