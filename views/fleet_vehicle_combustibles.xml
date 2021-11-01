@@ -132,7 +132,7 @@
           <field name="date" string="Fecha" />
           <field name="currency_id" invisible="1"/>
           <field name="vehicle_id" string="Vehiculo"/>
-          <field name="company_id" string="Compañia" groups="base.group_multi_company"/>
+          <field name="company_id" string="Compañia" groups="base.group_multi_company" optional="hide"/>
           <field name="purchaser_id" string="Responsable" optional="hide"/>
           <field name="work_id" string="trabajo" optional="show"/>
           <field name="inv_ref" string="Factura" optional="show"/>

@@ -142,11 +142,12 @@
             </page>
             <page string="Control de partes" attrs="{'invisible': [('controlar_ids', '=', False)]}">
               <field name="partes_ids" nolabel="1">
-                <tree editable="top" create="false" delete="false" default_order="template_id">
+<!--                <tree editable="top" create="false" delete="false" default_order="template_id">-->
+                <tree editable="top" default_order="template_id">
 <!--                <tree editable="top" create="false" >-->
                   <field name="vehicle_id" invisible="1"/>
-                  <field name="template_id" readonly="1"/>
-                  <field name="product_id"/>
+                  <field name="template_id" />
+                  <field name="product_id" domain=""/>
                 </tree>
               </field>
             </page>

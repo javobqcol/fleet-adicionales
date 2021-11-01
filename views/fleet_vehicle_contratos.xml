@@ -76,7 +76,7 @@
           <field name="expiration_date" string="Fecha final"/>
           <field name="cost_subtype_id" string="Servicio"/>
           <field name="insurer_id" string="Empresa contrato"/>
-          <field name="company_id" string="Compañiar" groups="base.group_multi_company"/>
+          <field name="company_id" string="Compañiar" groups="base.group_multi_company" optional="hide"/>
           <field name="purchaser_id" string="Responsable"/>
           <field name="cost_generated" invisible="1"/>
           <field name="cost_frequency" invisible="1"/>

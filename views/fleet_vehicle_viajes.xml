@@ -83,7 +83,7 @@
           <field name="date" string="Fecha"/>
           <field name="vehicle_id" string="Vehiculo"/>
           <field name="driver_id" string="Conductor" optional="show"/>
-          <field name="company_id" groups="base.group_multi_company" optional="show"/>
+          <field name="company_id" groups="base.group_multi_company" optional="hide"/>
           <field name="work_id" string="Trabajo" optional="show"/>
           <field name="cantera_id" optional="show"/>
           <field name="destino_id" optional="show"/>

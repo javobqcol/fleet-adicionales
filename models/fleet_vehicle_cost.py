@@ -21,7 +21,7 @@ class FleetVehicleCost(models.Model):
   odometer_final = fields.Float(compute='_get_odometer', inverse='_set_odometer2', string='Odometro nuevo',
     help='Odometro nuevo')
   work_id = fields.Many2one('fleet.vehicle.work', 'Trabajo',
-    domain="[('state', '=', 'activo'), ('detalle_ids.vehicle_id', '=', vehicle_id)]")
+    domain="[('detalle_ids.vehicle_id', '=', vehicle_id)]")
   diferencia = fields.Float(compute='_get_odometer', string='Diferencia')
   amount = fields.Float('Total Price', digits='Amount')
   parent_id = fields.Many2one('fleet.vehicle.cost', 'Parent',

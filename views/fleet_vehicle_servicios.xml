@@ -131,7 +131,7 @@
           <attributes name="string">Factura</attributes>
         </field>
         <field name="purchaser_id" position="replace">
-          <field name="company_id" string="Compañia" groups="base.group_multi_company"/>
+          <field name="company_id" optional="hide" string="Compañia" groups="base.group_multi_company"/>
           <field name="purchaser_id" optional="hide" string="Responsable"/>
         </field>
         <field name="notes" position="replace"/>
@@ -152,7 +152,7 @@
           <field name="date" string="Fecha"/>
           <field name="name_seq" string="Consecutivo"/>
           <field name="vendor_id" string="Proveedor"/>
-          <field name="company_id" string="Compañia" groups="base.group_multi_company"/>
+          <field name="company_id" string="Compañia" groups="base.group_multi_company" />
           <field name="inv_ref" string="Referencia factura"/>
           <field name="work_id" string="Trabajo"/>
           <field name="cost_subtype_id" string="Servicio"/>
