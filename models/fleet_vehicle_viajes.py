@@ -129,7 +129,7 @@ class FleetVehiculeViaje(models.Model):
   @api.depends('m3', 'viajes')
   def _total_material_trasportado(self):
     for rec in self:
-      rec.total_cantidad = (rec.m3 or 0) * (rec.viajes or 0)
+      rec.total_cantidad = (rec.m3 or 0) * (rec.viajes or 0) if rec.unidad != 'Hor' else 0;
 
   @api.constrains('date', 'cantera_id', 'destino_id')
   def _onchange_date(self):
