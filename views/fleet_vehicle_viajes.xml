@@ -92,6 +92,8 @@
           <field name="material_id" string="Material" optional="show"/>
           <field name="viajes" string="Viajes" sum="Total viajes" optional="show"/>
           <field name="km_recorridos" string="KM" sum="Total KM" optional="hide"/>
+          <field name="inicial" string="Tara" digits="[10,2]" optional="hide"/>
+          <field name="final" string="Bruto" digits="[10,2]" optional="hide"/>
           <field name="total_cantidad" string="Cant" digits="[10,2]" sum="Total cantidad" optional="show"/>
           <field name="unidad" string="Unidad" optional="show"/>
           <field name="galones" digits="[10,2]" optional="show"/>
