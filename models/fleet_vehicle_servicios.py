@@ -29,8 +29,10 @@ class FleetVehicleProductLine(models.Model):
     # task_id = fields.Many2one('service.task',
     #   string='task reference')
     fleet_service_id = fields.Many2one('fleet.vehicle.log.services',
-                                       string='Servicio')
-    product_id = fields.Many2one('product.product', string='Producto')
+                                       string='Servicio',
+                                       ondelete='restrict')
+    product_id = fields.Many2one('product.product', string='Producto', ondelete='restrict')
+    product_name = fields.Char(string="Producto", required='True')
     qty_hand = fields.Float(string='Cantidad en mano',
                             help='Cantidad en mano')
     qty = fields.Float(string='Usado', default=1.0)
@@ -58,6 +60,7 @@ class FleetVehicleProductLine(models.Model):
                 #   rec.product_id = False
                 #   raise Warning(_('You can\'t select '
                 #                   'part which is In-Active!'))
+                rec.product_name = "[%s]-%s" % (rec.product_id.code or "", rec.product_id.name)
                 rec.qty_hand = prod.qty_available or 0.0
                 rec.product_uom = prod.uom_id or False
                 rec.price_unit = prod.list_price or 0.0
@@ -70,6 +73,13 @@ class FleetVehicleProductLine(models.Model):
             if rec.qty and rec.price_unit:
                 rec.total = rec.qty * rec.price_unit
 
+    @api.model
+    def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
+        if args is None:
+            args = []
+        domain = args + ['|', ('product_id.name', operator, name), ('product_name', operator, name)]
+        model_ids = self._search(domain, limit=limit, access_rights_uid=name_get_uid)
+        return models.lazy_name_get(self.browse(model_ids).with_user(name_get_uid))
 
 class FleetVehicleLogServices(models.Model):
     _inherit = 'fleet.vehicle.log.services'
@@ -172,3 +182,4 @@ class FleetVehicleLogServices(models.Model):
                         services.unlink()
                 record.cost_id.unlink()
         return super(FleetVehicleLogServices, self).unlink()
+

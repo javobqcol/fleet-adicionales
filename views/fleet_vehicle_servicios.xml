@@ -66,14 +66,15 @@
                        <field name='product_id' string="Producto" required="1"
                            attrs="{'readonly':[('is_deliver','=',True)]}"
                            options="{'no_open': True, 'create': false, 'create_edit': false}"/>
-                       <field name="qty_hand" readonly="1" force_save="1"/>
+                       <field name="product_name"/>
+                       <field name="qty_hand" readonly="1" force_save="1" optional="hide"/>
                        <field name='qty' required="1" attrs="{'readonly':[('is_deliver','=',True)]}"/>
                        <field name='product_uom' attrs="{'readonly':[('is_deliver','=',True)]}" required="1"/>
                        <field name='price_unit' attrs="{'readonly':[('is_deliver','=',True)]}"/>
                        <field name='total' readonly="1" force_save="1"/>
-                       <field name="date_issued"/>
+                       <field name="date_issued" optional="show"/>
                        <field name="issued_by" readonly="1"
-                           options="{'no_open': True, 'create': false, 'create_edit': false}" />
+                           options="{'no_open': True, 'create': false, 'create_edit': false}" optional="ahow"/>
                        <field name="is_deliver" invisible="1"/>
                     </tree>
                     <form string="Partes">
@@ -81,6 +82,7 @@
                         <field name='product_id' string="Part No" required="1"
                          attrs="{'readonly':[('is_deliver','=',True)]}"
                          options="{'no_open': False, 'create': True, 'create_edit': True}"/>
+                        <field name="product_name"/>
                         <field name="qty_hand" readonly="1" force_save="1"/>
                         <field name='qty' required="1" attrs="{'readonly':[('is_deliver','=',True)]}"/>
                         <field name='product_uom' attrs="{'readonly':[('is_deliver','=',True)]}" required="1"/>
@@ -157,7 +159,9 @@
           <field name="work_id" string="Trabajo"/>
           <field name="cost_subtype_id" string="Servicio"/>
           <field name="parts_ids" string="Parte"
-                     filter_domain="['|',('parts_ids.product_id.name','ilike',self), ('parts_ids.product_id.default_code','ilike',self)]"/>
+                     filter_domain="['|','|',('parts_ids.product_id.name','ilike',self),
+                     ('parts_ids.product_id.default_code','ilike',self),
+                     ('parts_ids.product_name','ilike',self)]"/>
           <group expand="1" string="Agrupado por">
             <filter name="groupby_company_id" context="{'group_by': 'company_id'}" string="Compañia" groups="base.group_multi_company"/>
             <filter name="groupby_vehicle_id" context="{'group_by': 'vehicle_id'}" string="Vehiculo"/>

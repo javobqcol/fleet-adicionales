@@ -23,17 +23,12 @@
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="material_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="unidad"/>
-                <label for="m3"/>
-                <div class="o_row">
-                  <field name="inicial" digits="[10,2]" attrs="{'invisible': [('unidad', '!=', 'ton')]}"/>
-                  <field name="final" digits="[10,2]" attrs="{'invisible': [('unidad', '!=', 'ton')]}"/>
-
-                  <field name="m3"
-                         string='Peso Inicial/final/total'
-                         digits="[10,2]"
-                         attrs="{'invisible': [('unidad', '!=', 'ton')]}"/>
-
-                  <field name="m3" digits="[10,2]" attrs="{'invisible': [('unidad', '=', 'ton')]}"/>
+                <field name="m3" digits="[10,2]" attrs="{'invisible': [('unidad', '=', 'ton')]}"/>
+                <label for="m3" string='Tara/Bruto/Neto' attrs="{'invisible': [('unidad', '!=', 'ton')]}" style="font-weight:bold;"/>
+                <div class="o_row" attrs="{'invisible': [('unidad', '!=', 'ton')]}">
+                  <field name="inicial" digits="[10,2]"/>
+                  <field name="final" digits="[10,2]" />
+                  <field name="m3" digits="[10,2]" />
                 </div>
                 <field name="cantera_id" placeholder="Sitio de carga" options="{'no_quick_create':True}"/>
                 <field name="destino_id" placeholder="Sitio de descarga" options="{'no_quick_create':True}"/>
