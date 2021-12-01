@@ -173,8 +173,6 @@ class FleetVehicleCost(models.Model):
   @api.constrains('amount', 'date')
   def _check_date(self):
     for record in self:
-      if not record.amount or record.amount == 0.0:
-        raise ValidationError("Error, Debe asignar un valor al costo")
       if record.amount < 0.0:
         raise ValidationError("Error, No se pueden asignar costos negativos")
       if not record.date:

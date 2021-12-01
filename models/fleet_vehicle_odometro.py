@@ -33,7 +33,7 @@ class FleetVehiculeOdometer(models.Model):
                                   readonly=False,
                                   copy=False,
                                   store=True)
-  total_standby = fields.Float("Total",
+  total_standby = fields.Float("Total+SB",
                                  help="Total standby",
                                  digits=(10, 2),
                                  compute="_total_horas",
@@ -164,8 +164,7 @@ class FleetVehiculeOdometer(models.Model):
     res = {}
     for reg in self:
       if reg.recibo:
-        reg.recibo = reg.recibo.upper()
-#        reg.recibo = " ".join(reg.recibo.split())
+        reg.recibo = reg.recibo.upper().lstrip()
         hay_recibo = self.search([
           ('recibo', '=', reg.recibo),
           ('work_id', '=', reg.work_id.id),

@@ -24,7 +24,7 @@
                 <field name="work_id" string="Trabajo"/>
                 <field name="cost_subtype_id" string="Tipo de servicio" domain="['|',('category','=','service'),('category','=','both')]" required="1"/>
                 <field name="currency_id" invisible="1"/>
-                <field name="amount" widget="monetary"  options="{'currency_field': 'currency_id'}" />
+                <field name="amount" widget="monetary"  options="{'currency_field': 'currency_id'}" readonly="1" force_save="1"/>
               </group>
               <group string="Additional Details">
                 <field name="date" string="Fecha" />
@@ -32,7 +32,7 @@
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="vendor_id" string="Vendedor"
                        options="{'no_quick_create':True,'no_open': True,}"/>
-                <field name="inv_ref" String="Referencia factura"/>
+                <field name="inv_ref" String="Referencia factura" style="text-transform: uppercase;"/>
                 <label for="odometer"/>
                 <div class="o_row">
                   <field name="odometer"/>
@@ -46,23 +46,23 @@
               </group>
             </group>
             <notebook>
-              <page string="Servicios incluidos">
-                <field name="cost_ids" nolabel="1">
-                  <tree string="Servicios Incluidos" editable="bottom">
-                    <field name="currency_id" invisible="1" />
-                    <field name="cost_subtype_id" string="Tipo de servicio" domain="['|',('category','=','service'),('category','=','both')]" required="1"/>
-                    <field name="amount"
-                           sum="Total servicios"
-                           string="Costo Indicativo"
-                           widget="monetary"
-                           options="{'currency_field': 'currency_id'}"/>
-                  </tree>
-                </field>
-              </page>
+<!--              <page string="Servicios incluidos" invisible="True">-->
+<!--                <field name="cost_ids" nolabel="1">-->
+<!--                  <tree string="Servicios Incluidos" editable="bottom">-->
+<!--                    <field name="currency_id" invisible="1" />-->
+<!--                    <field name="cost_subtype_id" string="Tipo de servicio" domain="['|',('category','=','service'),('category','=','both')]" required="1"/>-->
+<!--                    <field name="amount"-->
+<!--                           sum="Total servicios"-->
+<!--                           string="Costo Indicativo"-->
+<!--                           widget="monetary"-->
+<!--                           options="{'currency_field': 'currency_id'}"/>-->
+<!--                  </tree>-->
+<!--                </field>-->
+<!--              </page>-->
               <page string="Partes Usadas" >
                 <group colspan="4">
                   <field name="parts_ids" context="{'default_date': date}" nolabel="1">
-                    <tree string="Partes">
+                    <tree string="Partes" decoration-muted="returned == True">
                        <field name='product_id' string="Producto" required="1"
                            attrs="{'readonly':[('is_deliver','=',True)]}"
                            options="{'no_open': True, 'create': false, 'create_edit': false}"/>
@@ -76,8 +76,11 @@
                        <field name="issued_by" readonly="1"
                            options="{'no_open': True, 'create': false, 'create_edit': false}" optional="ahow"/>
                        <field name="is_deliver" invisible="1"/>
+                       <field name="returned"/>
+                       <field name="note" attrs="{'readonly': [('returned', '=', False)]}" />
+
                     </tree>
-                    <form string="Partes">
+                    <form string="Partes" >>
                       <group>
                         <field name='product_id' string="Part No" required="1"
                          attrs="{'readonly':[('is_deliver','=',True)]}"
@@ -92,6 +95,11 @@
                         <field name="issued_by" readonly="1"
                          options="{'no_open': True, 'create': false, 'create_edit': false}" />
                         <field name="is_deliver" invisible="1"/>
+                       <label for="note" string='Nota' style="font-weight:bold;"/>
+                       <div class="o_row">
+                         <field name="returned"/>
+                         <field name="note" attrs="{'readonly': [('returned', '=', False)]}" />
+                       </div>
                       </group>
                     </form>
                   </field>

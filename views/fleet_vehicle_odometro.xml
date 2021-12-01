@@ -18,7 +18,7 @@
                        groups="base.group_multi_company"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="work_id" string="Trabajo"/>
-                <field name="recibo"/>
+                <field name="recibo" style="text-transform: uppercase;"/>
               </group>
               <group>
                 <field name="date" string="Fecha"/>

@@ -43,6 +43,8 @@ class FleetVehicleProductLine(models.Model):
     issued_by = fields.Many2one('res.users', string='Emitido por',
                                 default=lambda self: self._uid)
     is_deliver = fields.Boolean(string="Fue entregada?")
+    returned = fields.Boolean(string="Fue devuelta?")
+    note = fields.Char(string="Nota sobre la devolucion")
 
     @api.constrains('qty', 'qty_hand')
     def _check_used_qty(self):
@@ -60,9 +62,10 @@ class FleetVehicleProductLine(models.Model):
                 #   rec.product_id = False
                 #   raise Warning(_('You can\'t select '
                 #                   'part which is In-Active!'))
-                rec.product_name = "[%s]-%s" % (rec.product_id.code or "", rec.product_id.name)
+                rec.product_name = "[%s]-%s" % (rec.product_id.code or "", rec.product_id.name) \
+                    if not rec.product_name else rec.product_name
                 rec.qty_hand = prod.qty_available or 0.0
-                rec.product_uom = prod.uom_id or False
+                rec.product_uom = prod.uom_id or False if not rec.product_uom else rec.product_uom
                 rec.price_unit = prod.list_price or 0.0
             if rec.qty and rec.price_unit:
                 rec.total = rec.qty * rec.price_unit
@@ -101,8 +104,9 @@ class FleetVehicleLogServices(models.Model):
         for rec in self:
             total = 0.0
             for line in rec.parts_ids:
-                total += line.total
+                total += line.total if not line.returned else 0.0
             rec.sub_total = total
+            rec.amount = total
 
     name_seq = fields.Char(string='Consecutivo',
                            required=True,
@@ -152,8 +156,7 @@ class FleetVehicleLogServices(models.Model):
         res = {}
         for reg in self:
             if reg.inv_ref:
-                reg.inv_ref = reg.inv_ref.upper()
-                reg.inv_ref = " ".join(reg.inv_ref.split())
+                reg.inv_ref = reg.inv_ref.upper().lstrip()
                 hay_recibo = self.search([
                     ('inv_ref', '=', reg.inv_ref),
                     ('vendor_id', '=', reg.vendor_id.id),

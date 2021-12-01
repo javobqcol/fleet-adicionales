@@ -33,7 +33,7 @@ class FleetVehicleLogFuel(models.Model):
                                     'fleet_vehicle_fuel_log_attachment_rel',
                                     'service_id', 'attachment_id',
                                     string='Documentos servicio')
-  calculo = fields.Float(compute='_gasto_combustible', string='Calculo', store= True)
+  calculo = fields.Float(compute='_gasto_combustible', string='Calculo', store=True)
   currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
 
   @api.depends('diferencia', 'liter')
@@ -71,8 +71,7 @@ class FleetVehicleLogFuel(models.Model):
     res = {}
     for reg in self:
       if reg.inv_ref:
-        reg.inv_ref = reg.inv_ref.upper()
-        reg.inv_ref = " ".join(reg.inv_ref.split())
+        reg.inv_ref = reg.inv_ref.upper().lstrip()
         hay_recibo = self.search([
           ('inv_ref', '=', reg.inv_ref),
           ('vendor_id', '=', reg.vendor_id.id),

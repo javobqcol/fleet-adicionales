@@ -24,7 +24,7 @@
                 <field name="date" string="Fecha"/>
                 <field name="vendor_id" string="Vendedor"
                        options="{'no_quick_create':True,}"/>
-                <field name="inv_ref" string="Referencia factura"/>
+                <field name="inv_ref" string="Referencia factura" style="text-transform: uppercase;"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="liter" string="Galones"/>
                 <field name="price_per_liter"

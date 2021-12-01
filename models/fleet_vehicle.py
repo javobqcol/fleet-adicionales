@@ -578,8 +578,8 @@ class VehicleLiquidacion(models.Model):
   name_sec_liq = fields.Char(string='Consecutivo liquidación')
   unidades = fields.Float(string="unidades a liquidar")
   tipo_unidad = fields.Char(string='Tipo unidad')
-  precio_unidad = fields.Float(string="unidades a liquidar")
-  valor_unidades = fields.Float(string="unidades a liquidar")
+  precio_unidad = fields.Float(string="Precio Unidades")
+  valor_unidades = fields.Float(string="Valor Unidades")
   currency_id = fields.Many2one('res.currency', related='company_id.currency_id')
 
 class FleetVehicletemplate(models.Model):

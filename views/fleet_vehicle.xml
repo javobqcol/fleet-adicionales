@@ -56,10 +56,10 @@
             <field name="acquisition_date" string="Fecha adquisición"/>
             <field name="licencia_transito"/>
             <field name="model_year" string="Año modelo"/>
-            <field name="vin_sn" string="Número vim"/>
-            <field name="numero_motor"/>
-            <field name="numero_serie" />
-            <field name="numero_chasis" />
+            <field name="vin_sn" string="Número vim" style="text-transform: uppercase;"/>
+            <field name="numero_motor" style="text-transform: uppercase;"/>
+            <field name="numero_serie" style="text-transform: uppercase;"/>
+            <field name="numero_chasis" style="text-transform: uppercase;"/>
             <field name="propietario_id" />
             <field name="restriccion_movilidad"/>
             <field name="blindaje"/>
