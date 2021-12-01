@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c1a6d39e-41d1-43ae-9c03-433763483d86" name="Default Changelist" comment="CAmbiar cilincrada, peso, largo, alto y ancho de entero a flotante">
+      <change beforePath="$PROJECT_DIR$/models/fleet_vehicle_viajes.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/fleet_vehicle_viajes.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/fleet_vehicle_odometro.xml" beforeDir="false" afterPath="$PROJECT_DIR$/views/fleet_vehicle_odometro.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/fleet_vehicle_viajes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/views/fleet_vehicle_viajes.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1kyce06iwvxNwqWN1C8OR4EeFe5" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="settings.editor.selected.configurable" value="ics" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c1a6d39e-41d1-43ae-9c03-433763483d86" name="Default Changelist" comment="" />
+      <created>1606676362905</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606676362905</updated>
+    </task>
+    <task id="LOCAL-00001" summary="ultimo commit">
+      <created>1608497620825</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1608497620825</updated>
+    </task>
+    <task id="LOCAL-00002" summary="ultimo commit">
+      <created>1608586517037</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1608586517037</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Ultimo commit 28/12/2020">
+      <created>1609191377557</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1609191377557</updated>
+    </task>
+    <task id="LOCAL-00004" summary="CAmbiar cilincrada, peso, largo, alto y ancho de entero a flotante">
+      <created>1610138175436</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1610138175436</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ultimo commit" />
+    <MESSAGE value="Ultimo commit 28/12/2020" />
+    <MESSAGE value="CAmbiar cilincrada, peso, largo, alto y ancho de entero a flotante" />
+    <option name="LAST_COMMIT_MESSAGE" value="CAmbiar cilincrada, peso, largo, alto y ancho de entero a flotante" />
+  </component>
+</project>
