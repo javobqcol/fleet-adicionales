@@ -57,12 +57,12 @@ class FleetVehiculeOdometer(models.Model):
         default=False
     )
     work_id = fields.Many2one(
-        'fleet.vehicle.work',
-        'Trabajo',
+        comodel_name='fleet.vehicle.work',
+        string='Trabajo',
         domain="[('state','=','activo'),('detalle_ids.vehicle_id','=',vehicle_id)]"
     )
     driver_id = fields.Many2one(
-        'res.partner', 
+        comodel_name='res.partner',
         related=None, 
         string="Conductor", 
         required=False
@@ -77,7 +77,8 @@ class FleetVehiculeOdometer(models.Model):
     )
     descripcion = fields.Text(
         string='Notas',
-        placeholder='Cualquier información pertinente respecto al trabajo realizado'
+        placeholder='Cualquier información pertinente respecto al trabajo realizado',
+        copy=False
     )
     recibo = fields.Char(
         string='Recibo', 
@@ -85,11 +86,12 @@ class FleetVehiculeOdometer(models.Model):
         help="Numero del recibo de la empresa"
     )
     documentos_ids = fields.Many2many( 
-        'ir.attachment', 
-        'fleet_vehicle_odometer_attachment_rel', 
-        'odometer_id', 
-        'attachment_id', 
-        string='Recibos'
+        comodel_name='ir.attachment',
+        relation='fleet_vehicle_odometer_attachment_rel',
+        column1='odometer_id',
+        column2='attachment_id',
+        string='Recibos',
+        copy=False
     )
     odometer_unit = fields.Char(
         string="unidades horometro"
@@ -101,13 +103,13 @@ class FleetVehiculeOdometer(models.Model):
         string="Galones"
     )
     liq_id = fields.Many2one(
-        'fleet.vehicle.work.liq',
-        'liquidacion Trabajo',
+        comodel_name='fleet.vehicle.work.liq',
+        string='liquidacion Trabajo',
         domain="[('work_id','=',work_id)]"
     )
     liq_driver_id = fields.Many2one(
-        'fleet.vehicle.driver.liq',
-        'liquidacion Conductor',
+        comodel_name='fleet.vehicle.driver.liq',
+        string='liquidacion Conductor',
         domain="[('driver_id','=',driver_id)]"
     )
     motivo = fields.Selection(

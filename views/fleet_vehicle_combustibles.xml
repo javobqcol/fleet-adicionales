@@ -32,7 +32,8 @@
                        widget="monetary"
                        options="{'currency_field': 'currency_id'}" />
                 <field name="amount"
-                       string="total"
+                       digits="[10,0]"
+                       string="Total"
                        widget="monetary" 
                        options="{'currency_field': 'currency_id'}" />
                 <label for="odometer"/>
@@ -141,7 +142,7 @@
           <field name="odometer_unit" string="Unidad" optional="show"/>
           <field name="liter" sum="Suma combustible" string="Galones" optional="show"/>
           <field name="price_per_liter" string="Precio por galon" optional="show" widget="monetary" options="{'currency_field': 'currency_id'}"/>
-          <field name="amount" sum="Total combustible" string="Precio combustible" optional="show" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+          <field name="amount" digits="[10,0]" sum="Total combustible" string="Precio combustible" optional="show" widget="monetary" options="{'currency_field': 'currency_id'}"/>
           <field name="calculo" avg="Promedio consumo" string="Calculo Consumo" optional="show"/>
           <field name="cost_amount" string="precio total" invisible="1"/>
         </tree>

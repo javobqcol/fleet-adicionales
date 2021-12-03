@@ -44,7 +44,7 @@ class FleetVehicleProductLine(models.Model):
                                 default=lambda self: self._uid)
     is_deliver = fields.Boolean(string="Fue entregada?")
     returned = fields.Boolean(string="Fue devuelta?")
-    note = fields.Char(string="Nota sobre la devolucion")
+    note = fields.Char(string="Nota")
 
     @api.constrains('qty', 'qty_hand')
     def _check_used_qty(self):

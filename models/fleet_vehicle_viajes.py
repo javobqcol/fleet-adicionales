@@ -19,20 +19,20 @@ class FleetVehiculeViaje(models.Model):
     _order = 'date desc'
     company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company)
     vehicle_id = fields.Many2one(
-        'fleet.vehicle',
+        comodel_name='fleet.vehicle',
         string='Vehiculo',
         domain="[('vehicle_type_id.code','=','vehiculo')]",
         ondelete='restrict',
         required=True
     )
     work_id = fields.Many2one(
-        'fleet.vehicle.work',
-        'Trabajo',
+        comodel_name='fleet.vehicle.work',
+        string='Trabajo',
         domain="[('state','=','activo'), ('detalle_ids.vehicle_id','=',vehicle_id)]",
         ondelete='restrict'
     )
     driver_id = fields.Many2one(
-        'res.partner',
+        comodel_name='res.partner',
         string='Conductor',
         ondelete='restrict'
     )
@@ -41,12 +41,12 @@ class FleetVehiculeViaje(models.Model):
         required=True
     )
     material_id = fields.Many2one(
-        'fleet.vehicle.material',
-        'Material',
+        comodel_name='fleet.vehicle.material',
+        string='Material',
         ondelete='restrict'
     )
     km_recorridos = fields.Float(
-        'Kilometros recorridos',
+        string='Kilometros recorridos',
         readonly=False,
         store=True,
         compute='_cantidad_viajes'
@@ -71,8 +71,8 @@ class FleetVehiculeViaje(models.Model):
         copy=False
     )
     unidad = fields.Selection(
-        [('m3', 'Metro cubico'),('ton', 'Tonelada'),('Hor', 'Horas')],
-        'Unidad',
+        selection=[('m3', 'Metro cubico'),('ton', 'Tonelada'),('Hor', 'Horas')],
+        string='Unidad',
         default='m3',
         help='Unidades de material trasportado',
         required=True
@@ -84,13 +84,13 @@ class FleetVehiculeViaje(models.Model):
         copy=False
     )
     cantera_id = fields.Many2one(
-        'res.partner',
-        'Origen',
+        comodel_name='res.partner',
+        string='Origen',
         ondelete='restrict'
     )
     destino_id = fields.Many2one(
-        'res.partner',
-        'Destino',
+        comodel_name='res.partner',
+        string='Destino',
         ondelete='restrict'
     )
     recibo_cantera = fields.Char(
@@ -126,10 +126,10 @@ class FleetVehiculeViaje(models.Model):
         compute='_total_material_trasportado'
     )
     documentos_ids = fields.Many2many(
-        'ir.attachment',
-        'fleet_vehicle_viajes_attachment_rel',
-        'viajes_id',
-        'attachment_id',
+        comodel_name='ir.attachment',
+        relation='fleet_vehicle_viajes_attachment_rel',
+        column1='viajes_id',
+        column2='attachment_id',
         string='Recibos',
         copy=False
     )
@@ -137,13 +137,14 @@ class FleetVehiculeViaje(models.Model):
         compute='_set_adjunto'
     )
     liq_id = fields.Many2one(
-        'fleet.vehicle.work.liq',
-        'liquidacion Trabajo',
+        comodel_name='fleet.vehicle.work.liq',
+        string='liquidacion Trabajo',
         domain="[('work_id','=',work_id)]",
-        ondelete='restrict', copy=False)
+        ondelete='restrict', copy=False
+    )
     liq_driver_id = fields.Many2one(
-        'fleet.vehicle.driver.liq',
-        'liquidacion Conductor',
+        comodel_name='fleet.vehicle.driver.liq',
+        string='liquidacion Conductor',
         domain="[('driver_id','=',driver_id)]",
         ondelete='restrict',
         copy=False
@@ -153,10 +154,9 @@ class FleetVehiculeViaje(models.Model):
     def default_get(self, default_fields):
         res = super().default_get(default_fields)
         res.update(
-            {'inicial': self.vehicle_id.peso or 0
-        })
+            {'inicial': self.vehicle_id.peso or 0}
+        )
         return res
-
 
     @api.depends('inicial', 'final')
     def _diferencia(self):
@@ -183,7 +183,6 @@ class FleetVehiculeViaje(models.Model):
                 reg.m3 = 0
             else:
                 reg.m3 = reg.vehicle_id.cubicaje
-
 
     @api.onchange('vehicle_id')
     def _onchange_vehicle(self):
@@ -239,8 +238,6 @@ class FleetVehiculeViaje(models.Model):
         for reg in self:
             if reg.recibo_cantera:
                 reg.recibo_cantera = reg.recibo_cantera.upper().lstrip()
-
-
 
     @api.onchange('recibo_interno')
     def _onchange_recibo_interno(self):

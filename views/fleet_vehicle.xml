@@ -47,40 +47,46 @@
         </xpath>
 
         <xpath expr="//form/sheet/group[1]" position="inside">
-          <group string="Informacion basica del vehiculo" >
+          <group string="Informacion basica" >
             <field name="vehicle_type_id"/>
+            <field name="code" invisible="1"/>
             <field name="controlar_ids" widget="many2many_tags" options="{'no_create':True, 'color_field':'color'}"/>
             <field name="company_id" groups="base.group_multi_company" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-            <field name="transmission" string="Tipo de transmisión"/>
+            <field name="transmission" string="Tipo de transmisión" attrs="{'invisible':[('code','in',('maquinaria', 'menor'))]}"/>
             <field name="fuel_type" string="Tipo de combustible"/>
             <field name="acquisition_date" string="Fecha adquisición"/>
-            <field name="licencia_transito"/>
+            <field name="licencia_transito" attrs="{'invisible': [('code', '=', 'menor')]}"/>
             <field name="model_year" string="Año modelo"/>
-            <field name="vin_sn" string="Número vim" style="text-transform: uppercase;"/>
+            <field name="vin_sn" string="Número vim" style="text-transform: uppercase;" attrs="{'invisible':[('code','in',('maquinaria', 'menor'))]}"/>
             <field name="numero_motor" style="text-transform: uppercase;"/>
             <field name="numero_serie" style="text-transform: uppercase;"/>
             <field name="numero_chasis" style="text-transform: uppercase;"/>
             <field name="propietario_id" />
-            <field name="restriccion_movilidad"/>
-            <field name="blindaje"/>
+            <field name="restriccion_movilidad" attrs="{'invisible': [('code', '=', 'menor')]}"/>
+            <field name="blindaje" attrs="{'invisible':[('code','in',('maquinaria', 'menor'))]}"/>
             <field name="horsepower" string="Caballos de fuerza"/>
           </group>
-          <group >
-            <field name="seats" string="Número de asientos"/>
-            <field name="doors" string="Número de puertas"/>
-            <field name="cubicaje"/>
+          <group string="Informacion basica" >
+            <field name="seats" string="Número de asientos" attrs="{'invisible':[('code','in',('maquinaria', 'menor'))]}"/>
+            <field name="doors" string="Número de puertas" attrs="{'invisible':[('code','in',('maquinaria', 'menor'))]}"/>
+            <field name="cubicaje" attrs="{'invisible': [('code', '=', 'menor')]}"/>
             <field name="peso"/>
-            <field name="largo"/>
-            <field name="alto"/>
-            <field name="ancho"/>
+            <label for="Largo" string='Largo,alto,ancho' attrs="{'invisible':[('code','in',('vehiculo', 'menor'))]}" style="font-weight:bold;"/>
+            <div class="o_row" attrs="{'invisible':[('code','in',('vehiculo', 'menor'))]}">
+              <field name="largo"/>
+              <field name="alto"/>
+              <field name="ancho"/>
+            </div>
             <field name="carga"/>
             <field name="color_id"/>
             <field name="declaracion_importacion"/>
             <field name="fecha_importacion"/>
-            <field name="limitacion_propiedad"/>
-            <field name="fecha_matricula"/>
+            <field name="limitacion_propiedad" attrs="{'invisible': [('code', '=', 'menor')]}"/>
+            <field name="fecha_matricula" attrs="{'invisible': [('code', '=', 'menor')]}"/>
             <field name="fecha_expedicion"/>
-            <field name="transito_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
+            <field name="transito_id"
+                   options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                   attrs="{'invisible': [('code', '=', 'menor')]}"/>
           </group>
         </xpath>
         <xpath expr="//form/sheet/group[1]" position="after">

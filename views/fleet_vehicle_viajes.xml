@@ -36,8 +36,8 @@
               </group>
               <group>
                 <field name="date" string="Fecha"/>
-                <field name="recibo_interno" string="Recibo interno" style="text-transform: uppercase;" placeholder="Número recibo interno"/>
-                <field name="recibo_cantera" string="Recibo cantera" style="text-transform: uppercase;" placeholder="Número recibo cantera"/>
+                <field name="recibo_interno" string="Recibo interno" style="text-transform: uppercase;"/>
+                <field name="recibo_cantera" string="Recibo cantera" style="text-transform: uppercase;"/>
                 <field name="Km_inicial"/>
                 <field name="Km_final"/>
                 <field name="km_recorridos"/>
