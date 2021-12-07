@@ -108,21 +108,31 @@ class FleetVehicleLogServices(models.Model):
             rec.sub_total = total
             rec.amount = total
 
-    name_seq = fields.Char(string='Consecutivo',
-                           required=True,
-                           copy=False,
-                           readonly=True,
-                           index=True,
-                           default=lambda self: _('New'))
-
-    documentos_ids = fields.Many2many('ir.attachment',
-                                      'fleet_vehicle_service_attachment_rel',
-                                      'service_id', 'attachment_id',
-                                      string='Documentos Servicio')
-    parts_ids = fields.One2many('fleet.vehicle.product.line', 'fleet_service_id',
-                                string='Parts')
-    sub_total = fields.Float(compute="_compute_get_total", string='Total de partes',
-                             store=True)
+    name_seq = fields.Char(
+        string='Consecutivo',
+        required=True,
+        copy=False,
+        readonly=True,
+        index=True,
+        default=lambda self: _('New')
+    )
+    documentos_ids = fields.Many2many(
+        comodel_name='ir.attachment',
+        relation='fleet_vehicle_service_attachment_rel',
+        column1='service_id',
+        column2='attachment_id',
+        string='Documentos Servicio'
+    )
+    parts_ids = fields.One2many(
+        comodel_name='fleet.vehicle.product.line',
+        inverse_name='fleet_service_id',
+        string='Parts'
+    )
+    sub_total = fields.Float(
+        compute="_compute_get_total",
+        string='Total de partes',
+        store=True
+    )
 
     @api.constrains('date_emp')
     def _check_date(self):

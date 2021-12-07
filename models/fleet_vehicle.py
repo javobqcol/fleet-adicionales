@@ -371,6 +371,22 @@ class VehicleWork(models.Model):
   detalle_ids = fields.One2many('fleet.vehicle.work.det', 'work_id')
   alias_work = fields.Char(string="Nombre del trabajo", help="Digite el nombre con el que se conoce el trabajo")
   liquidacion_ids = fields.One2many('fleet.vehicle.work.liq', 'work_id')
+  viajes_count = fields.Integer(compute="_compute_count_all", string="Historia de viajes realizados")
+  viajes_count = fields.Integer(compute="_compute_count_all", string="Historia de viajes realizados")
+  odometer_count = fields.Integer(compute="_compute_count_all", string='Odometer')
+
+  def _compute_count_all(self):
+    LogViajes = self.env['fleet.vehicle.viaje']
+    Odometer = self.env['fleet.vehicle.odometer']
+    for record in self:
+      record.odometer_count = Odometer.search_count(
+        [('work_id', '=', record.id)]
+      )
+      record.viajes_count = sum(
+        LogViajes.search([('work_id', '=', record.id)]).mapped(
+          'viajes'
+        )
+      )
 
   @api.model
   def create(self, vals):
@@ -388,6 +404,32 @@ class VehicleWork(models.Model):
                                           field.contractor_id.name,
                                           field.alias_work or "")))
     return res
+
+  def return_action_to_open_viajes(self):
+    """ This opens the xml view specified in xml_id for the current vehicle """
+    self.ensure_one()
+    xml_id = self.env.context.get('xml_id')
+    if xml_id:
+      res = self.env['ir.actions.act_window'].for_xml_id('fleet-adicionales', xml_id)
+      res.update(
+        context=dict(self.env.context, default_work_id=self.id, group_by=False),
+        domain=[('work_id', '=', self.id)]
+      )
+      return res
+    return False
+
+  def return_action_to_open_odometer(self):
+    """ This opens the xml view specified in xml_id for the current vehicle """
+    self.ensure_one()
+    xml_id = self.env.context.get('xml_id')
+    if xml_id:
+      res = self.env['ir.actions.act_window'].for_xml_id('fleet', xml_id)
+      res.update(
+        context=dict(self.env.context, default_work_id=self.id, group_by=False),
+        domain=[('work_id', '=', self.id)]
+      )
+      return res
+    return False
 
   # @api.model
   # def _name_search(self, name='', args=None, operator='ilike', limit=100):

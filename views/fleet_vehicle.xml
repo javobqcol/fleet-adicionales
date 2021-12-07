@@ -16,18 +16,12 @@
           <button name="return_action_to_open_adic"
             type="object"
             class="oe_stat_button"
-            icon="fa-gears"
+            icon="fa-truck"
             context="{'xml_id':'fleet_vehicle_viajes_action'}"
             help="Muestra los viajes de este vehiculo"
             attrs="{'invisible':[('code','in',('maquinaria', 'menor'))]}">-->
             <field name="viajes_count" widget="statinfo" string="Viajes"/>
             <field name="code" invisible="1"/>
-<!--          <button name="open_viajes_logs"-->
-<!--              type="object"-->
-<!--              class="oe_stat_button"-->
-<!--              icon="fa-gears"-->
-<!--              attrs="{'invisible':[('code','in',('maquinaria'))]}">-->
-<!--            <field name="viajes_count" widget="statinfo" string="Viajes"/>-->
           </button>
         </xpath>
         <xpath expr="//form/sheet/group/group[5]" position="attributes">

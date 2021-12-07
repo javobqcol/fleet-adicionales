@@ -33,7 +33,7 @@ class FleetVehiculeOdometer(models.Model):
         group_operator="max"
     ) 
     total_unidades = fields.Float(
-        "Total", 
+        string="Total",
         help="Total odometro", 
         digits=(10, 2), 
         compute="_total_horas", 
@@ -43,7 +43,7 @@ class FleetVehiculeOdometer(models.Model):
         store=True
     ) 
     total_standby = fields.Float(
-        "Total+SB", 
+        string="Total+SB",
         help="Total standby", 
         digits=(10, 2), 
         compute="_total_horas", 
@@ -113,11 +113,11 @@ class FleetVehiculeOdometer(models.Model):
         domain="[('driver_id','=',driver_id)]"
     )
     motivo = fields.Selection(
-            [('propio', 'Propio de la empresa'), ('ajeno', 'Ajeno a la empresa $')],
-            'Motivo', 
-            default='ajeno', 
-            help='Motivo de standby', 
-            required=True
+        selection=[('propio', 'Propio de la empresa'), ('ajeno', 'Ajeno a la empresa $')],
+        string='Motivo',
+        default='ajeno',
+        help='Motivo de standby',
+        required=True
     )
     
     def copy(self, default=None):
