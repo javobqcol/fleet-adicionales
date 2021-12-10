@@ -59,13 +59,16 @@ class FleetVehiculeOdometer(models.Model):
     work_id = fields.Many2one(
         comodel_name='fleet.vehicle.work',
         string='Trabajo',
+        ondelete='restrict',
         domain="[('state','=','activo'),('detalle_ids.vehicle_id','=',vehicle_id)]"
     )
     driver_id = fields.Many2one(
         comodel_name='res.partner',
         related=None, 
-        string="Conductor", 
-        required=False
+        string="Conductor",
+        ondelete='restrict',
+        required=False,
+        domain="[('driven_liq_det_ids.driver_id','=',driver_id)]"
     )
     es_standby = fields.Boolean(
         string="Standby", 
@@ -105,12 +108,13 @@ class FleetVehiculeOdometer(models.Model):
     liq_id = fields.Many2one(
         comodel_name='fleet.vehicle.work.liq',
         string='liquidacion Trabajo',
+        ondelete='restrict',
         domain="[('work_id','=',work_id)]"
     )
     liq_driver_id = fields.Many2one(
         comodel_name='fleet.vehicle.driver.liq',
-        string='liquidacion Conductor',
-        domain="[('driver_id','=',driver_id)]"
+        ondelete='restrict',
+        string='liquidacion Conductor'
     )
     motivo = fields.Selection(
         selection=[('propio', 'Propio de la empresa'), ('ajeno', 'Ajeno a la empresa $')],
@@ -129,9 +133,7 @@ class FleetVehiculeOdometer(models.Model):
 
     def _set_adjunto(self):
         for reg in self:
-            reg.tiene_adjunto = False
-            if reg.documentos_ids:
-                reg.tiene_adjunto = True
+            reg.tiene_adjunto = True if reg.documentos_ids else False
 
     @api.onchange('vehicle_id')
     def _onchange_vehicle(self):

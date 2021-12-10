@@ -215,7 +215,7 @@
               decoration-primary ="state == 'inactivo'"
               decoration-muted="state == 'finalizado'">
           <field name="name_seq"/>
-          <field name="company_id"  groups="base.group_multi_company"/>
+          <field name="company_id" optional="hide" groups="base.group_multi_company"/>
           <field name="contractor_id"/>
           <field name="alias_work"/>
           <field name="contacto_id"/>
@@ -232,15 +232,12 @@
      <field name="arch" type="xml">
        <search string="Trabajos realizados por los automotores">
          <field name="name_seq"
-                string="Consecutivo"
-                filter_domain="[('name_seq','ilike',self)]"/>
+                string="Consecutivo"/>
          <field name="contractor_id"
-                string="Contratante"
-                filter_domain="[('contractor_id.name','ilike',self)]"/>
+                string="Contratante"/>
          <field name="company_id"
                 string="Compañia"
-                groups="base.group_multi_company"
-                filter_domain="[('company_id.name','ilike',self)]"/>
+                groups="base.group_multi_company"/>
          <field name="alias_work"
                 string="Nombre trabajo"/>
          <field name="detalle_ids"
@@ -276,18 +273,6 @@
     </record>
     <menuitem action="fleet_vehicle_work_action" parent="fleet.fleet_vehicles" id="fleet_vehicle_work_menu"/>
 
-<!--    <record id="fleet.fleet_vehicle_log_services_view_graph" model="ir.ui.view">-->
-<!--     <field name="name">fleet.vehicle.log.services.graph</field>-->
-<!--     <field name="model">fleet.vehicle.log.services</field>-->
-<!--     <field name="arch" type="xml">-->
-<!--        <graph string="Costo mensual de servicios" stacked="True">-->
-<!--          <field name="date" string="Fecha" type="row"/>-->
-<!--          <field name="vehicle_id" string="Vehiculo" type="row"/>-->
-<!--          <field name="cost_amount" string= "Costo" type="measure"/>-->
-<!--        </graph>-->
-<!--      </field>-->
-<!--    </record>-->
-
     <record id='fleet_vehicle_driver_liq_form' model='ir.ui.view'>
       <field name="name">fleet.vehicle.driver.liq.form</field>
       <field name="model">fleet.vehicle.driver.liq</field>
@@ -298,7 +283,7 @@
                     class="oe_highlight"
                     type="object" string="Liquidacion"
                     attrs="{'invisible': ['|', ('name_seq', '=', 'Nuevo'), ('liquidado', '=', True)]}"
-                    help="Liquidacion de maquinaria"
+                    help="Liquidacion de conductores"
                     confirm="Esta seguro que quiere liquidar solo un
                     administrador podra ingresar manualmente registros
                     a una liquidacion realizada"/>
@@ -316,7 +301,7 @@
                        groups="base.group_multi_company"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
                        attrs="{'readonly': [('liquidado', '=', True)]}"/>
-                <field name="driver_id" attrs="{'readonly': [('liquidado', '=', True)]}"/>
+                <field name="note" attrs="{'readonly': [('liquidado', '=', True)]}"/>
                 <field name="date" attrs="{'readonly': [('liquidado', '=', True)]}"/>
                 <field name="date_end" attrs="{'readonly': [('liquidado', '=', True)]}"/>
               </group>
@@ -326,6 +311,16 @@
               </group>
             </group>
             <notebook>
+              <page string="Operador_conductor">
+                 <field name="driven_liq_det_ids" attrs="{'readonly': [('liquidado', '=', True)]}">
+                    <tree string="conductores_operadores" >
+                      <field name="driver_id"/>
+                      <field name="date"/>
+                      <field name="date_end"/>
+                      <field name="nota"/>
+                   </tree>
+                 </field>
+              </page>
               <page string="Nota">
                  <field nolabel="1"
                         name="descripcion"
@@ -343,8 +338,8 @@
       <field name="arch" type="xml">
         <tree string="Trabajos" decoration-primary="liquidado == True">
           <field name="name_seq"/>
-          <field name="company_id" groups="base.group_multi_company"/>
-          <field name="driver_id" />
+          <field name="company_id" optional="hide" groups="base.group_multi_company"/>
+          <field name="note" />
           <field name="date"/>
           <field name="date_end"/>
           <field name="total_liquidacion"/>
@@ -360,20 +355,18 @@
      <field name="arch" type="xml">
        <search string="Trabajos realizados por los conductores">
          <field name="name_seq"
-                string="Consecutivo"
-                filter_domain="[('name_seq','ilike',self)]"/>
-
+                string="Consecutivo"/>
          <field name="company_id"
                 string="Compañia"
-                groups="base.group_multi_company"
-                filter_domain="[('company_id.name','ilike',self)]"/>
-         <field name="driver_id"
-                string="Nombre del Conductor"
-                filter_domain="[('driver_id','ilike',self)]"/>
+                groups="base.group_multi_company"/>
+         <field name="note"
+                string="Nota"/>
          <field name="viaje_ids" string = "Maquinaria / volquetas"
                 filter_domain="['|',
                 ('viaje_ids.vehicle_id.name', 'ilike',self),
                 ('odometer_ids.vehicle_id.name', 'ilike', self)]"/>
+         <field name="driver_id" string = "Conductor / Operador"
+                filter_domain="[('driven_liq_det_ids.driver_id.name', 'ilike',self)"/>
          <group expand="1" string="Agrupado por">
            <filter name="groupby_company_id"
                    context="{'group_by': 'company_id'}"
@@ -398,9 +391,6 @@
       </field>
     </record>
     <menuitem action="fleet_vehicle_driver_liq_action" parent="fleet.fleet_vehicles" id="fleet_vehicle_driver_liq"/>
-
-
-
   </data>
 </odoo>
 

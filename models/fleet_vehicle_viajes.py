@@ -12,12 +12,18 @@ from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 class FleetVehicleMaterial(models.Model):
     _name = 'fleet.vehicle.material'
     _description = 'Viajes a facturar realizados por la flota de camiones'
-    name = fields.Char('Material')
+    name = fields.Char(
+        string='Material'
+    )
 
 class FleetVehiculeViaje(models.Model):
     _name = 'fleet.vehicle.viaje'
     _order = 'date desc'
-    company_id = fields.Many2one('res.company', 'Compañia', default=lambda self: self.env.company)
+    company_id = fields.Many2one(
+        comodel_name='res.company',
+        string='Compañia',
+        default=lambda self: self.env.company
+    )
     vehicle_id = fields.Many2one(
         comodel_name='fleet.vehicle',
         string='Vehiculo',
@@ -145,7 +151,7 @@ class FleetVehiculeViaje(models.Model):
     liq_driver_id = fields.Many2one(
         comodel_name='fleet.vehicle.driver.liq',
         string='liquidacion Conductor',
-        domain="[('driver_id','=',driver_id)]",
+        domain="[('driven_liq_det_ids.driver_id','=',driver_id)]",
         ondelete='restrict',
         copy=False
     )
@@ -171,9 +177,7 @@ class FleetVehiculeViaje(models.Model):
 
     def _set_adjunto(self):
         for reg in self:
-            reg.tiene_adjunto = False
-            if reg.documentos_ids:
-                reg.tiene_adjunto = True
+            reg.tiene_adjunto = True if reg.documentos_ids else False
 
     @api.onchange('unidad')
     def _onchange_unidad(self):

@@ -16,10 +16,12 @@ class FleetVehicleCost(models.Model):
 
     driver_id = fields.Many2one(
         comodel_name='res.partner',
+        ondelete='restrict',
         string="Conductor"
     )
     cost_subtype_id = fields.Many2one(
         comodel_name='fleet.service.type',
+        ondelete='restrict',
         string='Tipo Servicio'
     )
     odometer = fields.Float(
@@ -37,6 +39,7 @@ class FleetVehicleCost(models.Model):
     work_id = fields.Many2one(
         comodel_name='fleet.vehicle.work',
         string='Trabajo',
+        ondelete='restrict',
         domain="[('detalle_ids.vehicle_id', '=', vehicle_id)]"
     )
     diferencia = fields.Float(
@@ -47,9 +50,11 @@ class FleetVehicleCost(models.Model):
         string='Total Price',
         digits='Amount'
     )
-    parent_id = fields.Many2one('fleet.vehicle.cost', 'Parent',
-      help='Parent cost to this current cost',
-      on_delete='cascade')
+    parent_id = fields.Many2one(
+        comodel_name='fleet.vehicle.cost',
+        string='Parent',
+        help='Parent cost to this current cost',
+        on_delete='cascade')
 
     @api.model
     def default_get(self, default_fields):

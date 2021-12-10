@@ -4,8 +4,6 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.osv import expression
 
 # cambio 1
-
-
 class FleetVehicleLogFuel(models.Model):
     _inherit = 'fleet.vehicle.log.fuel'
     _name = 'fleet.vehicle.log.fuel'

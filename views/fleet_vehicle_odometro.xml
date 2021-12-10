@@ -54,10 +54,13 @@
             </group>
             <notebook>
               <page string="Notas">
-                <field name="descripcion" nolabel="1" placeholder="Describa cualquier informacion adicional de la compra de combustible"/>
+                <field name="descripcion"
+                       nolabel="1"
+                       placeholder="Describa cualquier informacion adicional de la compra de combustible"/>
               </page>
               <page string="Archivos Adjuntos">
-                <field name="documentos_ids" widget="many2many_binary"/>
+                <field name="documentos_ids"
+                       widget="many2many_binary"/>
               </page>
             </notebook>
 
