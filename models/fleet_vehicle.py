@@ -205,14 +205,14 @@ class FleetVehicle(models.Model):
         Cost = self.env['fleet.vehicle.cost']
         LogMonitor = self.env['fleet.vehicle.monitor.log']
         LogViajes = self.env['fleet.vehicle.viaje']
-        record.odometer_count = sum(
-            Odometer.search(
-                [('vehicle_id', '=', record.id), ('liq_id', '=', False)]
-            ).mapped(
-                'total_unidades'
-            )
-        )
         for record in self:
+            record.odometer_count = sum(
+                Odometer.search(
+                    [('vehicle_id', '=', record.id), ('liq_id', '=', False)]
+                ).mapped(
+                    'total_unidades'
+                )
+            )
             record.fuel_logs_count = LogFuel.search_count(
                 [('vehicle_id', '=', record.id)]
             )
@@ -269,11 +269,8 @@ class FleetVehicle(models.Model):
     def _get_odometer(self):
         FleetVehicalOdometer = self.env['fleet.vehicle.odometer']
         for record in self:
-            vehicle_odometer = FleetVehicalOdometer.search(
-                [('vehicle_id', '=', record.id)],
-                limit=1,
-                order='value desc'
-            )
+            vehicle_odometer = FleetVehicalOdometer.search([('vehicle_id', '=', record.id)], limit=1,
+                                                           order='value desc')
             if vehicle_odometer:
                 record.odometer = vehicle_odometer.value_final
             else:
@@ -310,6 +307,7 @@ class FleetVehicle(models.Model):
         for rec in self:
             if rec.vehicle_type_id:
                 rec.odometer_unit = rec.vehicle_type_id.unidades
+                # print("rec.vehicle_type_id.unidades==========", rec.vehicle_type_id.unidades)
                 rec.mtto_cada = rec.vehicle_type_id.mtto_cada
                 rec.aviso_a = rec.vehicle_type_id.aviso_a
                 rec.falta = (rec.mtto_cada or 0) - (rec.aviso_a or 0)
@@ -572,8 +570,10 @@ class VehicleWork(models.Model):
     def create(self, vals):
         if vals.get('name_seq', _('New')) == _('New'):
             vals['name_seq'] = self.env['ir.sequence'].next_by_code(
-                'fleet-adicionales.fleet.vehicle.work.sequence') or _(
-                'New')
+                'fleet-adicionales.fleet.vehicle.work.sequence'
+            ) or _(
+                'New'
+            )
         result = super().create(vals)
         return (result)
 
@@ -612,12 +612,6 @@ class VehicleWork(models.Model):
             return res
         return False
 
-    # @api.model
-    # def _name_search(self, name='', args=None, operator='ilike', limit=100):
-    #   if args is None:
-    #       args = []
-    #   domain = args + ['|', '|', ('name_seq', operator, name), ('contractor_id.name', operator, name), ('alias_work', operator, name)]
-    #   return super().search(domain, limit=limit).name_get()
 
     @api.model
     def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
@@ -739,7 +733,14 @@ class VehicleWorkLiquidacion(models.Model):
     def name_get(self):
         res = []
         for field in self:
-            res.append((field.id, '%s - %s' % (field.name_seq or "", field.work_id.display_name or "")))
+            res.append(
+                (
+                    field.id, '%s - %s' % (
+                        field.name_seq or "",
+                        field.work_id.display_name or ""
+                    )
+                )
+            )
         return res
 
     @api.model
@@ -754,8 +755,10 @@ class VehicleWorkLiquidacion(models.Model):
     def create(self, vals):
         if vals.get('name_seq', _('New')) == _('New'):
             vals['name_seq'] = self.env['ir.sequence'].next_by_code(
-                'fleet-adicionales.fleet.vehicle.work.liq.sequence') or _(
-                'New')
+                'fleet-adicionales.fleet.vehicle.work.liq.sequence'
+            ) or _(
+                'New'
+            )
         result = super().create(vals)
         return (result)
 
@@ -768,9 +771,17 @@ class VehicleWorkLiquidacion(models.Model):
             if self.work_id:
                 lista = [('work_id', '=', self.work_id.id), ('liq_id', '=', False)]
                 if inicio:
-                    lista.append(('date', '>=', inicio))
+                    lista.append(
+                        (
+                            'date', '>=', inicio
+                        )
+                    )
                 if fin:
-                    lista.append(('date', '<=', fin))
+                    lista.append(
+                        (
+                            'date', '<=', fin
+                        )
+                    )
                 registros = rec.env['fleet.vehicle.viaje'].search(lista)
                 if registros:
                     for record in registros:
@@ -851,7 +862,15 @@ class employeWorkLiquidacion(models.Model):
     def name_get(self):
         res = []
         for field in self:
-            res.append((field.id, '%s - %s' % (field.name_seq or "", field.note or "")))
+            res.append(
+                (
+                    field.id,
+                    '%s - %s' % (
+                        field.name_seq or "",
+                        field.note or ""
+                    )
+                )
+            )
         return res
 
     @api.model
@@ -875,7 +894,7 @@ class employeWorkLiquidacion(models.Model):
     def default_get(self, result):
         res = super().default_get(result)
         odometro = self.env['fleet.vehicle.odometer'].search(
-            [('liq_driver_id', '=', False), ('driver_id', '!=', False), ('tipo_odometro', '=', 'odometer')],
+            [('liq_driver_id', '=', False), ('driver_id','!=', False), ('tipo_odometro', '=', 'odometer')],
             order="driver_id desc"
         )
         conductor = False
@@ -950,7 +969,6 @@ class employeWorkLiquidacionDetalle(models.Model):
 
     driver_liq_id = fields.Many2one(
         comodel_name='fleet.vehicle.driver.liq',
-        string='Maestro liquidacion',
         ondelete='restrict'
     )
     driver_id = fields.Many2one(
@@ -1062,10 +1080,25 @@ class FleetVehicletemplate(models.Model):
         anterior = ""
         for field in self:
             if field.parent_id:
-                res.append((field.id,
-                            '%s [%s]-%s' % (field.parent_id.name or "", str(field.orden).zfill(2) or "", field.name)))
+                res.append(
+                    (
+                        field.id,
+                        '%s [%s]-%s' % (
+                            field.parent_id.name or "",
+                            str(field.orden).zfill(2) or "",
+                            field.name
+                        )
+                    )
+                )
             else:
-                res.append((field.id, '%s' % (field.name)))
+                res.append(
+                    (
+                        field.id,
+                        '%s' % (
+                            field.name
+                        )
+                    )
+                )
         return res
 
 
@@ -1098,30 +1131,66 @@ class ProductProduct(models.Model):
 
     def name_get(self):
         res = []
-        trazable = self.env.ref('fleet-adicionales.category_all_trazable', raise_if_not_found=False)
+        trazable = self.env.ref(
+            'fleet-adicionales.category_all_trazable',
+            raise_if_not_found=False
+        )
         for field in self:
-            find = self.env['product.product'].search([('id', '=', field.id), ('categ_id', 'child_of', trazable.id)])
+            find = self.env['product.product'].search(
+                [('id', '=', field.id), ('categ_id', 'child_of', trazable.id)]
+            )
             if find:
-                res.append((field.id, '[%s]-(%s)-%s' % (field.default_code or "", field.date or "", field.name)))
+                res.append(
+                    (
+                        field.id,
+                        '[%s]-(%s)-%s' % (
+                            field.default_code or "",
+                            field.date or "",
+                            field.name
+                        )
+                    )
+                )
             else:
-                res.append((field.id, '[%s]-%s' % (field.default_code or "", field.name)))
+                res.append(
+                    (
+                        field.id,
+                        '[%s]-%s' % (
+                            field.default_code or "",
+                            field.name
+                        )
+                    )
+                )
         return res
 
     def _set_invisible(self, vals):
-        trazable = self.env.ref('fleet-adicionales.category_all_Trazable_herramienta', raise_if_not_found=False)
-        vals.update({'invisible': True})
+        trazable = self.env.ref(
+            'fleet-adicionales.category_all_Trazable_herramienta',
+            raise_if_not_found=False
+        )
+        vals.update(
+            {
+                'invisible': True
+            }
+        )
         if 'categ_id' in vals and vals['categ_id']:
             find = self.env['product.category'].search(
-                [('id', '=', trazable.id), ('id', 'parent_of', vals['categ_id'])])
+                [('id', '=', trazable.id), ('id', 'parent_of', vals['categ_id'])]
+            )
             if find:
-                vals.update({'invisible': False})
+                vals.update(
+                    {
+                        'invisible': False
+                    }
+                )
 
     @api.model
     def create(self, vals):
         self._set_invisible(vals)
         res = super().create(vals)
         if 'employee_id' in vals and vals['employee_id']:
-            res.create_employee_history(vals['employee_id'])
+            res.create_employee_history(
+                vals['employee_id']
+            )
         return res
 
     def write(self, vals):
@@ -1136,11 +1205,15 @@ class ProductProduct(models.Model):
         return res
 
     def _close_employee_history(self):
-        self.env['product.product.assignation.log'].search([
-            ('product_id', 'in', self.ids),
+        self.env['product.product.assignation.log'].search(
+            [('product_id', 'in', self.ids),
             ('employee_id', 'in', self.mapped('employee_id').ids),
-            ('date_end', '=', False)
-        ]).write({'date_end': fields.Date.today()})
+            ('date_end', '=', False)]
+        ).write(
+            {
+                'date_end': fields.Date.today()
+            }
+        )
 
     def create_employee_history(self, employee_id):
         for vehicle in self:
@@ -1249,7 +1322,6 @@ class Transito(models.Model):
         required=True,
         ondelete='cascade'
     )
-
 
 class ProductAssignationLog(models.Model):
     _name = "product.product.assignation.log"
