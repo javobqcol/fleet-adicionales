@@ -205,19 +205,39 @@ class FleetVehicle(models.Model):
         Cost = self.env['fleet.vehicle.cost']
         LogMonitor = self.env['fleet.vehicle.monitor.log']
         LogViajes = self.env['fleet.vehicle.viaje']
+        record.odometer_count = sum(
+            Odometer.search(
+                [('vehicle_id', '=', record.id), ('liq_id', '=', False)]
+            ).mapped(
+                'total_unidades'
+            )
+        )
         for record in self:
-            record.odometer_count = sum(Odometer.search([('vehicle_id', '=', record.id),
-                                                         ('liq_id', '=', False)]).mapped('total_unidades'))
-            record.fuel_logs_count = LogFuel.search_count([('vehicle_id', '=', record.id)])
-            record.service_count = LogService.search_count([('vehicle_id', '=', record.id)])
+            record.fuel_logs_count = LogFuel.search_count(
+                [('vehicle_id', '=', record.id)]
+            )
+            record.service_count = LogService.search_count(
+                [('vehicle_id', '=', record.id)]
+            )
             record.contract_count = LogContract.search_count(
-                [('vehicle_id', '=', record.id), ('state', '!=', 'closed')])
-            record.cost_count = Cost.search_count([('vehicle_id', '=', record.id), ('parent_id', '=', False)])
+                [('vehicle_id', '=', record.id), ('state', '!=', 'closed')]
+            )
+            record.cost_count = Cost.search_count(
+                [('vehicle_id', '=', record.id), ('parent_id', '=', False)]
+            )
             record.history_count = self.env['fleet.vehicle.assignation.log'].search_count(
-                [('vehicle_id', '=', record.id)])
-            record.monitor_count = LogMonitor.search_count([('vehicle_id', '=', record.id)])
+                [('vehicle_id', '=', record.id)]
+            )
+            record.monitor_count = LogMonitor.search_count(
+                [('vehicle_id', '=', record.id)]
+            )
             record.viajes_count = sum(
-                LogViajes.search([('vehicle_id', '=', record.id), ('liq_id', '=', False)]).mapped('viajes'))
+                LogViajes.search(
+                    [('vehicle_id', '=', record.id), ('liq_id', '=', False)]
+                ).mapped(
+                    'viajes'
+                )
+            )
 
     def open_monitor_logs(self):
         self.ensure_one()
@@ -249,8 +269,11 @@ class FleetVehicle(models.Model):
     def _get_odometer(self):
         FleetVehicalOdometer = self.env['fleet.vehicle.odometer']
         for record in self:
-            vehicle_odometer = FleetVehicalOdometer.search([('vehicle_id', '=', record.id)], limit=1,
-                                                           order='value desc')
+            vehicle_odometer = FleetVehicalOdometer.search(
+                [('vehicle_id', '=', record.id)],
+                limit=1,
+                order='value desc'
+            )
             if vehicle_odometer:
                 record.odometer = vehicle_odometer.value_final
             else:
@@ -287,7 +310,6 @@ class FleetVehicle(models.Model):
         for rec in self:
             if rec.vehicle_type_id:
                 rec.odometer_unit = rec.vehicle_type_id.unidades
-                # print("rec.vehicle_type_id.unidades==========", rec.vehicle_type_id.unidades)
                 rec.mtto_cada = rec.vehicle_type_id.mtto_cada
                 rec.aviso_a = rec.vehicle_type_id.aviso_a
                 rec.falta = (rec.mtto_cada or 0) - (rec.aviso_a or 0)
@@ -829,7 +851,7 @@ class employeWorkLiquidacion(models.Model):
     def name_get(self):
         res = []
         for field in self:
-            res.append((field.id, '%s - %s' % (field.name_seq or "", field.driver_id.name or "")))
+            res.append((field.id, '%s - %s' % (field.name_seq or "", field.note or "")))
         return res
 
     @api.model
@@ -853,7 +875,7 @@ class employeWorkLiquidacion(models.Model):
     def default_get(self, result):
         res = super().default_get(result)
         odometro = self.env['fleet.vehicle.odometer'].search(
-            [('liq_driver_id', '=', False), ('driver_id','!=', False), ('tipo_odometro', '=', 'odometer')],
+            [('liq_driver_id', '=', False), ('driver_id', '!=', False), ('tipo_odometro', '=', 'odometer')],
             order="driver_id desc"
         )
         conductor = False
@@ -928,12 +950,12 @@ class employeWorkLiquidacionDetalle(models.Model):
 
     driver_liq_id = fields.Many2one(
         comodel_name='fleet.vehicle.driver.liq',
-        string='vergacion',
+        string='Maestro liquidacion',
         ondelete='restrict'
     )
     driver_id = fields.Many2one(
         comodel_name='res.partner',
-        stgring='Conductor',
+        string='Conductor',
         help='Conductor/operador'
     )
     date = fields.Date(
