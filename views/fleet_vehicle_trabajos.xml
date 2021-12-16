@@ -134,6 +134,16 @@
               </group>
             </group>
             <notebook>
+              <page string="vehiculos">
+                 <field name="vehicle_liq_det_ids" attrs="{'readonly': [('liquidado', '=', True)]}">
+                    <tree string="Vehiculo" >
+                      <field name="vehicle_id"/>
+                      <field name="date"/>
+                      <field name="date_end"/>
+                      <field name="nota"/>
+                   </tree>
+                 </field>
+              </page>
               <page string="Nota">
                  <field nolabel="1"
                         name="descripcion"

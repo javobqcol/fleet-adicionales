@@ -729,6 +729,11 @@ class VehicleWorkLiquidacion(models.Model):
         String="Liquidado",
         default=False
     )
+    vehicle_liq_det_ids = fields.One2many(
+        comodel_name='fleet.vehicle.work.liq.det',
+        inverse_name='vehicle_id',
+        string='Vehiculos'
+    )
 
     def name_get(self):
         res = []
@@ -792,6 +797,77 @@ class VehicleWorkLiquidacion(models.Model):
                         record.write({'liq_id': rec.id})
             rec.liquidado = True
 
+    @api.onchange('work_id')
+    def cambio_work(self):
+        for reg in self:
+            odometro = reg.env['fleet.vehicle.odometer'].search(
+                [('work_id', '=', reg.work_id.id), ('liq_id', '=', False), ('tipo_odometro', '=', 'odometer')],
+                order="vehicle_id desc"
+            )
+            vehiculo = False
+            lista = [(5, 0, 0)]
+            for record in odometro:
+                _logger.info('conductor %s' % record.vehicle_id.name)
+                if record.vehicle_id.id != vehiculo:
+                    lista.append(
+                        (
+                            0, 0, {
+                                'vehicle_id': record.vehicle_id.id,
+                                'date_end': fields.Date.context_today(reg)
+                            }
+                         )
+                    )
+                    _logger.info('FYI: This is happening %s' % lista)
+                vehiculo = record.vehicle_id.id
+            viajes = reg.env['fleet.vehicle.viaje'].search(
+                [('work_id', '=', reg.work_id.id), ('liq_id', '=', False)],
+                order="vehicle_id desc"
+            )
+            vehiculo = False
+            for record in viajes:
+                if record.vehicle_id.id != vehiculo:
+                    lista.append(
+                        (
+                            0, 0, {
+                                'vehicle_id': record.vehicle_id.id,
+                                'date_end': fields.Date.context_today(reg)
+                            }
+                         )
+                    )
+                    _logger.info('FYI: This is happening %s' % lista)
+                vehiculo = record.vehicle_id.id
+                _logger.info('FYI: This is happening %s' % lista)
+            if lista:
+                reg.vehicle_liq_det_ids = lista
+
+
+class VehicleWorkLiquidacionDetalle(models.Model):
+    _name = 'fleet.vehicle.work.liq.det'
+    _description = 'liquidacion de maquinas y automotores detalle'
+
+    vehicle_liq_id = fields.Many2one(
+        comodel_name='fleet.vehicle.work.liq',
+        ondelete='restrict'
+    )
+    vehicle_id = fields.Many2one(
+        comodel_name='fleet.vehicle',
+        string='Vehiculo/maquinaria',
+        help='Vehiculo/maquinaria'
+    )
+    date = fields.Date(
+        string='Fecha inicio',
+        help="Fecha inicio liquidacion en blanco para inicio de los tiempos"
+    )
+    date_end = fields.Date(
+        string='Fecha fin',
+        help="Fecha inicio liquidacion en blanco para fin de los tiempos"
+    )
+    total_liquidacion = fields.Float(
+        string="Total liquidacion"
+    )
+    nota = fields.Char(
+        string="Nota liquidacion vehiculo"
+    )
 
 class employeWorkLiquidacion(models.Model):
     _name = 'fleet.vehicle.driver.liq'
@@ -961,7 +1037,6 @@ class employeWorkLiquidacion(models.Model):
                 for record in registros:
                     record.write({'liq_driver_id': rec.driver_liq_id.id})
             self.liquidado = True
-
 
 class employeWorkLiquidacionDetalle(models.Model):
     _name = 'fleet.vehicle.driver.liq.det'
