@@ -11,6 +11,7 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'
 
@@ -33,7 +34,7 @@ class FleetVehicle(models.Model):
         comodel_name='ir.attachment',
         relation='fleet_vehicle_attachment_rel',
         column1='vehicle_id',
-        xolumn2='attachment_id',
+        column2='attachment_id',
         string='Documentos Adjuntos'
     )
     description = fields.Text(
@@ -55,7 +56,7 @@ class FleetVehicle(models.Model):
         ondelete='restrict'
     )
     odometer_unit = fields.Selection(
-        selection=[('kilometers', 'Kilometros'),('miles', 'Millas'),('hours', 'Horas'),],
+        selection=[('kilometers', 'Kilometros'), ('miles', 'Millas'), ('hours', 'Horas'), ],
         string='Uniadades odometro',
         default='hours',
         help='Unidades de odometro',
@@ -163,7 +164,7 @@ class FleetVehicle(models.Model):
         comodel_name='fleet.vehicle.template',
         relation='fleet_vehicle_template_rel',
         column1='vehicle_id',
-        column2= 'template_id',
+        column2='template_id',
         domain="[('type_id','=',vehicle_type_id)]",
         options="{'no_create':True, 'color_field':'color'}"
     )
@@ -438,7 +439,7 @@ class VehicleType(models.Model):
     _name = 'vehicle.type'
     _description = 'Vehicle Type'
     code = fields.Selection(
-        selection=[('vehiculo', 'Vehículo'),('maquinaria', 'Maquinaria Amarilla'),('menor', 'Herramienta menor'),],
+        selection=[('vehiculo', 'Vehículo'), ('maquinaria', 'Maquinaria Amarilla'), ('menor', 'Herramienta menor'), ],
         string='Tipo de maquinaria',
         default='vehiculo',
         help='Tipo de maquinaria',
@@ -450,7 +451,7 @@ class VehicleType(models.Model):
         translate=True
     )
     unidades = fields.Selection(
-        selection=[('kilometers', 'Kilometros'),('miles', 'Millas'),('hours', 'Horas'),],
+        selection=[('kilometers', 'Kilometros'), ('miles', 'Millas'), ('hours', 'Horas'), ],
         string='Uniadades odometro',
         default='hours',
         help='Unidades de odometro',
@@ -518,7 +519,8 @@ class VehicleWork(models.Model):
         default=True
     )
     state = fields.Selection(
-        selection=[('activo', 'Activo'),('inactivo', 'Inactivo'),('cancelado', 'Cancelado'),('finalizado', 'Finalizado')],
+        selection=[('activo', 'Activo'), ('inactivo', 'Inactivo'), ('cancelado', 'Cancelado'),
+                   ('finalizado', 'Finalizado')],
         string='Estado del trabajo',
         default='activo',
         help='Estado del trabajo',
@@ -612,7 +614,6 @@ class VehicleWork(models.Model):
             return res
         return False
 
-
     @api.model
     def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
         if args is None:
@@ -642,7 +643,7 @@ class VehicleWorkDet(models.Model):
     )
     vehicle_id = fields.Many2one(
         comodel_name='fleet.vehicle',
-        string= 'vehículo a Asignar'
+        string='vehículo a Asignar'
     )
     company_id = fields.Many2one(
         comodel_name='res.company',
@@ -731,7 +732,7 @@ class VehicleWorkLiquidacion(models.Model):
     )
     vehicle_liq_det_ids = fields.One2many(
         comodel_name='fleet.vehicle.work.liq.det',
-        inverse_name='vehicle_id',
+        inverse_name='vehicle_liq_id',
         string='Vehiculos'
     )
 
@@ -799,46 +800,57 @@ class VehicleWorkLiquidacion(models.Model):
 
     @api.onchange('work_id')
     def cambio_work(self):
+        lista = []
+        iter = 0
         for reg in self:
-            odometro = reg.env['fleet.vehicle.odometer'].search(
-                [('work_id', '=', reg.work_id.id), ('liq_id', '=', False), ('tipo_odometro', '=', 'odometer')],
-                order="vehicle_id desc"
+            lista.append(
+                (
+                    0, 0, {
+                        'vehicle_id': 12
+                    }
+                )
             )
-            vehiculo = False
-            lista = [(5, 0, 0)]
-            for record in odometro:
-                _logger.info('conductor %s' % record.vehicle_id.name)
-                if record.vehicle_id.id != vehiculo:
-                    lista.append(
-                        (
-                            0, 0, {
-                                'vehicle_id': record.vehicle_id.id,
-                                'date_end': fields.Date.context_today(reg)
-                            }
-                         )
-                    )
-                    _logger.info('FYI: This is happening %s' % lista)
-                vehiculo = record.vehicle_id.id
-            viajes = reg.env['fleet.vehicle.viaje'].search(
-                [('work_id', '=', reg.work_id.id), ('liq_id', '=', False)],
-                order="vehicle_id desc"
-            )
-            vehiculo = False
-            for record in viajes:
-                if record.vehicle_id.id != vehiculo:
-                    lista.append(
-                        (
-                            0, 0, {
-                                'vehicle_id': record.vehicle_id.id,
-                                'date_end': fields.Date.context_today(reg)
-                            }
-                         )
-                    )
-                    _logger.info('FYI: This is happening %s' % lista)
-                vehiculo = record.vehicle_id.id
-                _logger.info('FYI: This is happening %s' % lista)
+            # odometro = self.env['fleet.vehicle.odometer'].search(
+            #     [('work_id', '=', reg.work_id.id), ('liq_id', '=', False), ('tipo_odometro', '=', 'odometer')],
+            #     order="vehicle_id desc"
+            # )
+            # vehiculo = False
+            #
+            # for record in odometro:
+            #     if record.vehicle_id.id != vehiculo:
+            #         lista.append(
+            #             (
+            #                 0, 0, {
+            #                     'vehicle_id': record.vehicle_id.id,
+            #                     'date_end': fields.Date.context_today(reg)
+            #                 }
+            #             )
+            #         )
+            #     vehiculo = record.vehicle_id.id
+            # viajes = reg.env['fleet.vehicle.viaje'].search(
+            #     [('work_id', '=', reg.work_id.id), ('liq_id', '=', False)],
+            #     order="vehicle_id desc"
+            # )
+            # vehiculo = False
+            # for record in viajes:
+            #     if record.vehicle_id.id != vehiculo:
+            #         lista.append(
+            #             (
+            #                 0, 0, {
+            #                     'vehicle_id': record.vehicle_id.id,
+            #                     'date_end': fields.Date.context_today(reg)
+            #                 }
+            #             )
+            #         )
+            #         vehiculo = record.vehicle_id.id
             if lista:
-                reg.vehicle_liq_det_ids = lista
+                _logger.info('FYI: This is happening  iter = % s  %s' % (iter, lista))
+                iter += 1
+                reg.update(
+                    {
+                        'vehicle_liq_det_ids': lista,
+                    }
+                )
 
 
 class VehicleWorkLiquidacionDetalle(models.Model):
@@ -860,7 +872,8 @@ class VehicleWorkLiquidacionDetalle(models.Model):
     )
     date_end = fields.Date(
         string='Fecha fin',
-        help="Fecha inicio liquidacion en blanco para fin de los tiempos"
+        help="Fecha inicio liquidacion en blanco para fin de los tiempos",
+        default=fields.Date.today
     )
     total_liquidacion = fields.Float(
         string="Total liquidacion"
@@ -868,6 +881,11 @@ class VehicleWorkLiquidacionDetalle(models.Model):
     nota = fields.Char(
         string="Nota liquidacion vehiculo"
     )
+
+    @api.model
+    def default_get(self, result):
+        res = super().default_get(result)
+
 
 class employeWorkLiquidacion(models.Model):
     _name = 'fleet.vehicle.driver.liq'
@@ -970,13 +988,12 @@ class employeWorkLiquidacion(models.Model):
     def default_get(self, result):
         res = super().default_get(result)
         odometro = self.env['fleet.vehicle.odometer'].search(
-            [('liq_driver_id', '=', False), ('driver_id','!=', False), ('tipo_odometro', '=', 'odometer')],
+            [('liq_driver_id', '=', False), ('driver_id', '!=', False), ('tipo_odometro', '=', 'odometer')],
             order="driver_id desc"
         )
         conductor = False
         lista = []
         for record in odometro:
-            _logger.info('conductor %s' % record.driver_id.name)
             if record.driver_id.id != conductor:
                 lista.append(
                     (
@@ -984,9 +1001,8 @@ class employeWorkLiquidacion(models.Model):
                             'driver_id': record.driver_id.id,
                             'date_end': fields.Date.context_today(self)
                         }
-                     )
+                    )
                 )
-                _logger.info('FYI: This is happening %s' % lista)
             conductor = record.driver_id.id
         viajes = self.env['fleet.vehicle.viaje'].search(
             [('liq_driver_id', '=', False), ('driver_id', '!=', False)],
@@ -994,7 +1010,6 @@ class employeWorkLiquidacion(models.Model):
         )
         conductor = False
         for record in viajes:
-            _logger.info('conductor %s' % record.driver_id.name)
             if record.driver_id.id != conductor:
                 lista.append(
                     (
@@ -1002,10 +1017,10 @@ class employeWorkLiquidacion(models.Model):
                             'driver_id': record.driver_id.id,
                             'date_end': fields.Date.context_today(self)
                         }
-                     )
+                    )
                 )
-                _logger.info('FYI: This is happening %s' % lista)
             conductor = record.driver_id.id
+        _logger.info('FYI: This is happening %s' % lista)
         res.update(
             {
                 'driven_liq_det_ids': lista,
@@ -1038,6 +1053,7 @@ class employeWorkLiquidacion(models.Model):
                     record.write({'liq_driver_id': rec.driver_liq_id.id})
             self.liquidado = True
 
+
 class employeWorkLiquidacionDetalle(models.Model):
     _name = 'fleet.vehicle.driver.liq.det'
     _description = 'liquidacion de maquinas y viajes de Conductores detalle'
@@ -1065,6 +1081,7 @@ class employeWorkLiquidacionDetalle(models.Model):
     nota = fields.Char(
         string="Nota empleado"
     )
+
 
 class VehicleLiquidacion(models.Model):
     _name = 'fleet.vehicle.liquidacion'
@@ -1282,8 +1299,8 @@ class ProductProduct(models.Model):
     def _close_employee_history(self):
         self.env['product.product.assignation.log'].search(
             [('product_id', 'in', self.ids),
-            ('employee_id', 'in', self.mapped('employee_id').ids),
-            ('date_end', '=', False)]
+             ('employee_id', 'in', self.mapped('employee_id').ids),
+             ('date_end', '=', False)]
         ).write(
             {
                 'date_end': fields.Date.today()
@@ -1397,6 +1414,7 @@ class Transito(models.Model):
         required=True,
         ondelete='cascade'
     )
+
 
 class ProductAssignationLog(models.Model):
     _name = "product.product.assignation.log"
