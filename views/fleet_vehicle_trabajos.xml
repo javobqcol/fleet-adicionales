@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data>
-
     <record id="fleet_vehicle_work_view_form" model="ir.ui.view">
       <field name="name">fleet.vehicle.work.view.form</field>
       <field name="model">fleet.vehicle.work</field>
@@ -90,132 +89,6 @@
       </field>
     </record>
 
-    <record id='fleet_vehicle_work_liq_form' model='ir.ui.view'>
-      <field name="name">fleet.vehicle.work.liq.form</field>
-      <field name="model">fleet.vehicle.work.liq</field>
-      <field name="arch" type="xml">
-        <form string="Liquidación">
-          <header>
-<!--            <button name="liquidar_maquinaria"-->
-<!--                    class="oe_highlight"-->
-<!--                    type="object" string="Liquidacion"-->
-<!--                    groups="fleet.fleet_group_manager"-->
-<!--                    help="Liquidacion de maquinaria">-->
-<!--            </button>-->
-            <button name="liquidar_maquinaria"
-                    class="oe_highlight"
-                    type="object" string="Liquidacion"
-                    attrs="{'invisible': ['|', ('name_seq', '=', 'Nuevo'), ('liquidado', '=', True)]}"
-                    help="Liquidacion de maquinaria"
-                    confirm="Esta seguro que quiere liquidar solo un
-                    administrador podra ingresar manualmente registros
-                    a una liquidacion realizada"/>
-          </header>
-          <sheet>
-            <div class="oe_title">
-              <h1>
-                <field name="name_seq" readonly="1"/>
-              </h1>
-            </div>
-            <group col="2">
-              <group>
-                <field name="work_id" attrs="{'readonly': [('liquidado', '=', True)]}"/>
-                <field name="company_id"
-                       string="Compañia"
-                       groups="base.group_multi_company"
-                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
-                       attrs="{'readonly': [('liquidado', '=', True)]}"/>
-                <field name="date" attrs="{'readonly': [('liquidado', '=', True)]}"/>
-                <field name="date_end" attrs="{'readonly': [('liquidado', '=', True)]}"/>
-              </group>
-              <group>
-                <field name="total_liquidacion" attrs="{'readonly': [('liquidado', '=', True)]}"/>
-                <field name="liquidado" groups="base.group_multi_company"/>
-              </group>
-            </group>
-            <notebook>
-              <page string="vehiculos">
-                 <field name="vehicle_liq_det_ids">
-                    <tree string="Vehiculo" >
-                      <field name="vehicle_id"/>
-                      <field name="date"/>
-                      <field name="date_end"/>
-                      <field name="nota"/>
-                   </tree>
-                 </field>
-              </page>
-              <page string="Nota">
-                 <field nolabel="1"
-                        name="descripcion"
-                        placeholder="Escriba aqui cualquier otra info" />
-              </page>
-            </notebook>
-          </sheet>
-        </form>
-      </field>
-    </record>
-
-   <record id="fleet_vehicle_work_liq_tree" model="ir.ui.view">
-      <field name="name">fleet.vehicle.work.liq.tree</field>
-      <field name="model">fleet.vehicle.work.liq</field>
-      <field name="arch" type="xml">
-        <tree string="Trabajos" decoration-muted="liquidado == True">
-          <field name="name_seq"/>
-          <field name="work_id"/>
-          <field name="company_id" optional="hide" groups="base.group_multi_company"/>
-          <field name="date"/>
-          <field name="date_end"/>
-          <field name="total_liquidacion"/>
-          <field name="liquidado" groups="base.group_multi_company"/>
-        </tree>
-      </field>
-    </record>
-
-
-
-   <record id="fleet_vehicle_work_liq_search" model="ir.ui.view">
-     <field name="name">fleet.vehicle.work.view.search</field>
-     <field name="model">fleet.vehicle.work.liq</field>
-     <field name="arch" type="xml">
-       <search string="Trabajos realizados por los automotores">
-         <field name="name_seq" string="Consecutivo"/>
-         <field name="company_id"
-                string="Compañia"
-                groups="base.group_multi_company"/>
-         <field name="work_id"
-                string="Nombre trabajo"/>
-         <field name="viaje_ids" string = "Maquinaria / volquetas"
-                filter_domain="['|',
-                ('viaje_ids.vehicle_id.name', 'ilike',self),
-                ('odometer_ids.vehicle_id.name', 'ilike', self)]"/>
-         <group expand="1" string="Agrupado por">
-           <filter name="groupby_company_id"
-                   context="{'group_by': 'company_id'}"
-                   string="Compañia"
-                   groups="base.group_multi_company"/>
-           <filter name="groupby_trabajo"
-                   context="{'group_by': 'work_id'}"
-                   string="Trabajo"/>
-         </group>
-       </search>
-     </field>
-    </record>
-
-    <record id='fleet_vehicle_work_liq_action' model='ir.actions.act_window'>
-      <field name="name">Registro de liquidaciones de trabajos</field>
-      <field name="res_model">fleet.vehicle.work.liq</field>
-      <field name="view_mode">tree,form</field>
-      <field name="search_view_id" ref="fleet_vehicle_work_liq_search"/>
-      <field name="help" type="html">
-        <p class="o_view_nocontent_smiling_face">
-          Ingrese un nueva liquidacion
-        </p><p>
-          Rastree todas las liquidaciones realizados por la maquinaria y equipos.
-        </p>
-      </field>
-    </record>
-    <menuitem action="fleet_vehicle_work_liq_action" parent="fleet.fleet_vehicles" id="fleet_vehicle_work_liq"/>
-
     <record id="fleet_vehicle_work_liq_view_tree" model="ir.ui.view">
       <field name="name">fleet.vehicle.work.tree</field>
       <field name="model">fleet.vehicle.work</field>
@@ -266,8 +139,6 @@
      </field>
     </record>
 
-
-
     <record id='fleet_vehicle_work_action' model='ir.actions.act_window'>
       <field name="name">Registro de trabajos de los vehiculos</field>
       <field name="res_model">fleet.vehicle.work</field>
@@ -282,125 +153,6 @@
       </field>
     </record>
     <menuitem action="fleet_vehicle_work_action" parent="fleet.fleet_vehicles" id="fleet_vehicle_work_menu"/>
-
-    <record id='fleet_vehicle_driver_liq_form' model='ir.ui.view'>
-      <field name="name">fleet.vehicle.driver.liq.form</field>
-      <field name="model">fleet.vehicle.driver.liq</field>
-      <field name="arch" type="xml">
-        <form string="Liquidación">
-          <header>
-            <button name="liquidar_maquinaria"
-                    class="oe_highlight"
-                    type="object" string="Liquidacion"
-                    attrs="{'invisible': ['|', ('name_seq', '=', 'Nuevo'), ('liquidado', '=', True)]}"
-                    help="Liquidacion de conductores"
-                    confirm="Esta seguro que quiere liquidar solo un
-                    administrador podra ingresar manualmente registros
-                    a una liquidacion realizada"/>
-          </header>
-          <sheet>
-            <div class="oe_title">
-              <h1>
-                <field name="name_seq" readonly="1"/>
-              </h1>
-            </div>
-            <group col="2">
-              <group>
-                <field name="company_id"
-                       string="Compañia"
-                       groups="base.group_multi_company"
-                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
-                       attrs="{'readonly': [('liquidado', '=', True)]}"/>
-                <field name="note" attrs="{'readonly': [('liquidado', '=', True)]}"/>
-                <field name="date" attrs="{'readonly': [('liquidado', '=', True)]}"/>
-                <field name="date_end" attrs="{'readonly': [('liquidado', '=', True)]}"/>
-              </group>
-              <group>
-                <field name="total_liquidacion" attrs="{'readonly': [('liquidado', '=', True)]}"/>
-                <field name="liquidado" groups="base.group_multi_company"/>
-              </group>
-            </group>
-            <notebook>
-              <page string="Operador_conductor">
-                 <field name="driven_liq_det_ids" attrs="{'readonly': [('liquidado', '=', True)]}">
-                    <tree string="conductores_operadores" >
-                      <field name="driver_id"/>
-                      <field name="date"/>
-                      <field name="date_end"/>
-                      <field name="nota"/>
-                   </tree>
-                 </field>
-              </page>
-              <page string="Nota">
-                 <field nolabel="1"
-                        name="descripcion"
-                        placeholder="Escriba aqui cualquier otra info" />
-              </page>
-            </notebook>
-          </sheet>
-        </form>
-      </field>
-    </record>
-
-   <record id="fleet_vehicle_driver_liq_tree" model="ir.ui.view">
-      <field name="name">fleet.vehicle.driver.liq.tree</field>
-      <field name="model">fleet.vehicle.driver.liq</field>
-      <field name="arch" type="xml">
-        <tree string="Trabajos" decoration-primary="liquidado == True">
-          <field name="name_seq"/>
-          <field name="company_id" optional="hide" groups="base.group_multi_company"/>
-          <field name="note" />
-          <field name="date"/>
-          <field name="date_end"/>
-          <field name="total_liquidacion"/>
-          <field name="liquidado" groups="base.group_multi_company"/>
-        </tree>
-      </field>
-    </record>
-
-
-   <record id="fleet_vehicle_driver_liq_search" model="ir.ui.view">
-     <field name="name">fleet.vehicle.driver.view.search</field>
-     <field name="model">fleet.vehicle.driver.liq</field>
-     <field name="arch" type="xml">
-       <search string="Trabajos realizados por los conductores">
-         <field name="name_seq"
-                string="Consecutivo"/>
-         <field name="company_id"
-                string="Compañia"
-                groups="base.group_multi_company"/>
-         <field name="note"
-                string="Nota"/>
-         <field name="viaje_ids" string = "Maquinaria / volquetas"
-                filter_domain="['|',
-                ('viaje_ids.vehicle_id.name', 'ilike',self),
-                ('odometer_ids.vehicle_id.name', 'ilike', self)]"/>
-         <field name="driver_id" string = "Conductor / Operador"
-                filter_domain="[('driven_liq_det_ids.driver_id.name', 'ilike',self)]"/>
-         <group expand="1" string="Agrupado por">
-           <filter name="groupby_company_id"
-                   context="{'group_by': 'company_id'}"
-                   string="Compañia"
-                   groups="base.group_multi_company"/>
-         </group>
-       </search>
-     </field>
-    </record>
-
-    <record id='fleet_vehicle_driver_liq_action' model='ir.actions.act_window'>
-      <field name="name">Registro de liquidaciones de conductores</field>
-      <field name="res_model">fleet.vehicle.driver.liq</field>
-      <field name="view_mode">tree,form</field>
-      <field name="search_view_id" ref="fleet_vehicle_driver_liq_search"/>
-      <field name="help" type="html">
-        <p class="o_view_nocontent_smiling_face">
-          Ingrese un nueva liquidacion de conductores
-        </p><p>
-          Rastree todas las liquidaciones realizados por la maquinaria y equipos de los conductores
-        </p>
-      </field>
-    </record>
-    <menuitem action="fleet_vehicle_driver_liq_action" parent="fleet.fleet_vehicles" id="fleet_vehicle_driver_liq"/>
   </data>
 </odoo>
 

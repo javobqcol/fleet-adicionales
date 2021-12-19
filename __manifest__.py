@@ -39,6 +39,8 @@ Main Features
         'views/fleet_vehicle_odometro.xml',
         'views/fleet_vehicle_trabajos.xml',
         'views/fleet_vehicle_viajes.xml',
+        'views/fleet_vehicle_work_liq.xml',
+        'views/fleet_vehicle_driver_liq.xml',
         'views/res_config_settings_views.xml',
         'data/vehicle_type.xml',
         'data/vehicle_color.xml',

@@ -37,6 +37,6 @@ fl_ve_od_admin,fl_ve_od_admin,fleet.model_fleet_vehicle_odometer,fleet.fleet_gro
 fl_ve_dr_li_user,fl_ve_dr_li_user,model_fleet_vehicle_driver_liq,fleet.fleet_group_user,1,1,1,0
 fl_ve_dr_li_admin,fl_ve_dr_li_admin,model_fleet_vehicle_driver_liq,fleet.fleet_group_manager,1,1,1,1
 fl_ve_dr_li_det_admin,fl_ve_dr_li_det_admin,model_fleet_vehicle_driver_liq_det,fleet.fleet_group_manager,1,1,1,1
-fl_ve_dr_li_det_user,fl_ve_dr_li_det_user,model_fleet_vehicle_driver_liq_det,fleet.fleet_group_user,1,1,1,0
+fl_ve_dr_li_det_user,fl_ve_dr_li_det_user,model_fleet_vehicle_driver_liq_det,fleet.fleet_group_user,1,1,1,1
 fl_ve_wo_li_de_admin,fl_ve_wo_li_de_admin,model_fleet_vehicle_work_liq_det,fleet.fleet_group_manager,1,1,1,1
-fl_ve_wo_li_de_admin,fl_ve_wo_li_de_admin,model_fleet_vehicle_work_liq_det,fleet.fleet_group_user,1,1,1,0
+fl_ve_wo_li_de_admin,fl_ve_wo_li_de_admin,model_fleet_vehicle_work_liq_det,fleet.fleet_group_user,1,1,1,1
