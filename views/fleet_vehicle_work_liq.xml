@@ -25,7 +25,7 @@
                     class="oe_highlight"
                     groups="base.group_multi_company"
                     type="object" string="reestablecer"
-                    attrs="{'invisible': [('name_seq', '!=', 'Nuevo'), ('liquidado', '=', False)]}"
+                    attrs="{'invisible': [('liquidado', '=', False)]}"
                     help="restablecer"
                     confirm="Esta seguro que quiere reestablecerlos registros a su valor original"/>
           </header>

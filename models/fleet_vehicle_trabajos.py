@@ -293,46 +293,80 @@ class VehicleWorkLiquidacion(models.Model):
         return result
 
     def liquidar_maquinaria(self):
-        for rec in self.vehicle_liq_det_ids:
-            inicio = rec.date
-            fin = rec.date_end
-            if self.work_id:
-                lista = [('work_id', '=', self.work_id.id),
-                         ('liq_id', '=', False),
-                         ('vehicle_id', '=', rec.vehicle_id.id)]
-                if inicio:
-                    lista.append(
-                        (
-                            'date', '>=', inicio
+        for reg in self:
+            for registro_liq_det in reg.vehicle_liq_det_ids:
+                inicio = registro_liq_det.date
+                fin = registro_liq_det.date_end
+                if reg.work_id:
+                    lista = [('work_id', '=', reg.work_id.id),
+                             ('liq_id', '=', False),
+                             ('vehicle_id', '=', registro_liq_det.vehicle_id.id)]
+                    if inicio:
+                        lista.append(
+                            (
+                                'date', '>=', inicio
+                            )
                         )
-                    )
-                if fin:
-                    lista.append(
-                        (
-                            'date', '<=', fin
+                    if fin:
+                        lista.append(
+                            (
+                                'date', '<=', fin
+                            )
                         )
-                    )
-                registros = rec.env['fleet.vehicle.viaje'].search(lista)
-                if registros:
-                    for record in registros:
-                        record.write({'liq_id': rec.id})
-                registros = rec.env['fleet.vehicle.odometer'].search(lista)
-                if registros:
-                    for record in registros:
-                        record.write({'liq_id': rec.id})
-        if self.vehicle_liq_det_ids:
-            self.liquidado = True
+                    registros = registro_liq_det.env['fleet.vehicle.viaje'].search(lista)
+                    inc = 1
+                    if registros:
+                        for record in registros:
+                            record.write({'liq_id': reg.id})
+                            _logger.info(
+                                'FYI: -->record = %s, vehiculo = %s, interno=%s, cantera=%s' %
+                                (inc, registro_liq_det.vehicle_id.name, record.recibo_interno, record.recibo_cantera)
+                            )
+                            inc += 1
+                    registros = registro_liq_det.env['fleet.vehicle.odometer'].search(lista)
+                    inc = 1
+                    if registros:
+                        for record in registros:
+                            _logger.info(
+                                'FYI: -->record = %s, vehiculo = %s, recibo=%s' %
+                                (inc, registro_liq_det.vehicle_id.name, record.recibo)
+                            )
+                            inc += 1
+                            record.write({'liq_id': reg.id})
+            if reg.vehicle_liq_det_ids:
+                reg.liquidado = True
 
     def rollback_maquinaria(self):
+
         for reg in self:
-            registros = reg.env['fleet.vehicle.viaje'].search([('liq_id', '=', reg.id)])
-            if registros:
-                for record in registros:
-                    record.write({'liq_id': False})
-            registros = reg.env['fleet.vehicle.odometer'].search([('liq_id', '=', reg.id)])
-            if registros:
-                for record in registros:
-                    record.write({'liq_id': False})
+            _logger.info('FYI: This is odometer %s' % reg.name_seq)
+            registros_viaje = reg.env['fleet.vehicle.viaje'].search([('liq_id', '=', reg.id)])
+            # _logger.info('FYI: This is viajes %s' % registros_viaje)
+            inc = 1
+            if registros_viaje:
+                for record in registros_viaje:
+                    _logger.info(
+                        'FYI: -->record = %s, vehiculo = %s, interno=%s, cantera=%s' %
+                        (inc, record.vehicle_id.name, record.recibo_interno, record.recibo_cantera)
+                    )
+                    inc += 1
+                    record.update(
+                        {'liq_id': False}
+                    )
+            registros_odometer = reg.env['fleet.vehicle.odometer'].search([('liq_id', '=', reg.id)])
+            inc = 1
+            if registros_odometer:
+                _logger.info('FYI: This is odometer %s' % registros_odometer)
+                for record in registros_odometer:
+                    _logger.info(
+                        'FYI: -->record = %s, vehiculo = %s, interno=%s' %
+                        (inc, record.vehicle_id.name, record.recibo)
+                    )
+                    inc += 1
+                    record.update(
+                        {'liq_id': False}
+                    )
+
             reg.liquidado = False
 
     @api.onchange('work_id')
@@ -553,41 +587,52 @@ class EmployeWorkLiquidacion(models.Model):
                 }
             )
 
-    def liquidar_maquinaria(self):
-        for rec in self.driven_liq_det_ids:
-            _logger.info('FYI: rec %s' % rec.name_seq)
-            inicio = rec.date
-            fin = rec.date_end
-            lista = [('driver_id', '=', rec.driver_id.id), ('liq_driver_id', '=', False)]
-            if inicio:
-                lista.append(('date', '>=', inicio))
-            if fin:
-                lista.append(('date', '<=', fin))
-            _logger.info('FYI: lista %s' % lista)
-            registros = rec.env['fleet.vehicle.viaje'].search(lista)
-            if registros:
-                for record in registros:
-                    _logger.info('FYI: viaje %s' % record)
-
-                    record.write({'liq_driver_id': rec.driver_liq_id.id})
-            registros = rec.env['fleet.vehicle.odometer'].search(lista)
-            if registros:
-                for record in registros:
-                    record.write({'liq_driver_id': rec.driver_liq_id.id})
-        if self.driven_liq_det_ids:
-            self.liquidado = True
+    def liquidar_conductores(self):
+        for rec in self:
+            for rec_driven_liq in self.driven_liq_det_ids:
+                inicio = rec_driven_liq.date
+                fin = rec_driven_liq.date_end
+                lista = [('driver_id', '=', rec_driven_liq.driver_id.id), ('liq_driver_id', '=', False)]
+                if inicio:
+                    lista.append(('date', '>=', inicio))
+                if fin:
+                    lista.append(('date', '<=', fin))
+                registros = rec_driven_liq.env['fleet.vehicle.viaje'].search(lista)
+                inc = 1
+                if registros:
+                    for record in registros:
+                        _logger.info(
+                            'FYI: -->record = %s, conductor = %s, interno=%s, cantera=%s liq=%s' %
+                            (inc, rec_driven_liq.driver_id.name, record.recibo_interno, record.recibo_cantera, rec.name_seq)
+                        )
+                        inc += 1
+                        record.write({'liq_driver_id': rec.id})
+                registros = rec_driven_liq.env['fleet.vehicle.odometer'].search(lista)
+                if registros:
+                    for record in registros:
+                        _logger.info(
+                            'FYI: -->record = %s, vehiculo = %s, interno=%s liq=%s' %
+                            (inc, rec_driven_liq.driver_id.name, record.recibo, rec.name_seq)
+                        )
+                        inc += 1
+                        record.write({'liq_driver_id': rec.id})
+            if rec.driven_liq_det_ids:
+                rec.liquidado = True
 
     def rollback_conductores(self):
         for reg in self:
-            _logger.info('FYI: This is happening %s' % reg.)
+            _logger.info('FYI: name_sec %s, id=%s' % (reg.name_seq, reg.id))
             registros = reg.env['fleet.vehicle.viaje'].search([('liq_driver_id', '=', reg.id)])
+            _logger.info('FYI: registros %s' % (registros))
+
             if registros:
                 for record in registros:
                     record.write({'liq_driver_id': False})
             registros = reg.env['fleet.vehicle.odometer'].search([('liq_driver_id', '=', reg.id)])
+            _logger.info('FYI: registros %s' % (registros))
             if registros:
                 for record in registros:
-                    record.write({'liq_id': False})
+                    record.write({'liq_driver_id': False})
             reg.liquidado = False
 
 class employeWorkLiquidacionDetalle(models.Model):
