@@ -109,12 +109,14 @@ class FleetVehiculeOdometer(models.Model):
         comodel_name='fleet.vehicle.work.liq',
         string='liquidacion Trabajo',
         ondelete='restrict',
-        domain="[('work_id','=',work_id)]"
+        domain="[('work_id','=',work_id)]",
+        copy=False
     )
     liq_driver_id = fields.Many2one(
         comodel_name='fleet.vehicle.driver.liq',
         ondelete='restrict',
-        string='liquidacion Conductor'
+        string='liquidacion Conductor',
+        copy=False
     )
     motivo = fields.Selection(
         selection=[('propio', 'Propio de la empresa'), ('ajeno', 'Ajeno a la empresa $')],

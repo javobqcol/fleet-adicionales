@@ -229,7 +229,7 @@ class FleetVehiculeViaje(models.Model):
     def _onchange_date(self):
         for record in self:
             if record.date:
-                fecha:_actual = fields.Date.context_today(record)
+                fecha_actual = fields.Date.context_today(record)
                 if record.date > fecha_actual:
                     return {
                       'warning': {'title': 'Error:',
