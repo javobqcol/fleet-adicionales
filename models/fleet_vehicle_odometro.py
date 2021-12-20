@@ -166,8 +166,8 @@ class FleetVehiculeOdometer(models.Model):
                     limit=1
                 )
                 rec.value = (registro.value_final or 0)
-            if rec.date.strftime("%w") == "0":
-                rec.descripcion = rec.descripcion or "" + "TRABAJO DOMINICAL"
+                if rec.date.strftime("%w") == "0":
+                    rec.descripcion = rec.descripcion or "" + "TRABAJO DOMINICAL"
 
     @api.depends('value', 'value_final', 'total_unidades')
     def _total_horas(self):

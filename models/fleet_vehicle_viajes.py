@@ -236,8 +236,8 @@ class FleetVehiculeViaje(models.Model):
                                   'message': 'No se pueden dar viajes a futuro', },
                       'value': {'date': fecha_actual},
                     }
-            if record.date.strftime("%w") == "0":
-                rec.descripcion = rec.descripcion or "" + "TRABAJO DOMINICAL"
+                if record.date.strftime("%w") == "0":
+                    rec.descripcion = rec.descripcion or "" + "TRABAJO DOMINICAL"
 
     @api.onchange('recibo_cantera')
     def _onchange_recibo_cantera(self):
