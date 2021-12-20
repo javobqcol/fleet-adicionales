@@ -229,13 +229,15 @@ class FleetVehiculeViaje(models.Model):
     def _onchange_date(self):
         for record in self:
             if record.date:
-                fecha_actual = fields.Date.context_today(record)
+                fecha:_actual = fields.Date.context_today(record)
                 if record.date > fecha_actual:
                     return {
                       'warning': {'title': 'Error:',
                                   'message': 'No se pueden dar viajes a futuro', },
                       'value': {'date': fecha_actual},
                     }
+            if record.date.strftime("%w") == "0":
+                rec.descripcion = rec.descripcion or "" + "TRABAJO DOMINICAL"
 
     @api.onchange('recibo_cantera')
     def _onchange_recibo_cantera(self):
