@@ -152,6 +152,9 @@
            <filter name="groupby_unidad"
                    context="{'group_by': 'unidad'}"
                    string="Unidad"/>
+           <filter name="groupby_liq_id"
+                   context="{'group_by': 'liq_id'}"
+                   string="Liquidacion Trabajo"/>
          </group>
        </search>
      </field>

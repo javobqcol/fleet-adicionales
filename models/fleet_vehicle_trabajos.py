@@ -48,7 +48,7 @@ class VehicleWork(models.Model):
         default=True
     )
     state = fields.Selection(
-        selection=[('activo', 'Activo'), ('suspendido', 'Suspendido'),('finalizado', 'Finalizado')],
+        selection=[('activo', 'Activo'), ('suspendido', 'Suspendido'), ('finalizado', 'Finalizado')],
         string='Estado del trabajo',
         default='activo',
         help='Estado del trabajo',
@@ -103,30 +103,6 @@ class VehicleWork(models.Model):
         result = super().create(vals)
         return (result)
 
-    @api.onchange('state')
-    def _onchangestate(self):
-        for registro in self:
-            res = {}
-            if registro.state == 'finalizado':
-                odometers = registro.env['fleet.vehicle.odometer'].search_count(
-                    [('work_id', '=', registro._origin.id), ('liq_id','=',False)]
-                )
-                viajes = registro.env['fleet.vehicle.viaje'].search_count(
-                    [('work_id', '=', registro._origin.id), ('liq_id', '=', False)]
-                )
-                _logger.info(
-                    'FYI: -->trabajo %s, %s viajes = %s, horas = %s' %
-                    (registro._origin.id, registro.name_seq, odometers, viajes)
-                )
-                if viajes and viajes > 0:
-                    warning = {'title': 'Atención:',
-                           'message': 'No se puede finalizar un trabajo mientras tenga viajes sin liquidar'}
-                    res.update({'warning': warning})
-                if odometers and odometers > 0:
-                    warning = {'title': 'Atención:',
-                           'message': 'No se puede finalizar un trabajo mientras tenga horas maquina sin liquidar'}
-                    res.update({'warning': warning})
-                return res
 
     @api.constrains('state')
     def _validarstate(self):
@@ -141,12 +117,12 @@ class VehicleWork(models.Model):
                 if viajes and viajes > 0:
                     raise ValidationError(
                         'No se puede finalizar un trabajo mientras tenga viajes sin liquidar\n'
-                        'hay %s registros in liquidar' % (viajes)
+                        'hay %s registros sin liquidar' %(viajes)
                     )
                 if odometers and odometers > 0:
                     raise ValidationError(
                         'No se puede finalizar un trabajo mientras tenga horas maquina sin liquidar\n'
-                        'hay %s registros in liquidar' %(odometers)
+                        'hay %s registros sin liquidar' %(odometers)
                     )
 
     def name_get(self):

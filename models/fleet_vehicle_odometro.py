@@ -4,6 +4,9 @@ from odoo import api, fields, models, _, tools
 from dateutil.relativedelta import relativedelta
 from odoo.exceptions import UserError, ValidationError, Warning
 from odoo.osv import expression
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class FleetVehiculeOdometer(models.Model):
     _inherit = 'fleet.vehicle.odometer'
@@ -132,8 +135,7 @@ class FleetVehiculeOdometer(models.Model):
         default['value'] = self.value_final
         dia = fields.Datetime.from_string(self.date) + relativedelta(days=1)
         if dia.strftime("%w") == "0":
-            dia = fields.Datetime.from_string(self.date) + relativedelta(days=1)
-
+            dia = fields.Datetime.from_string(self.date) + relativedelta(days=2)
         default['date'] = dia
         return super(FleetVehiculeOdometer, self).copy(default)
 
