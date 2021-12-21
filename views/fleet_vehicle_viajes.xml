@@ -107,8 +107,8 @@
        <search string="Viajes diarios realizados por los automotores">
          <field name="vehicle_id" string="Vehiculo"/>
          <field name="date" string="Fecha" filter_domain="[('date', '=', self)]"/>
-         <field name="recibo_interno" string="Recibo interno"/>
-         <field name="recibo_cantera" string="Recibo cantera"/>
+         <field name="recibo_interno" string="Recibo número"
+                filter_domain="['|', ('recibo_interno', 'ilike', self), ('recibo_cantera', 'ilike', self)]"/>
          <field name="company_id" string="Compañia"/>
          <field name="work_id" string="Trabajo"/>
          <field name="driver_id" string="Conductor"/>
