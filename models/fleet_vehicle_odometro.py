@@ -133,10 +133,8 @@ class FleetVehiculeOdometer(models.Model):
         if default is None:
             default={}
         default['value'] = self.value_final
-        dia = fields.Datetime.from_string(self.date) + relativedelta(days=1)
-        if dia.strftime("%w") == "0":
-            dia = fields.Datetime.from_string(self.date) + relativedelta(days=2)
-        default['date'] = dia
+        default['date'] = fields.Datetime.from_string(self.date) + \
+                          relativedelta(days=1 if self.date.strftime("%w") == 0 else 2)
         return super(FleetVehiculeOdometer, self).copy(default)
 
     def _set_adjunto(self):
