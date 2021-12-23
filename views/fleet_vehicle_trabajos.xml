@@ -72,8 +72,8 @@
                 </field>
               </page>
               <page string="Liquidacion maquinaria">
-                <field name="liquidacion_ids">
-                  <tree string="Liquidacion de maquinaria">
+                <field name="liquidacion_ids" readonly="1" >
+                  <tree string="Liquidacion de maquinaria" editable="top">
                     <field name="name_seq"/>
                     <field name="date"/>
                     <field name="date_end"/>

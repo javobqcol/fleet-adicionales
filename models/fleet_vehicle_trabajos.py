@@ -141,7 +141,7 @@ class VehicleWork(models.Model):
         if xml_id:
             res = self.env['ir.actions.act_window'].for_xml_id('fleet-adicionales', xml_id)
             res.update(
-                context=dict(self.env.context, default_work_id=self.id, group_by=False),
+                context=dict(self.env.context, default_work_id=self.id, group_by="liq_id"),
                 domain=[('work_id', '=', self.id)]
             )
             return res
@@ -154,7 +154,7 @@ class VehicleWork(models.Model):
         if xml_id:
             res = self.env['ir.actions.act_window'].for_xml_id('fleet', xml_id)
             res.update(
-                context=dict(self.env.context, default_work_id=self.id, group_by=False),
+                context=dict(self.env.context, default_work_id=self.id, group_by="liq_id"),
                 domain=[('work_id', '=', self.id)]
             )
             return res
