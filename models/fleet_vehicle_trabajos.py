@@ -391,7 +391,7 @@ class VehicleWorkLiquidacion(models.Model):
 
             reg.liquidado = False
 
-    @api.onchange('work_id')
+    @api.onchange('work_id', 'date', 'date_end')
     def cambio_work(self):
         for reg in self:
             if reg.work_id:
