@@ -23,7 +23,7 @@
                     a una liquidacion realizada"/>
             <button name="rollback_maquinaria"
                     class="oe_highlight"
-                    groups="base.group_multi_company"
+                    groups="fleet.fleet_group_manager"
                     type="object" string="reestablecer"
                     attrs="{'invisible': [('liquidado', '=', False)]}"
                     help="restablecer"
@@ -48,7 +48,7 @@
               </group>
               <group>
                 <field name="total_liquidacion" attrs="{'readonly': [('liquidado', '=', True)]}"/>
-                <field name="liquidado" groups="base.group_multi_company"/>
+                <field name="liquidado" groups="fleet.fleet_group_manager"/>
               </group>
             </group>
             <notebook>
@@ -84,7 +84,7 @@
           <field name="date"/>
           <field name="date_end"/>
           <field name="total_liquidacion"/>
-          <field name="liquidado" groups="base.group_multi_company"/>
+          <field name="liquidado" groups="fleet.fleet_group_manager"/>
         </tree>
       </field>
     </record>
