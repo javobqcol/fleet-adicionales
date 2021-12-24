@@ -95,8 +95,8 @@
           <field name="gal" optional="show" sum="Suma galones"/>
           <field name="es_standby" invisible="1"/>
           <field name="tiene_adjunto" string="Adj?" optional="show"/>
-          <field name="liq_id" string="liq" optional="hide" groups="base.group_multi_company"/>
-          <field name="liq_driver_id" string="Liq cond." optional="hide" groups="base.group_multi_company"/>
+          <field name="liq_id" string="liq" optional="hide"/>
+          <field name="liq_driver_id" string="Liq cond." optional="hide"/>
           <field name="descripcion" string="Nota" optional="hide"/>
         </tree>
       </field>

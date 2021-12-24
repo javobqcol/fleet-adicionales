@@ -62,46 +62,6 @@
       </field>
     </record>
 
-
-
-
-<!--    <record id="fleet_vehicle_log_fuel_view_form" model="ir.ui.view">-->
-<!--      <field name="name">fleet.vehicle.log.fuel.form.inherit</field>-->
-<!--      <field name="model">fleet.vehicle.log.fuel</field>-->
-<!--      <field name="inherit_id" ref="fleet.fleet_vehicle_log_fuel_view_form"/>-->
-<!--      <field name="arch" type="xml">-->
-<!--        <xpath expr="//field[@name='liter']" position="attributes">-->
-<!--          <attribute name="string">Cantidad</attribute>-->
-<!--          <attribute name="help">Cantidad(Galones) de combustible.</attribute>-->
-<!--        </xpath>-->
-<!--        <field  name="price_per_liter" position="replace">-->
-<!--          <field name="currency_id" invisible="1"/>-->
-<!--          <field  name="price_per_liter" string="Precio por Galon" help="Precio por galon de combustible"/>-->
-<!--        </field>-->
-<!--        <field name="amount" position="replace">-->
-<!--          <field name="currency_id" invisible="1"/>-->
-<!--         <field name="amount" widget="monetary" options="{'currency_field': 'currency_id'}" string = "Total"/>-->
-<!--        </field>-->
-<!--        <field name="purchaser_id" position="replace">-->
-<!--          <field name="company_id"-->
-<!--                 string="Compañia"-->
-<!--                 groups="base.group_multi_company"-->
-<!--                 options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>-->
-<!--          <field name="purchaser_id" string="Responsable"/>-->
-<!--        </field>-->
-<!--        <field name="notes" position="replace">-->
-<!--          <notebook>-->
-<!--            <page string="Archivos Adjuntos">-->
-<!--              <field name="documentos_ids" widget="many2many_binary"/>-->
-<!--            </page>-->
-<!--            <page string="Notas">-->
-<!--              <field name="notes" nolabel="1" placeholder="Describa cualquier informacion adicional de la compra de combustible"/>-->
-<!--            </page>-->
-<!--          </notebook>-->
-<!--        </field>-->
-<!--      </field>-->
-<!--    </record>-->
-
     <record id='fleet.fleet_vehicle_log_fuel_view_search' model='ir.ui.view'>
       <field name="name">fleet.vehicle.log.fuel.search.</field>
       <field name="model">fleet.vehicle.log.fuel</field>
@@ -110,6 +70,7 @@
           <field name="vehicle_id" string="Vehiculo"/>
           <field name="date" string="Fecha"/>
           <field name="vendor_id" string="Proveedor"/>
+          <field name="purchaser_id" string="Comprador"/>
           <field name="company_id" string="Compañia" groups="base.group_multi_company"/>
           <field name="inv_ref" string="Numero factura"/>
           <field name="work_id" string="Trabajo"/>
