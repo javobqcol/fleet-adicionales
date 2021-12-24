@@ -34,6 +34,7 @@
             </div>
             <group col="2">
               <group>
+                <field name="active" invisible="1" />
                 <field name="company_id"
                        string="Compañia"
                        groups="base.group_multi_company"
