@@ -10,7 +10,9 @@
           <sheet>
             <group col="2">
               <group>
-                 <field name="vehicle_id"
+                <field name="active" invisible="1" />
+                <widget name="web_ribbon" title="Archivado" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                <field name="vehicle_id"
                        string="Vehiculo" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="driver_id"
                        string="Conductor"/>
@@ -21,18 +23,23 @@
                 <field name="work_id"
                        string="Trabajo"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                <field name="material_id" options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
-                <field name="unidad"/>
-                <field name="m3" digits="[10,2]" attrs="{'invisible': [('unidad', '=', 'ton')]}"/>
+                <field name="state"
+                       string="Estado"/>
+                <field name="material_id"
+                       options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                       attrs="{'readonly': [('state', '!=', 'active')]}"/>
+                <field name="unidad" attrs="{'readonly': [('state', '!=', 'active')]}"/>
+                <field name="m3"
+                       digits="[10,2]"
+                       attrs="{'readonly': [('state', '!=', 'active')], 'invisible': [('unidad', '=', 'ton')]}"/>
                 <label for="m3" string='Tara/Bruto/Neto' attrs="{'invisible': [('unidad', '!=', 'ton')]}" style="font-weight:bold;"/>
-                <div class="o_row" attrs="{'invisible': [('unidad', '!=', 'ton')]}">
+                <div class="o_row" attrs="{'readonly': [('state', '!=', 'active')],'invisible': [('unidad', '!=', 'ton')]}">
                   <field name="inicial" digits="[10,2]"/>
                   <field name="final" digits="[10,2]" />
                   <field name="m3" digits="[10,2]" />
                 </div>
-                <field name="cantera_id" placeholder="Sitio de carga" options="{'no_quick_create':True}"/>
-                <field name="destino_id" placeholder="Sitio de descarga" options="{'no_quick_create':True}"/>
-
+                <field name="cantera_id" placeholder="Sitio de carga" attrs="{'readonly': [('state', '!=', 'active')]}" options="{'no_quick_create':True}" />
+                <field name="destino_id" placeholder="Sitio de descarga" attrs="{'readonly': [('state', '!=', 'active')]}" options="{'no_quick_create':True}"/>
               </group>
               <group>
                 <field name="date" string="Fecha"/>
@@ -75,6 +82,8 @@
               decoration-success="liq_id != False"
               decoration-primary ="liq_driver_id != False"
               decoration-muted="(liq_id != False) and (liq_driver_id != False)">
+<!--          <field name="active" invisible="1" />-->
+
           <field name="date" string="Fecha"/>
           <field name="vehicle_id" string="Vehiculo"/>
           <field name="driver_id" string="Conductor" optional="show"/>

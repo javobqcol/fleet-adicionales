@@ -155,6 +155,14 @@ class FleetVehiculeViaje(models.Model):
         ondelete='restrict',
         copy=False
     )
+    active = fields.Boolean(string='Activo')
+    state = fields.Selection(
+        selection=[('active', 'Activo'), ('inactive', 'Servicio/taller'), ('available', 'Disponible')],
+        string='Estado',
+        default='active',
+        help='Estado volqueta',
+        required=True
+    )
 
     @api.model
     def default_get(self, default_fields):
@@ -187,6 +195,11 @@ class FleetVehiculeViaje(models.Model):
                 reg.m3 = 0
             else:
                 reg.m3 = reg.vehicle_id.cubicaje
+    @api.onchange('state')
+    def _onchange_state(self):
+        for reg in self:
+            if reg.state == 'inactive':
+                reg.viajes = 0
 
     @api.onchange('vehicle_id')
     def _onchange_vehicle(self):

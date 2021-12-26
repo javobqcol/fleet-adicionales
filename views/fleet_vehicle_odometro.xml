@@ -10,7 +10,8 @@
           <sheet>
             <group col="2">
               <group>
-<!--                <field name="able_to_modify_odometer" invisible="1" />-->
+                <field name="active" invisible="1" />
+                <widget name="web_ribbon" title="Archivado" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
                 <field name="vehicle_id" string="Vehiculo"/>
                 <field name="driver_id" string="Conductor"/>
                 <field name="company_id"
@@ -80,6 +81,7 @@
               decoration-info="tipo_odometro == 'fuel'"
               decoration-warning="total_unidades != total_standby"
               decoration-danger="tipo_odometro == 'services'">
+<!--          <field name="active" invisible="1" />-->
           <field name="date" string="fecha"/>
           <field name="vehicle_id" optional="show" string="Vehiculo"/>
           <field name="company_id"  optional="hide" string="Compañia" groups="base.group_multi_company"/>
