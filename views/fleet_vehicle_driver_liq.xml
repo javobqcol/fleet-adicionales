@@ -7,6 +7,7 @@
       <field name="arch" type="xml">
         <form string="Liquidación">
           <header>
+            <field name="active" invisible="1" />
             <button name="liquidar_conductores"
                     class="oe_highlight"
                     type="object" string="Liquidacion"
@@ -24,6 +25,28 @@
                     confirm="Esta seguro que quiere reestablecerlos registros a su valor original"/>
           </header>
           <sheet>
+           <widget name="web_ribbon" title="Archivado" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+           <div class="oe_button_box" name="button_box">
+              <button name="return_action_to_open_viajes"
+                type="object"
+                class="oe_highlight"
+                icon="fa-truck"
+                style="margin-top:5px"
+                attrs="{'invisible': [('name_seq', '=', 'Nuevo')]}"
+                context="{'xml_id':'fleet_vehicle_viajes_action'}"
+                help="Muestra los viajes de este vehiculo">
+                <field name="viajes_count" widget="statinfo" string="Viajes"/>
+              </button>
+              <button name="return_action_to_open_odometer"
+                type="object"
+                class="oe_stat_button"
+                icon="fa-tachometer"
+                attrs="{'invisible': [('name_seq', '=', 'Nuevo')]}"
+                context="{'xml_id':'fleet_vehicle_odometer_action'}"
+                help="Muestra los horometros e este trabajo">
+                <field name="odometer_count" widget="statinfo" string="Odometer"/>
+              </button>
+            </div>
             <div class="oe_title">
               <h1>
                 <field name="name_seq" readonly="1"/>

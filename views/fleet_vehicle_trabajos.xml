@@ -13,6 +13,7 @@
                 type="object"
                 class="oe_highlight"
                 icon="fa-truck"
+                attrs="{'invisible': [('name_seq', '=', 'Nuevo')]}"
                 style="margin-top:5px"
                 context="{'xml_id':'fleet_vehicle_viajes_action'}"
                 help="Muestra los viajes de este vehiculo">
@@ -21,6 +22,7 @@
               <button name="return_action_to_open_odometer"
                 type="object"
                 class="oe_stat_button"
+                attrs="{'invisible': [('name_seq', '=', 'Nuevo')]}"
                 icon="fa-tachometer"
                 context="{'xml_id':'fleet_vehicle_odometer_action'}"
                 help="Muestra los horometros e este trabajo">

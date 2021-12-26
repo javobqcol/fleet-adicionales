@@ -147,7 +147,7 @@ class VehicleWork(models.Model):
                 _logger.info("viajes = %s odometro = %s" % (viajes, odometers))
                 if viajes and viajes > 0:
                     raise ValidationError(
-                        'No se puede finalizar un trabajo mientras tenga viajes sin liquidar\n'
+                        'No se puede finalizar un trabajo mientras tenga registros viajes sin liquidar\n'
                         'hay %s registros sin liquidar' % (viajes)
                     )
                 if odometers and odometers > 0:
@@ -559,8 +559,8 @@ class VehicleWorkLiquidacion(models.Model):
             total_drv = odometers_drv or 0 + viajes_drv or 0
             if total_drv > 0:
                 raise ValidationError(
-                    'No se puede archivar un trabajo mietras tenga viajes = %s '
-                    'y/o horas maquina sin liquidar = %s a operador/conductor'
+                    'No se puede archivar un trabajo mietras tenga registros de viajes = %s '
+                    'y/o registros de horas maquina sin liquidar = %s a operador/conductor'
                     % (viajes_drv, odometers_drv)
                 )
 
@@ -691,6 +691,18 @@ class EmployeWorkLiquidacion(models.Model):
         String="Liquidado",
         default=False
     )
+    viajes_count = fields.Integer(
+        compute="_compute_count_all",
+        string="Historia de viajes realizados"
+    )
+    odometer_count = fields.Integer(
+        compute="_compute_count_all",
+        string='Odometer'
+    )
+    active = fields.Boolean(
+        string="Activo",
+        default=True
+    )
 
     def name_get(self):
         res = []
@@ -706,6 +718,45 @@ class EmployeWorkLiquidacion(models.Model):
             )
         return res
 
+    def _compute_count_all(self):
+        LogViajes = self.env['fleet.vehicle.viaje']
+        Odometer = self.env['fleet.vehicle.odometer']
+        for record in self:
+            record.odometer_count = Odometer.search_count(
+                [('liq_driver_id', '=', record.id), ('active', 'in', [True, False])]
+            )
+            record.viajes_count = sum(
+                LogViajes.search([('liq_driver_id', '=', record.id), ('active', 'in', [True, False])]).mapped(
+                    'viajes'
+                )
+            )
+
+    def return_action_to_open_viajes(self):
+        """ This opens the xml view specified in xml_id for the current vehicle """
+        self.ensure_one()
+        xml_id = self.env.context.get('xml_id')
+        if xml_id:
+            res = self.env['ir.actions.act_window'].for_xml_id('fleet-adicionales', xml_id)
+            res.update(
+                context=dict(self.env.context, default_work_id=self.id, group_by="driver_id"),
+                domain=[('liq_driver_id', '=', self.id), ('active', 'in', [True, False])]
+            )
+            return res
+        return False
+
+    def return_action_to_open_odometer(self):
+        """ This opens the xml view specified in xml_id for the current vehicle """
+        self.ensure_one()
+        xml_id = self.env.context.get('xml_id')
+        if xml_id:
+            res = self.env['ir.actions.act_window'].for_xml_id('fleet', xml_id)
+            res.update(
+                context=dict(self.env.context, default_work_id=self.id, group_by="driver_id"),
+                domain=[('liq_driver_id', '=', self.id), ('active', 'in', [True, False])]
+            )
+            return res
+        return False
+
     @api.model
     def _name_search(self, name='', args=None, operator='ilike', limit=100, name_get_uid=None):
         if args is None:
@@ -719,7 +770,6 @@ class EmployeWorkLiquidacion(models.Model):
         if vals.get('name_seq', _('New')) == _('New'):
             vals['name_seq'] = self.env['ir.sequence'].next_by_code('fleet-adicionales.fleet.vehicle.driver.sequence') \
                                or _('New')
-        _logger.info('FYI: por aqu pase %s' % vals)
         return super().create(vals)
 
     @api.onchange('date', 'date_end')
@@ -815,6 +865,55 @@ class EmployeWorkLiquidacion(models.Model):
                 for record in registros:
                     record.write({'liq_driver_id': False})
             reg.liquidado = False
+
+    @api.constrains('active')
+    def cambio_active(self):
+        for registro in self:
+            odometers_drv = registro.env['fleet.vehicle.odometer'].search_count(
+                [('liq_driver_id', '=', registro.id), ('liq_id', '=', False)]
+            )
+            viajes_drv = registro.env['fleet.vehicle.viaje'].search_count(
+                [('liq_driver_id', '=', registro.id), ('liq_id', '=', False)]
+            )
+            total_drv = odometers_drv or 0 + viajes_drv or 0
+            if total_drv > 0:
+                raise ValidationError(
+                    'No se puede archivar una liquidacion de empleados mientras tenga viajes = %s '
+                    'y/o horas maquina sin liquidar = %s a empresa'
+                    % (viajes_drv, odometers_drv)
+                )
+
+    @api.model
+    def write(self, vals):
+        for reg in self:
+            _logger.info('FYI: por aqu pase vals = %s' % vals)
+            if 'active' in vals and vals['active']:
+                _logger.info('FYI: por aqu pase******************* %s' % reg.id)
+                reg.env.cr.execute(
+                    "UPDATE fleet_vehicle_odometer SET active = true "
+                    "WHERE liq_driver_id = %s and tipo_odometro = 'odometer' and active = false",
+                    [reg.id]
+                )
+                reg.env.cr.execute(
+                    "UPDATE fleet_vehicle_viaje SET active = true "
+                    "WHERE liq_driver_id = %s and active = false",
+                    [reg.id]
+                )
+                reg.env.cr.commit()
+            if 'active' in vals and not vals['active']:
+                _logger.info('FYI: por aqu *******pase******************* %s' % reg.id)
+                reg.env.cr.execute(
+                    "UPDATE fleet_vehicle_odometer SET active = false "
+                    "WHERE liq_driver_id = %s and tipo_odometro ='odometer' and active = true",
+                    [reg.id]
+                )
+                reg.env.cr.execute(
+                    "UPDATE fleet_vehicle_viaje SET active = false "
+                    "WHERE liq_driver_id = %s and active = true",
+                    [reg.id]
+                )
+                reg.env.cr.commit()
+        return super().write(vals)
 
 
 class employeWorkLiquidacionDetalle(models.Model):

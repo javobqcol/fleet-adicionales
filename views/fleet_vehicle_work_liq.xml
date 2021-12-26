@@ -32,6 +32,7 @@
                 class="oe_highlight"
                 icon="fa-truck"
                 style="margin-top:5px"
+                attrs="{'invisible': [ ('name_seq', '=', 'Nuevo')]}"
                 context="{'xml_id':'fleet_vehicle_viajes_action'}"
                 help="Muestra los viajes de este vehiculo">
                 <field name="viajes_count" widget="statinfo" string="Viajes"/>
@@ -40,6 +41,7 @@
                 type="object"
                 class="oe_stat_button"
                 icon="fa-tachometer"
+                attrs="{'invisible': [('name_seq', '=', 'Nuevo')]}"
                 context="{'xml_id':'fleet_vehicle_odometer_action'}"
                 help="Muestra los horometros e este trabajo">
                 <field name="odometer_count" widget="statinfo" string="Odometer"/>
