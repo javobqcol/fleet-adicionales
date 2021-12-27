@@ -79,7 +79,6 @@ class VehicleWork(models.Model):
         string='Odometer'
     )
 
-    @api.model
     def write(self, vals):
         for reg in self:
             _logger.info('FYI: por aqu pase vals = %s' % vals)
@@ -564,7 +563,7 @@ class VehicleWorkLiquidacion(models.Model):
                     % (viajes_drv, odometers_drv)
                 )
 
-    @api.model
+
     def write(self, vals):
         for reg in self:
             _logger.info('FYI: por aqu pase vals = %s' % vals)
@@ -883,7 +882,6 @@ class EmployeWorkLiquidacion(models.Model):
                     % (viajes_drv, odometers_drv)
                 )
 
-    @api.model
     def write(self, vals):
         for reg in self:
             _logger.info('FYI: por aqu pase vals = %s' % vals)

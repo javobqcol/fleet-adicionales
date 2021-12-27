@@ -14,6 +14,7 @@ _logger = logging.getLogger(__name__)
 
 class FleetVehicle(models.Model):
     _inherit = 'fleet.vehicle'
+    _description = 'Viajes de los vehiculos'
 
     responsable_id = fields.Many2one(
         comodel_name='res.users',
@@ -356,6 +357,37 @@ class FleetVehicle(models.Model):
         })
         return res
 
+# refactorizacion de la creacion de partes de maquinaria a vigilar
+#    no es perfecto.. pero esta mucho mejor.. no se insertan los registro sino hasta salvar
+
+    @api.onchange('controlar_ids')
+    def _cambio_controlar_ids(self):
+        for reg in self:
+            lista = []
+            vehicle_id = reg._origin.id
+            _logger.info('FYI: por aqu pase*****************vehicle %s' % vehicle_id)
+
+            for record in reg.controlar_ids:
+                monitor = reg.partes_ids.template_id.parent_id.ids
+                _logger.info('FYI: por aqu pase******************* %s' % monitor)
+                if record.ids[0] not in monitor:
+                    temp = record.env['fleet.vehicle.template'].browse(record.ids[0])
+                    for template in temp.child_ids:
+                        lista.append(
+                            (
+                                0, 0, {
+                                    'template_id': template.id,
+                                    'vehicle_id': vehicle_id
+                                }
+                            )
+                        )
+                if lista:
+                    reg.update(
+                        {
+                            'partes_ids': lista,
+                        }
+                    )
+
     def _asignarMonitor(self, templates_id=False):
         for record in self:
             vehicle_id = record.id
@@ -369,30 +401,30 @@ class FleetVehicle(models.Model):
                                     'vehicle_id': vehicle_id}
                             monitor.create(data)
 
-    @api.model
-    def create(self, values):
-        res = super().create(values)
-        if 'controlar_ids' in values:
-            res._asignarMonitor(values['controlar_ids'][0][2])
-        return res
-
-    def write(self, values):
-        if 'controlar_ids' in values:
-            self._asignarMonitor(values['controlar_ids'][0][2])
-        return super().write(values)
+    # @api.model
+    # def create(self, values):
+    #     res = super().create(values)
+    #     if 'controlar_ids' in values:
+    #         res._asignarMonitor(values['controlar_ids'][0][2])
+    #     return res
+    #
+    # def write(self, values):
+    #     if 'controlar_ids' in values:
+    #         self._asignarMonitor(values['controlar_ids'][0][2])
+    #     return super().write(values)
 
     def do_enviar_correo(self, correo, cc_todo):
         template_id = self.env.ref('fleet-adicionales.email_template_vehicle_maintenance').id
         template = self.env['mail.template'].browse(template_id)
-        if correo:
-            template.email_to = correo
         if cc_todo:
             template.email_cc = cc_todo
-        template.send_mail(self.id, force_send=True)
+        if correo:
+            template.email_to = correo
+            template.send_mail(self.id, force_send=True)
 
     def run_planificador(self):
         """Busca todas las licencias,
-    si la fecha de vencimiento es mayor que la fecha actual, pone su estado en inactivo"""
+           si la fecha de vencimiento es mayor que la fecha actual, pone su estado en inactivo"""
         # sacar los estados posibles de un vehiculo, o esta activo o esta proximo a mtto
         params = self.env['ir.config_parameter'].sudo()
         activo = self.env.ref('fleet-adicionales.type_activo')
@@ -417,7 +449,7 @@ class FleetVehicle(models.Model):
 
 class MultiImages(models.Model):
     _name = "multi.images2"
-
+    _description = 'Multi Imagenes'
     image = fields.Binary(
         string='Images'
     )

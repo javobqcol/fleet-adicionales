@@ -4,6 +4,7 @@ class FleetVehiclePartsXLS(models.AbstractModel):
 
   _name = "report.report_partes_monitoreadas_xls"
   _inherit = 'report.report_xlsx.abstract'
+  _description = 'reporte de partes monitoreadas'
 
   def generate_xlsx_report(self, workbook, data, lines):
     sheet = workbook.add_worksheet('Partes')
