@@ -155,7 +155,10 @@ class FleetVehiculeViaje(models.Model):
         ondelete='restrict',
         copy=False
     )
-    active = fields.Boolean(string='Activo')
+    active = fields.Boolean(
+        string='Activo',
+        default=True
+    )
     state = fields.Selection(
         selection=[('active', 'Activo'), ('inactive', 'Servicio/taller'), ('available', 'Disponible')],
         string='Estado',
@@ -250,7 +253,7 @@ class FleetVehiculeViaje(models.Model):
                       'value': {'date': fecha_actual},
                     }
                 if record.date.strftime("%w") == "0":
-                    rec.descripcion = rec.descripcion or "" + "TRABAJO DOMINICAL"
+                    record.descripcion = record.descripcion or "" + "TRABAJO DOMINICAL"
 
     @api.onchange('recibo_cantera')
     def _onchange_recibo_cantera(self):

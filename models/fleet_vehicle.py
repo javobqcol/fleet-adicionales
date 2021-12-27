@@ -335,9 +335,9 @@ class FleetVehicle(models.Model):
                 record.odometro_ultimo_mtto = reg.odometer
                 record.proximo_mtto = record.odometro_ultimo_mtto + record.mtto_cada
                 record.falta_para_mtto = record.proximo_mtto - record.odometer
-                if (record.falta_para_mtto < record.falta):
+                if record.falta_para_mtto < record.falta:
                     record.col = 'amarillo'
-                if (record.falta_para_mtto < 0.0):
+                if record.falta_para_mtto < 0.0:
                     record.col = 'rojo'
 
     def _set_odometer(self):
@@ -364,9 +364,8 @@ class FleetVehicle(models.Model):
     def _cambio_controlar_ids(self):
         for reg in self:
             lista = []
-            vehicle_id = reg._origin.id
-            _logger.info('FYI: por aqu pase*****************vehicle %s' % vehicle_id)
-
+            # vehicle_id = reg._origin.id
+            _logger.info('FYI: por aqu pase*****************vehicle %s' % reg.id)
             for record in reg.controlar_ids:
                 monitor = reg.partes_ids.template_id.parent_id.ids
                 _logger.info('FYI: por aqu pase******************* %s' % monitor)
@@ -377,16 +376,13 @@ class FleetVehicle(models.Model):
                             (
                                 0, 0, {
                                     'template_id': template.id,
-                                    'vehicle_id': vehicle_id
+                                    'product_id': False,
                                 }
                             )
                         )
-                if lista:
-                    reg.update(
-                        {
-                            'partes_ids': lista,
-                        }
-                    )
+            if lista:
+                _logger.info('FYI: por aqu pase*****************lista %s' % lista)
+                reg.partes_ids = lista
 
     def _asignarMonitor(self, templates_id=False):
         for record in self:
@@ -865,7 +861,7 @@ class FleetVehicleMonitor(models.Model):
         string="Producto",
         default=False,
         track_visivility="always",
-        domain="['|', ('vehicle_id','=',vehicle_id),'&',('assign','=',False),('invisible','=',True)]"
+        domain="[('assign','=',False),('invisible','=',True)]"
     )
 
     @api.model

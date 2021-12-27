@@ -8,10 +8,10 @@
       <field name="arch" type="xml">
         <form string="Registro de Odometros de vehiculos">
           <sheet>
+            <widget name="web_ribbon" title="Archivado" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
             <group col="2">
               <group>
                 <field name="active" invisible="1" />
-                <widget name="web_ribbon" title="Archivado" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
                 <field name="vehicle_id" string="Vehiculo"/>
                 <field name="driver_id" string="Conductor"/>
                 <field name="company_id"
@@ -23,10 +23,6 @@
               </group>
               <group>
                 <field name="date" string="Fecha"/>
-<!--                <field name="value" string="Odometro Inicial"-->
-<!--                       class="oe_inline"-->
-<!--                       attrs="{'readonly':[('able_to_modify_odometer','=',False)]}"-->
-<!--                       force_save="1"/>-->
                 <field name="value" string="Odometro Inicial" class="oe_inline" />
                 <field name="value_final" string="Odometro Final" class="oe_inline"/>
                 <label for="total_unidades"/>
@@ -81,7 +77,6 @@
               decoration-info="tipo_odometro == 'fuel'"
               decoration-warning="total_unidades != total_standby"
               decoration-danger="tipo_odometro == 'services'">
-<!--          <field name="active" invisible="1" />-->
           <field name="date" string="fecha"/>
           <field name="vehicle_id" optional="show" string="Vehiculo"/>
           <field name="company_id"  optional="hide" string="Compañia" groups="base.group_multi_company"/>

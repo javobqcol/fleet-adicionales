@@ -128,7 +128,10 @@ class FleetVehiculeOdometer(models.Model):
         help='Motivo de standby',
         required=True
     )
-    active = fields.Boolean(string='Activo')
+    active = fields.Boolean(
+        string='Activo',
+        default=True
+    )
     
     def copy(self, default=None):
         if default is None:

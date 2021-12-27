@@ -146,8 +146,8 @@
                 <tree editable="top" default_order="template_id">
 <!--                <tree editable="top" create="false" >-->
                   <field name="vehicle_id" invisible="1"/>
-                  <field name="template_id" />
-                  <field name="product_id" domain=""/>
+                  <field name="template_id"/>
+                  <field name="product_id"/>
                 </tree>
               </field>
             </page>
