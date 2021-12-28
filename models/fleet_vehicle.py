@@ -183,6 +183,7 @@ class FleetVehicle(models.Model):
         string="Partes"
     )
 
+
     def on_partes_server_action(self):
         registros = self.search([], order="vehicle_type_id")
         _logger.warning("registros %s" % (registros.ids))
@@ -198,6 +199,43 @@ class FleetVehicle(models.Model):
             vehicle.future_driver_id.sudo().write({'plan_to_change_car': False})
             vehicle.driver_id = vehicle.future_driver_id
             vehicle.future_driver_id = False
+
+    @api.depends('log_contracts')
+    def _compute_contract_reminder(self):
+        params = self.env['ir.config_parameter'].sudo()
+        delay_alert_contract = int(params.get_param('hr_fleet.delay_alert_contract', default=30))
+        for record in self:
+            overdue = False
+            due_soon = False
+            total = 0
+            name = ''
+            for element in record.log_contracts:
+                if element.state in ('open', 'diesoon', 'expired') and element.expiration_date:
+                    current_date_str = fields.Date.context_today(record)
+                    due_time_str = element.expiration_date
+                    current_date = fields.Date.from_string(current_date_str)
+                    due_time = fields.Date.from_string(due_time_str)
+                    diff_time = (due_time - current_date).days
+                    if diff_time < 0:
+                        overdue = True
+                        total += 1
+                    if diff_time < delay_alert_contract:
+                        due_soon = True
+                        total += 1
+                    if overdue or due_soon:
+                        log_contract = self.env['fleet.vehicle.log.contract'].search([
+                            ('vehicle_id', '=', record.id),
+                            ('state', 'in', ('open', 'diesoon', 'expired'))
+                            ], limit=1, order='expiration_date asc')
+                        if log_contract:
+                            # we display only the name of the oldest overdue/due soon contract
+                            name += ' ' + log_contract.cost_subtype_id.name
+
+            record.contract_renewal_overdue = overdue
+            record.contract_renewal_due_soon = due_soon
+            record.contract_renewal_total = total - 1  # we remove 1 from the real total for display purposes
+            record.contract_renewal_name = name
+
 
     def _compute_count_all(self):
         Odometer = self.env['fleet.vehicle.odometer']

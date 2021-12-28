@@ -300,8 +300,7 @@
                   <a t-if="record.contract_count.raw_value>0" data-type="object"
                     data-name="return_action_to_open" href="#" class="oe_kanban_action oe_kanban_action_a"
                     data-context='{"xml_id":"fleet_vehicle_log_contract_action"}'>
-                    <field name="contract_count"/>
-                    Contract(s)
+                    <field name="contract_renewal_name"/>
                     <span t-if="record.contract_renewal_due_soon.raw_value and !record.contract_renewal_overdue.raw_value"
                       class="fa fa-exclamation-triangle" t-att-style="'color:orange'" role="img" aria-label="Warning: renewal due soon" title="Warning: renewal due soon">
                     </span>
