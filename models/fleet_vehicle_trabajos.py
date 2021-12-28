@@ -184,6 +184,10 @@ class VehicleWork(models.Model):
                     'y/o horas maquina sin liquidar = %s a operador/conductor'
                     % (viajes_drv, odometers_drv)
                 )
+            if registro.state != "finalizado":
+                raise ValidationError(
+                    'No se puede archivar un trabajo mientras no este en estado finalizado '
+                )
 
     def name_get(self):
         res = []
