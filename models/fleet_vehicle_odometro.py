@@ -132,6 +132,11 @@ class FleetVehiculeOdometer(models.Model):
         string='Activo',
         default=True
     )
+    license_plate = fields.Char(
+        related='vehicle_id.license_plate',
+        store=True,
+        string='Placa'
+    )
     
     def copy(self, default=None):
         if default is None:

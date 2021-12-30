@@ -166,6 +166,11 @@ class FleetVehiculeViaje(models.Model):
         help='Estado volqueta',
         required=True
     )
+    license_plate = fields.Char(
+        string='Placa',
+        store=True,
+        related='vehicle_id.license_plate',
+    )
 
     @api.model
     def default_get(self, default_fields):

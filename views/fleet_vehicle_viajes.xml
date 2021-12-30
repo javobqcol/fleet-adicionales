@@ -85,7 +85,8 @@
 <!--          <field name="active" invisible="1" />-->
 
           <field name="date" string="Fecha"/>
-          <field name="vehicle_id" string="Vehiculo"/>
+          <field name="vehicle_id" string="Vehiculo" optional="show"/>
+          <field name="license_plate" optional="hide" string="Placa"/>
           <field name="driver_id" string="Conductor" optional="show"/>
           <field name="company_id" groups="base.group_multi_company" optional="hide"/>
           <field name="work_id" string="Trabajo" optional="show"/>

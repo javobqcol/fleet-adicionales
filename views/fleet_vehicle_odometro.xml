@@ -79,6 +79,7 @@
               decoration-danger="tipo_odometro == 'services'">
           <field name="date" string="fecha"/>
           <field name="vehicle_id" optional="show" string="Vehiculo"/>
+          <field name="license_plate" optional="hide" string="Placa"/>
           <field name="company_id"  optional="hide" string="Compañia" groups="base.group_multi_company"/>
           <field name="driver_id"  optional="show" string="Conductor"/>
           <field name="tipo_odometro" optional="show" string="Tipo"/>
