@@ -5,9 +5,9 @@
             <field name="name">fleet.vehicle.analisis.pivot</field>
             <field name="model">fleet.vehicle.analisis</field>
             <field name="arch" type="xml">
-                <pivot string="Analisis de  viajes / horas maquina de los vehiculos" >
-                    <field name="license_plate" type="row"/>
-                    <field name="date" interval="day" type="col"/>
+                <pivot string="Analisis de  viajes / horas maquina de los vehiculos" disable_linking="True">
+                    <field name="license_plate" type="col"/>
+                    <field name="date" interval="day" type="row"/>
                     <field name="total" string="Total" type="measure"/>
                 </pivot>
             </field>

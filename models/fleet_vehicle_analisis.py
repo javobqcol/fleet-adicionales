@@ -120,7 +120,7 @@ class FleetVehicleAnalisis(models.Model):
                                     )
                             WHERE
                                 fvo.tipo_odometro = 'odometer'
-                        UNION
+                        UNION ALL
                         SELECT 
                             fvv.vehicle_id AS vehicle_id,
                             fv.name AS name,
@@ -131,7 +131,7 @@ class FleetVehicleAnalisis(models.Model):
                             fvv.work_id AS work_id,
                             fvv.date AS date,
                             fvv.state AS state,
-                            fvv.viaje::float AS total,
+                            fvv.viajes::float AS total,
                             fvv.liq_id AS liq_id,
                             fvv.liq_driver_id AS liq_driver_id,
                             fvv.active AS active
