@@ -42,6 +42,7 @@ Main Features
         'views/fleet_vehicle_work_liq.xml',
         'views/fleet_vehicle_driver_liq.xml',
         'views/res_config_settings_views.xml',
+        'views/Fleet_vehicle_analisis.xml',
         'data/vehicle_type.xml',
         'data/vehicle_color.xml',
         'data/fleet_presicion.xml',

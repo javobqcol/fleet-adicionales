@@ -10,3 +10,4 @@ from . import fleet_vehicle_cost
 from . import fleet_vehicle_viajes
 from . import res_config_settings
 from . import fleet_vehicle_trabajos
+from . import fleet_vehicle_analisis

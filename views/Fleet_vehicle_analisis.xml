@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id='fleet_vehicle_analisis_view_pivot' model='ir.ui.view'>
+            <field name="name">fleet.vehicle.analisis.pivot</field>
+            <field name="model">fleet.vehicle.analisis</field>
+            <field name="arch" type="xml">
+                <pivot string="Analisis de  viajes / horas maquina de los vehiculos" >
+                    <field name="license_plate" type="row"/>
+                    <field name="date" interval="day" type="col"/>
+                    <field name="total" string="Total" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="fleet_vehicle_analisis_view_search" model="ir.ui.view">
+            <field name="name">fleet.vehicle.analisis.view.search</field>
+            <field name="model">fleet.vehicle.analisis</field>
+            <field name="arch" type="xml">
+                <search string="Analisis automotores">
+                    <field name="vehicle_id" string="Vehiculo"/>
+                    <field name="date" string="Fecha"/>
+                    <field name="company_id" string="Compañia" groups="base.group_multi_company"/>
+                    <field name="work_id" string="Trabajo"/>
+                    <field name="driver_id" string="Conductor"/>
+                    <field name="liq_id" string="Liquidacion"/>
+                    <field name="liq_driver_id" string="Liq. Conductor"/>
+                    <filter name="Estado"/>
+                    <separator/>
+                    <filter name="sin_cancelar_operador"
+                         string="Viajes sin cancelar conductor"
+                         domain="[('liq_driver_id', '=', False)]"/>
+                    <filter name="cancelados_operador"
+                         string="Viajes cancelados conductor"
+                         domain="[('liq_driver_id', '!=', False)]"/>
+                    <separator/>
+                    <filter name="sin_facturar_empresa"
+                         string="Viajes sin facturar empresa"
+                         domain="[('liq_id', '=', False)]"/>
+                    <filter name="facturados_empresa"
+                         string="Viajes facturados empresa"
+                         domain="[('liq_id', '!=', False)]"/>
+                    <group expand="1" string="Agrupado por">
+                    <filter name="groupby_date"
+                           string="Fecha"
+                           context="{'group_by': 'date:day'}" />
+                    <filter name="groupby_company_id"
+                           context="{'group_by': 'company_id'}"
+                           string="Compañia"
+                           groups="base.group_multi_company"/>
+                    <filter name="groupby_driver_id"
+                           context="{'group_by': 'driver_id'}"
+                           string="Conductor"/>
+                    <filter name="groupby_vehicle_id"
+                           context="{'group_by': 'vehicle_id'}"
+                           string="Vehiculo"/>
+                    <filter name="groupby_work_id"
+                           context="{'group_by': 'work_id'}"
+                           string="Trabajo"/>
+                    <filter name="groupby_liq_id"
+                           context="{'group_by': 'liq_id'}"
+                           string="Liquidacion Trabajo"/>
+                    <filter name="groupby_liq_driver_id"
+                           context="{'group_by': 'liq_driver_id'}"
+                           string="Liquidacion Conductor"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id='fleet_vehicle_analisis_action' model='ir.actions.act_window'>
+            <field name="name">Analisis de produccion</field>
+            <field name="res_model">fleet.vehicle.analisis</field>
+            <field name="search_view_id" ref="fleet_vehicle_analisis_view_search"/>
+            <field name="context">{"search_default_sin_facturar_empresa" : True,}</field>
+            <field name="view_mode">pivot</field>
+        </record>
+        <menuitem action="fleet_vehicle_analisis_action" parent="fleet.fleet_vehicles" id="fleet_vehicle_analisis_menu"/>
+
+    </data>
+</odoo>
+
