@@ -106,7 +106,8 @@ class FleetVehiculeOdometer(models.Model):
         compute='_set_adjunto'
     )
     gal = fields.Float(
-        string="Galones"
+        string="Galones",
+        copy=False
     )
     liq_id = fields.Many2one(
         comodel_name='fleet.vehicle.work.liq',
