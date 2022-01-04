@@ -203,11 +203,14 @@ class FleetVehiculeViaje(models.Model):
                 reg.m3 = 0
             else:
                 reg.m3 = reg.vehicle_id.cubicaje
+
     @api.onchange('state')
     def _onchange_state(self):
         for reg in self:
             if reg.state == 'inactive':
-                reg.viajes = 0
+                reg.viajes = 0 if reg.viajes == 1 else reg.viajes
+            else :
+                reg.viajes = 1 if reg.viajes == 0 else reg.viajes
 
     @api.onchange('vehicle_id')
     def _onchange_vehicle(self):
