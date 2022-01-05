@@ -145,6 +145,11 @@
                  string="Viajes facturados empresa"
                  domain="[('liq_id', '!=', False)]"/>
          <group expand="1" string="Agrupado por">
+         <separator/>
+         <filter name="archivado"
+                string="Archivado"
+                domain="[('active', '=', False)]"/>
+
            <filter name="groupby_date"
                    string="Fecha"
                    context="{'group_by': 'date:day'}" />

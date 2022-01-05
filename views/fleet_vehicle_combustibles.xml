@@ -69,10 +69,10 @@
         <search string="Bitacora de combustible">
           <field name="vehicle_id" string="Vehiculo"/>
           <field name="date" string="Fecha"/>
+          <field name="inv_ref" string="Numero factura"/>
           <field name="vendor_id" string="Proveedor"/>
           <field name="purchaser_id" string="Comprador"/>
           <field name="company_id" string="Compañia" groups="base.group_multi_company"/>
-          <field name="inv_ref" string="Numero factura"/>
           <field name="work_id" string="Trabajo"/>
           <group expand="1" string="Agrupado por">
             <filter name="groupby_company_id" context="{'group_by': 'company_id'}" string="Compañia" groups="base.group_multi_company"/>

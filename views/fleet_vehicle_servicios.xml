@@ -160,10 +160,10 @@
         <search string="Bitacora de servicios">
           <field name="vehicle_id" string="Vehiculo"/>
           <field name="date" string="Fecha"/>
+          <field name="inv_ref" string="Referencia factura"/>
           <field name="name_seq" string="Consecutivo"/>
           <field name="vendor_id" string="Proveedor"/>
           <field name="company_id" string="Compañia" groups="base.group_multi_company" />
-          <field name="inv_ref" string="Referencia factura"/>
           <field name="work_id" string="Trabajo"/>
           <field name="cost_subtype_id" string="Servicio"/>
           <field name="parts_ids" string="Parte"

@@ -160,6 +160,10 @@
           <filter name="odometro"
                  string="Odometro"
                  domain="[('tipo_odometro', '=', 'odometer')]"/>
+          <separator/>
+          <filter name="archivado"
+                 string="Archivado"
+                 domain="[('active', '=', False)]"/>
 
           <group expand="1" string="Agrupado por">
             <filter name="groupby_date"
