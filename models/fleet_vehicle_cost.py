@@ -186,3 +186,5 @@ class FleetVehicleCost(models.Model):
                 raise ValidationError(
                     "Error, Debe dar un valor de fecha"
                 )
+            if record.date > fields.Date.context_today(record):
+                raise ValidationError("Error, fecha es mayor que fecha actual")

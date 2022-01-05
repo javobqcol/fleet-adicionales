@@ -191,7 +191,7 @@
 
 
     <record id='fleet_vehicle_viajes_action' model='ir.actions.act_window'>
-      <field name="name">Registro de viajes de los vehiculos</field>
+      <field name="name">Viajes de los vehiculos</field>
       <field name="res_model">fleet.vehicle.viaje</field>
       <field name="view_mode">tree,form,pivot</field>
       <field name="search_view_id" ref="fleet_vehicle_viaje_view_search"/>

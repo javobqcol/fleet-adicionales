@@ -163,13 +163,12 @@ class FleetVehiculeOdometer(models.Model):
     def _onchange_date(self):
         for rec in self:
             if rec.date:
-                fecha_actual = fields.Date.context_today(rec)
-                if rec.date > fecha_actual:
+                if rec.date > fields.Date.context_today(rec):
                     return {
                         'warning': {
                             'title': 'Error:',
                             'message': 'Fecha es mayor que la fecha actual', },
-                            'value': {'date': fecha_actual},
+                            'value': {'date': fields.Date.context_today(rec)},
                     }
                 registro = rec.env['fleet.vehicle.odometer'].search([
                     ('vehicle_id', '=', rec.vehicle_id.id),
@@ -244,7 +243,7 @@ class FleetVehiculeOdometer(models.Model):
             if not record.date: 
                 raise ValidationError("Error, Debe dar un valor de fecha")
 
-    @api.constrains('value', 'value_final')
+    @api.constrains('value', 'value_final','date')
     def _check_value_value_final(self):
         for record in self:
             if record.tipo_odometro == 'odometer':
@@ -260,3 +259,5 @@ class FleetVehiculeOdometer(models.Model):
                     raise ValidationError(
                         "Error, El odometro final no puede ser menor que el odometro inicial"
                     )
+            if record.date > fields.Date.context_today(record):
+                raise ValidationError("Error, fecha es mayor que fecha actual")

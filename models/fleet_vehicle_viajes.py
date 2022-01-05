@@ -253,12 +253,11 @@ class FleetVehiculeViaje(models.Model):
     def _onchange_date(self):
         for record in self:
             if record.date:
-                fecha_actual = fields.Date.context_today(record)
-                if record.date > fecha_actual:
+                if record.date > fields.Date.context_today(record):
                     return {
                       'warning': {'title': 'Error:',
                                   'message': 'No se pueden dar viajes a futuro', },
-                      'value': {'date': fecha_actual},
+                      'value': {'date': fields.Date.context_today(record)},
                     }
                 if record.date.strftime("%w") == "0":
                     record.descripcion = record.descripcion or "" + "TRABAJO DOMINICAL"
@@ -305,3 +304,11 @@ class FleetVehiculeViaje(models.Model):
                                }
                     res.update({'warning': warning})
             return res
+
+    @api.constrains('date')
+    def _check_date(self):
+        for record in self:
+            if not record.date:
+                raise ValidationError("Error, Debe dar un valor de fecha")
+            if record.date > fields.Date.context_today(record):
+                raise ValidationError("Error, fecha es mayor que fecha actual")
