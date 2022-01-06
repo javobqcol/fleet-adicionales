@@ -22,7 +22,10 @@
                        groups="base.group_multi_company"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="work_id" string="Trabajo"/>
-                <field name="cost_subtype_id" string="Tipo de servicio" domain="['|',('category','=','service'),('category','=','both')]" required="1"/>
+                <field name="cost_subtype_id"
+                       string="Tipo de servicio"
+                       domain="['|',('category','=','service'),('category','=','both')]"
+                       required="1"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="amount" widget="monetary"  options="{'currency_field': 'currency_id'}" readonly="1" force_save="1"/>
               </group>
@@ -88,7 +91,10 @@
                         <field name="product_name"/>
                         <field name="qty_hand" readonly="1" force_save="1"/>
                         <field name='qty' required="1" attrs="{'readonly':[('is_deliver','=',True)]}"/>
-                        <field name='product_uom' attrs="{'readonly':[('is_deliver','=',True)]}" required="1"/>
+                        <field name='product_uom'
+                               attrs="{'readonly':[('is_deliver','=',True)]}"
+                               options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
+                               required="1"/>
                         <field name='price_unit' attrs="{'readonly':[('is_deliver','=',True)]}"/>
                         <field name='total' readonly="1" force_save="1"/>
                         <field name="date_issued"/>

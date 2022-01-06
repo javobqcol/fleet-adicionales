@@ -99,7 +99,7 @@ class FleetVehicleProductLine(models.Model):
                     if not rec.product_name else rec.product_name
                 rec.qty_hand = prod.qty_available or 0.0
                 rec.product_uom = prod.uom_id or False if not rec.product_uom else rec.product_uom
-                rec.price_unit = prod.list_price or 0.0
+                rec.price_unit = rec.price_unit if rec.price_unit or rec.price_unit != 0 else prod.list_price or 0.0
             if rec.qty and rec.price_unit:
                 rec.total = rec.qty * rec.price_unit
 
