@@ -27,30 +27,50 @@
                        string="Estado"/>
                 <field name="material_id"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
-                       attrs="{'readonly': [('state', '!=', 'active')]}"/>
-                <field name="unidad" attrs="{'readonly': [('state', '!=', 'active')]}"/>
+                       attrs="{'readonly': [('state', 'in', ('inactive', 'available'))]}"/>
+                <field name="unidad" attrs="{'readonly': [('state', 'in', ('inactive', 'available'))]}"/>
                 <field name="m3"
                        digits="[10,2]"
-                       attrs="{'readonly': [('state', '!=', 'active')], 'invisible': [('unidad', '=', 'ton')]}"/>
-                <label for="m3" string='Tara/Bruto/Neto' attrs="{'invisible': [('unidad', '!=', 'ton')]}" style="font-weight:bold;"/>
-                <div class="o_row" attrs="{'readonly': [('state', '!=', 'active')],'invisible': [('unidad', '!=', 'ton')]}">
-                  <field name="inicial" digits="[10,2]"/>
-                  <field name="final" digits="[10,2]" />
-                  <field name="m3" digits="[10,2]" />
+                       attrs="{'readonly': [('state', 'in', ('inactive', 'available'))],
+                       'invisible': [('unidad', '=', 'ton')]}"/>
+                <label for="m3"
+                       string='Tara/Bruto/Neto'
+                       attrs="{'invisible': [('unidad', '!=', 'ton')]}"
+                       style="font-weight:bold;"/>
+                <div class="o_row"
+                     attrs="{'readonly': [('state', 'in', ('inactive', 'available'))],
+                     'invisible': [('unidad', '!=', 'ton')]}">
+                  <field name="inicial"
+                         digits="[10,2]"/>
+                  <field name="final"
+                         digits="[10,2]" />
+                  <field name="m3"
+                         digits="[10,2]" />
                 </div>
-                <field name="cantera_id" placeholder="Sitio de carga" options="{'no_quick_create':True}" />
-                <field name="destino_id" placeholder="Sitio de descarga"  options="{'no_quick_create':True}"/>
+                <field name="cantera_id"
+                       placeholder="Sitio de carga"
+                       options="{'no_quick_create':True}" />
+                <field name="destino_id"
+                       placeholder="Sitio de descarga"
+                       options="{'no_quick_create':True}"/>
               </group>
               <group>
-                <field name="date" string="Fecha"/>
-                <field name="recibo_interno" string="Recibo interno" style="text-transform: uppercase;"/>
-                <field name="recibo_cantera" string="Recibo cantera" style="text-transform: uppercase;"/>
+                <field name="date"
+                       string="Fecha"/>
+                <field name="recibo_interno"
+                       string="Recibo interno"
+                       style="text-transform: uppercase;"/>
+                <field name="recibo_cantera"
+                       string="Recibo cantera"
+                       style="text-transform: uppercase;"/>
                 <field name="Km_inicial"/>
                 <field name="Km_final"/>
                 <field name="km_recorridos"/>
-                <field name="galones" digits="[10,2]"/>
+                <field name="galones"
+                       digits="[10,2]"/>
                 <field name="viajes" />
-                <field name="total_cantidad" digits="[10,2]" groups="fleet.fleet_group_manager"/>
+                <field name="total_cantidad"
+                       digits="[10,2]" groups="fleet.fleet_group_manager"/>
                 <field name="liq_id"
                        string="liq Trabajo"
                        groups="fleet.fleet_group_manager"
@@ -63,10 +83,13 @@
             </group>
             <notebook>
               <page string="Archivos Adjuntos">
-                <field name="documentos_ids" widget="many2many_binary"/>
+                <field name="documentos_ids"
+                       widget="many2many_binary"/>
               </page>
               <page string="Notas">
-                <field name="descripcion" nolabel="1" placeholder="Describa cualquier informacion adicional de la compra de combustible"/>
+                <field name="descripcion"
+                       nolabel="1"
+                       placeholder="Describa cualquier informacion novedad del viaje"/>
               </page>
             </notebook>
           </sheet>
@@ -128,20 +151,20 @@
          <field name="material_id" string="Material trasportado"/>
          <field name="liq_id" string="Liquidacion"/>
          <filter name="Estado"
-                 string="Estado activo"
-                 domain="[('state', '=', 'active')]"/>
+                 string="Estado Activo / Interno"
+                 domain="[('state', 'in', ('active', 'internal'))]"/>
          <separator/>
-         <filter name="Viajes sin cancelar"
+         <filter name="viajes_sin_cancelar"
                  string="Viajes sin cancelar conductor"
                  domain="[('liq_driver_id', '=', False)]"/>
-         <filter name="Viajes cancelados"
+         <filter name="viajes_cancelados"
                  string="Viajes cancelados conductor"
                  domain="[('liq_driver_id', '!=', False)]"/>
          <separator/>
-         <filter name="Viajes sin facturar"
+         <filter name="viajes_sin_facturar"
                  string="Viajes sin facturar empresa"
                  domain="[('liq_id', '=', False)]"/>
-         <filter name="Viajes facturados"
+         <filter name="viajes_facturados"
                  string="Viajes facturados empresa"
                  domain="[('liq_id', '!=', False)]"/>
          <group expand="1" string="Agrupado por">

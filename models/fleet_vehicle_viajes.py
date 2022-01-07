@@ -160,7 +160,7 @@ class FleetVehiculeViaje(models.Model):
         default=True
     )
     state = fields.Selection(
-        selection=[('active', 'Activo'), ('inactive', 'Servicio/taller'), ('available', 'Disponible')],
+        selection=[('active', 'Activo'), ('internal', 'Interno'), ('inactive', 'Servicio/taller'), ('available', 'Disponible')],
         string='Estado',
         default='active',
         help='Estado volqueta',
@@ -204,13 +204,15 @@ class FleetVehiculeViaje(models.Model):
             else:
                 reg.m3 = reg.vehicle_id.cubicaje
 
-    @api.onchange('state')
+    @api.onchange('state', 'cantera_id')
     def _onchange_state(self):
         for reg in self:
             if reg.state in( 'inactive', 'available'):
                 reg.viajes = 0 if reg.viajes == 1 else reg.viajes
             else :
                 reg.viajes = 1 if reg.viajes == 0 else reg.viajes
+            if reg.state =='internal':
+                reg.destino_id = reg.cantera_id
 
     @api.onchange('vehicle_id')
     def _onchange_vehicle(self):
