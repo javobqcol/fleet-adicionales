@@ -77,7 +77,9 @@ class FleetVehicleProductLine(models.Model):
     note = fields.Char(
         string="Nota"
     )
-
+    sequence = fields.Integer(
+        string="Orden del listado"
+    )
     @api.constrains('qty', 'qty_hand')
     def _check_used_qty(self):
         for rec in self:

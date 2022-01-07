@@ -66,6 +66,7 @@
                 <group colspan="4">
                   <field name="parts_ids" context="{'default_date': date}" nolabel="1">
                     <tree string="Partes" decoration-muted="returned == True">
+                       <field name='sequence' widget="handle"/>
                        <field name='product_id' string="Producto"/>
                        <field name="product_name"/>
                        <field name="qty_hand" optional="hide"/>
@@ -78,7 +79,6 @@
                        <field name="is_deliver" invisible="1"/>
                        <field name="returned"/>
                        <field name="note" optional="show"/>
-
                     </tree>
                     <form string="Partes" >>
                       <group>
