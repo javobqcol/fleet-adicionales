@@ -209,9 +209,12 @@ class FleetVehiculeViaje(models.Model):
         for reg in self:
             if reg.state in( 'inactive', 'available'):
                 reg.viajes = 0 if reg.viajes == 1 else reg.viajes
+                reg.material_id = False;
+                reg.m3 = 0
             else :
                 reg.viajes = 1 if reg.viajes == 0 else reg.viajes
-            if reg.state =='internal':
+                reg.m3 = reg.vehicle_id.cubicaje
+            if reg.state == 'internal':
                 reg.destino_id = reg.cantera_id
 
     @api.onchange('vehicle_id')

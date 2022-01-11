@@ -27,7 +27,8 @@
                        string="Estado"/>
                 <field name="material_id"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"
-                       attrs="{'readonly': [('state', 'in', ('inactive', 'available'))]}"/>
+                       attrs="{'readonly': [('state', 'in', ('inactive', 'available'))]}"
+                       force_save="1"/>
                 <field name="unidad" attrs="{'readonly': [('state', 'in', ('inactive', 'available'))]}"/>
                 <field name="m3"
                        digits="[10,2]"
