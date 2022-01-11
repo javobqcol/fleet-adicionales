@@ -378,7 +378,7 @@ class VehicleWorkLiquidacion(models.Model):
         if xml_id:
             res = self.env['ir.actions.act_window'].for_xml_id('fleet-adicionales', xml_id)
             res.update(
-                context=dict(self.env.context, default_work_id=self.id, group_by="vehicle_id"),
+                context=dict(self.env.context, default_work_id=self.id, group_by="state"),
                 domain=[('liq_id', '=', self.id), ('active', 'in', [True, False])]
             )
             return res
