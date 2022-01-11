@@ -70,8 +70,7 @@ class FleetVehiculeOdometer(models.Model):
         related=None, 
         string="Conductor",
         ondelete='restrict',
-        required=False,
-        domain="[('driven_liq_det_ids.driver_id','=',driver_id)]"
+        required=False
     )
     es_standby = fields.Boolean(
         string="Standby", 
