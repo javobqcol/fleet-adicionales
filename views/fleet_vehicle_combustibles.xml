@@ -70,7 +70,7 @@
           <field name="vehicle_id" string="Vehiculo"/>
           <field name="date" string="Fecha"/>
           <field name="inv_ref" string="Numero factura"/>
-          <field name="vendor_id" string="Proveedor"/>
+          <field name="vendor_id" string="Vendedor"/>
           <field name="purchaser_id" string="Comprador"/>
           <field name="company_id" string="Compañia" groups="base.group_multi_company"/>
           <field name="work_id" string="Trabajo"/>
