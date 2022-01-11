@@ -54,6 +54,11 @@ class FleetVehicleLogFuel(models.Model):
         comodel_name='res.currency',
         related='company_id.currency_id'
     )
+    license_plate = fields.Char(
+        related='vehicle_id.license_plate',
+        store=True,
+        string='Placa'
+    )
 
     @api.depends('diferencia', 'liter')
     def _gasto_combustible(self):

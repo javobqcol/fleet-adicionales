@@ -138,7 +138,7 @@ class FleetVehiculeOdometer(models.Model):
         store=True,
         string='Placa'
     )
-    
+
     def copy(self, default=None):
         if default is None:
             default={}

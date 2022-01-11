@@ -93,7 +93,8 @@
         <tree string="Registro de combustible de vehiculos y maquinaria">
           <field name="date" string="Fecha" />
           <field name="currency_id" invisible="1"/>
-          <field name="vehicle_id" string="Vehiculo"/>
+          <field name="vehicle_id" string="Vehiculo" optional="show"/>
+          <field name="license_plate" optional="hide" string="Placa"/>
           <field name="company_id" string="Compañia" groups="base.group_multi_company" optional="hide"/>
           <field name="purchaser_id" string="Comprador" optional="hide"/>
           <field name="work_id" string="trabajo" optional="show"/>
@@ -116,7 +117,7 @@
      <field name="model">fleet.vehicle.log.fuel</field>
      <field name="arch" type="xml">
         <graph string="Costo mensual de combustible">
-          <field name="vehicle_id" string="Vehiculo" type="row"/>
+          <field name="license_plate" string="Vehiculo" type="row"/>
           <field name="cost_amount" string="precio total" type="measure"/>
         </graph>
       </field>
