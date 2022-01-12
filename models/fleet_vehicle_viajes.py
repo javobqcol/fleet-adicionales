@@ -204,7 +204,7 @@ class FleetVehiculeViaje(models.Model):
             else:
                 reg.m3 = reg.vehicle_id.cubicaje
 
-    @api.onchange('state', 'cantera_id')
+    @api.onchange('state', 'cantera_id', 'destino_id')
     def _onchange_state(self):
         for reg in self:
             if reg.state in( 'inactive', 'available'):
@@ -214,8 +214,11 @@ class FleetVehiculeViaje(models.Model):
             else :
                 reg.viajes = 1 if reg.viajes == 0 else reg.viajes
                 reg.m3 = reg.vehicle_id.cubicaje
+            if reg.destino_id == reg.cantera_id:
+                reg.state = 'internal'
             if reg.state == 'internal':
                 reg.destino_id = reg.cantera_id
+
 
     @api.onchange('vehicle_id')
     def _onchange_vehicle(self):
