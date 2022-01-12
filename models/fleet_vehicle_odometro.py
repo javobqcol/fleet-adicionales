@@ -137,6 +137,14 @@ class FleetVehiculeOdometer(models.Model):
         store=True,
         string='Placa'
     )
+    state = fields.Selection(
+        selection=[('active', 'Activo'), ('inactive', 'Servicio/taller'), ('available', 'Disponible')],
+        string='Estado',
+        default='active',
+        help='Estado maquinaria',
+        required=True
+    )
+
 
     def copy(self, default=None):
         if default is None:
