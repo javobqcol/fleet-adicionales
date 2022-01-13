@@ -133,9 +133,9 @@ class FleetVehiculeOdometer(models.Model):
         default=True
     )
     license_plate = fields.Char(
-        related='vehicle_id.license_plate',
+        string='Placa',
         store=True,
-        string='Placa'
+        related='vehicle_id.license_plate',
     )
     state = fields.Selection(
         selection=[('active', 'Activo'), ('inactive', 'Servicio/taller'), ('available', 'Disponible')],
