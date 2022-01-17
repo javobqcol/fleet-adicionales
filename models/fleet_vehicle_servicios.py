@@ -38,7 +38,7 @@ class FleetVehicleProductLine(models.Model):
         string='Producto',
         ondelete='restrict'
     )
-    product_name = fields.Char(
+    product_name = fields.Text(
         string="Producto",
         required='True'
     )
@@ -175,6 +175,9 @@ class FleetVehicleLogServices(models.Model):
         compute="_compute_get_total",
         string='Total de partes',
         store=True
+    )
+    date_mtto = fields.Date(
+        string='Fecha Mantenimiento'
     )
 
     @api.constrains('date_emp')
