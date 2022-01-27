@@ -184,10 +184,10 @@ class VehicleWork(models.Model):
                     'y/o horas maquina sin liquidar = %s a operador/conductor'
                     % (viajes_drv, odometers_drv)
                 )
-            if registro.state != "finalizado":
-                raise ValidationError(
-                    'No se puede archivar un trabajo mientras no este en estado finalizado '
-                )
+            # if registro.state != "finalizado":
+            #     raise ValidationError(
+            #         'No se puede archivar un trabajo mientras no este en estado finalizado '
+            #     )
 
     def name_get(self):
         res = []
@@ -560,7 +560,7 @@ class VehicleWorkLiquidacion(models.Model):
                 [('liq_id', '=', registro.id), ('liq_driver_id', '=', False)]
             )
             total_drv = odometers_drv or 0 + viajes_drv or 0
-            if total_drv > 0:
+            if (total_drv > 0):
                 raise ValidationError(
                     'No se puede archivar un trabajo mietras tenga registros de viajes = %s '
                     'y/o registros de horas maquina sin liquidar = %s a operador/conductor'

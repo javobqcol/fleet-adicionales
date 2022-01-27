@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+       <record id="fleet_vehicle_bitacora_view_tree" model="ir.ui.view">
+          <field name="name">fleet.vehicle.bitacora.tree</field>
+          <field name="model">fleet.vehicle.bitacora</field>
+          <field name="arch" type="xml">
+              <tree string="Bitacora" editable="top">
+                  <field name="date" string="Fecha"/>
+                  <field name="vehicle_id" string="Vehiculo" optional="show"/>
+                  <field name="driver_id" string="Conductor" optional="show"/>
+                  <field name="work_id" string="Trabajo" optional="show"/>
+                  <field name="viajes" string="Viajes" optional="show"/>
+                  <field name="galones" digits="[10,2]" optional="show"/>
+                  <field name="nota" string="Nota" optional="show"/>
+              </tree>
+          </field>
+       </record>
+
+       <record id='fleet_vehicle_bitacora_action' model='ir.actions.act_window'>
+           <field name="name">Bitacora vehiculos</field>
+           <field name="res_model">fleet.vehicle.bitacora</field>
+           <field name="view_mode">tree</field>
+           <field name="context"></field>
+           <field name="help" type="html">
+               <p class="o_view_nocontent_smiling_face">
+                   Ingrese un nuevo viaje de vehiculo
+               </p>
+               <p>
+                   Rastree todos los viajes realizados por los vehiculos.
+               </p>
+           </field>
+       </record>
+       <menuitem sequence="200" action="fleet_vehicle_bitacora_action" parent="fleet.fleet_vehicles" id="fleet_vehicle_bitacora_menu"/>
+
+    </data>
+</odoo>
