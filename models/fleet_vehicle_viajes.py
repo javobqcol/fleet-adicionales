@@ -186,8 +186,8 @@ class FleetVehiculeViaje(models.Model):
           if rec.unidad == 'ton':
               resultado = (rec.final or 0) - (rec.inicial or 0)
               rec.m3 = resultado if resultado > 0 else 0
-          elif rec.unidad == 'm3':
-              rec.m3 = rec.vehicle_id.cubicaje
+          # elif rec.unidad == 'm3':
+          #     rec.m3 = rec.vehicle_id.cubicaje
           else:
               rec.m3 = 0.0
 
@@ -201,8 +201,8 @@ class FleetVehiculeViaje(models.Model):
             if reg.unidad == 'ton':
                 reg.inicial = reg.vehicle_id.peso or 0
                 reg.m3 = 0
-            else:
-                reg.m3 = reg.vehicle_id.cubicaje
+            # else:
+            #     reg.m3 = reg.vehicle_id.cubicaje
 
     @api.onchange('state', 'cantera_id', 'destino_id')
     def _onchange_state(self):
@@ -213,7 +213,7 @@ class FleetVehiculeViaje(models.Model):
                 reg.m3 = 0
             else :
                 reg.viajes = 1 if reg.viajes == 0 else reg.viajes
-                reg.m3 = reg.vehicle_id.cubicaje
+                # reg.m3 = reg.vehicle_id.cubicaje
             if reg.state == 'internal':
                 reg.destino_id = reg.cantera_id
 
@@ -222,8 +222,8 @@ class FleetVehiculeViaje(models.Model):
     def _onchange_vehicle(self):
         for rec in self:
             rec.driver_id = rec.vehicle_id.driver_id
-            if not rec.m3:
-                rec.m3 = rec.vehicle_id.cubicaje
+            # if not rec.m3:
+            #     rec.m3 = rec.vehicle_id.cubicaje
 
     def name_get(self):
         res = []
