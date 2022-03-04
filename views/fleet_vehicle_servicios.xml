@@ -141,6 +141,7 @@
       <field name="arch" type="xml">
         <field name="date" position="after">
           <field name="name_seq" string="Consecutivo"/>
+          <field name="date_mtto" string="Fecha Mtto" optional="hide"/>
         </field>
         <field name="inv_ref" position="attributes">
           <attributes name="string">Factura</attributes>
@@ -165,6 +166,7 @@
         <search string="Bitacora de servicios">
           <field name="vehicle_id" string="Vehiculo"/>
           <field name="date" string="Fecha"/>
+          <field name="date_mtto" string="Fecha Mtto"/>
           <field name="inv_ref" string="Referencia factura"/>
           <field name="name_seq" string="Consecutivo"/>
           <field name="vendor_id" string="Proveedor"/>
