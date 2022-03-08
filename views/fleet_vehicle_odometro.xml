@@ -20,6 +20,7 @@
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="work_id" string="Trabajo"/>
                 <field name="recibo" style="text-transform: uppercase;"/>
+                <field name="state" string="Estado"/>
               </group>
               <group>
                 <field name="date" string="Fecha"/>
@@ -82,6 +83,7 @@
           <field name="license_plate" optional="hide" string="Placa"/>
           <field name="company_id"  optional="hide" string="Compañia" groups="base.group_multi_company"/>
           <field name="driver_id"  optional="show" string="Conductor"/>
+          <field name="state" string="Estado" optional="show"/>
           <field name="tipo_odometro" optional="show" string="Tipo"/>
           <field name="work_id" optional="show" string="Trabajo"/>
           <field name="recibo" optional="show" string="Recibo"/>
@@ -142,7 +144,17 @@
           <field name="value" string="Odometro"/>
           <field name="liq_id" string="Liquidacion trabajo"/>
           <field name="liq_driver_id" string="Liquidacion conductor"/>
-
+          <separator/>
+          <filter name="Estado activo"
+                  string="Estado activo maquinaria"
+                  domain="[('state', '=', 'active')]"/>
+          <filter name="Estado inaactivo"
+                  string="Estado inaactivo/taller maquinaria"
+                  domain="[('state', '=', 'inactive')]"/>
+          <filter name="Estado Disponible"
+                  string="Estado disponible maquinaria"
+                  domain="[('state', '=', 'available')]"/>
+          <separator/>
           <filter name="Horas sin cancelar"
                   string="Horas sin cancelar operador"
                   domain="[('liq_driver_id', '=', False)]"/>
