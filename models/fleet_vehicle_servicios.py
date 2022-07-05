@@ -80,6 +80,10 @@ class FleetVehicleProductLine(models.Model):
     sequence = fields.Integer(
         string="Orden del listado"
     )
+    devuelto = fields.Float(
+        string='Devuelto'
+    )
+
     @api.constrains('qty', 'qty_hand')
     def _check_used_qty(self):
         for rec in self:
@@ -88,7 +92,7 @@ class FleetVehicleProductLine(models.Model):
                     _('You can\'t enter used quanity as Zero!')
                 )
 
-    @api.onchange('product_id', 'qty')
+    @api.onchange('product_id', 'qty', 'devuelto')
     def _onchage_product(self):
         for rec in self:
             if rec.product_id:
@@ -103,7 +107,7 @@ class FleetVehicleProductLine(models.Model):
                 rec.product_uom = prod.uom_id or False if not rec.product_uom else rec.product_uom
                 rec.price_unit = rec.price_unit if rec.price_unit or rec.price_unit != 0 else prod.list_price or 0.0
             if rec.qty and rec.price_unit:
-                rec.total = rec.qty * rec.price_unit
+                rec.total = (rec.qty - rec.devuelto) * rec.price_unit
 
     @api.onchange('price_unit')
     def _onchange_price_unit(self):
@@ -118,6 +122,11 @@ class FleetVehicleProductLine(models.Model):
         domain = args + ['|', ('product_id.name', operator, name), ('product_name', operator, name)]
         model_ids = self._search(domain, limit=limit, access_rights_uid=name_get_uid)
         return models.lazy_name_get(self.browse(model_ids).with_user(name_get_uid))
+
+    @api.onchange('returned')
+    def _onchange_returned(self):
+        for rec in self:
+            rec.devuelto = rec.qty if rec.returned else 0.0
 
 class FleetVehicleLogServices(models.Model):
     _inherit = 'fleet.vehicle.log.services'

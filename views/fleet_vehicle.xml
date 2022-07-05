@@ -222,6 +222,7 @@
           <field name="vehicle_type_id"/>
         </field>
         <field name="acquisition_date" position="after">
+          <field name="servicio_ultimo_mtto"/>
           <field name="col" invisible="1"/>
           <field name="odometer" string="Odometro"/>
           <field name="falta_para_mtto"/>

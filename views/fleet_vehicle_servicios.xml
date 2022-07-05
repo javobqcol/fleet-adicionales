@@ -80,6 +80,7 @@
                        <field name="issued_by" optional="show"/>
                        <field name="is_deliver" invisible="1"/>
                        <field name="returned"/>
+                       <field name="devuelto"/>
                        <field name="note" optional="show"/>
                     </tree>
                     <form string="Partes" >>
@@ -101,10 +102,9 @@
                          options="{'no_open': True, 'create': false, 'create_edit': false}" />
                         <field name="is_deliver" invisible="1"/>
                         <label for="note" string='Nota' style="font-weight:bold;"/>
-                          <div class="o_row">
-                            <field name="returned"/>
-                            <field name="note" attrs="{'readonly': [('returned', '=', False)]}" />
-                          </div>
+                        <field name="returned"/>
+                        <field name="devuelto" attrs="{'readonly': [('returned', '=', False)]}"/>
+                        <field name="note" attrs="{'readonly': [('returned', '=', False)]}" />
                       </group>
                     </form>
                   </field>

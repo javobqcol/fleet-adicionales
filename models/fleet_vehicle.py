@@ -464,7 +464,6 @@ class FleetVehicle(models.Model):
         activo = self.env.ref('fleet-adicionales.type_activo')
         proximo_mtto = self.env.ref('fleet-adicionales.type_proximo_mtto')
         mtto_urgente = self.env.ref('fleet-adicionales.type_mtto_urgente')
-
         correo_vehicles = params.get_param('fleet-adicionales.resp_vehicles')
         cc_todo = params.get_param('fleet-adicionales.cc_todo')
 
@@ -478,7 +477,7 @@ class FleetVehicle(models.Model):
                 mtto.do_enviar_correo(correo_vehicles, cc_todo)
             elif (0.0 < mtto.falta_para_mtto < mtto.falta) and (mtto.state_id.id != proximo_mtto.id):
                 mtto.write({'state_id': proximo_mtto.id})
-                mtto.do_enviar_correo()
+                mtto.do_enviar_correo(correo_vehicles,cc_todo)
 
 
 class MultiImages(models.Model):
