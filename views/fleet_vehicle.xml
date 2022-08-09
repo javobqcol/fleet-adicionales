@@ -222,6 +222,7 @@
           <field name="vehicle_type_id"/>
         </field>
         <field name="acquisition_date" position="after">
+          <field name="model_year" string="Año modelo"/>
           <field name="numero_serie"/>
           <field name="numero_motor"/>
           <field name="numero_chasis"/>
