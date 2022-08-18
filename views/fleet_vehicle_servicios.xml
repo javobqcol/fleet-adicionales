@@ -36,7 +36,7 @@
                 <field name="vendor_id" string="Vendedor"
                        options="{'no_quick_create':True,'no_open': True,}"/>
                 <field name="inv_ref" String="Referencia factura" style="text-transform: uppercase;"/>
-                <field name="date" string="Fecha matenimiento" />
+                <field name="date" string="Fecha mantenimiento" />
 
                 <label for="odometer"/>
                 <div class="o_row">
