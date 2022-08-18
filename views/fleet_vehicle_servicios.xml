@@ -30,13 +30,13 @@
                 <field name="amount" widget="monetary"  options="{'currency_field': 'currency_id'}" readonly="1" force_save="1"/>
               </group>
               <group string="Additional Details">
-                <field name="date" string="Fecha" />
+                <field name="date_mtto" string="Fecha factura" />
                 <field name="purchaser_id" string="Comprador"
                        options="{'no_quick_create':True,'no_create_edit':True,'no_open': True,}"/>
                 <field name="vendor_id" string="Vendedor"
                        options="{'no_quick_create':True,'no_open': True,}"/>
                 <field name="inv_ref" String="Referencia factura" style="text-transform: uppercase;"/>
-                <field name="date_mtto" String="Fecha Mantenimiento" />
+                <field name="date" string="Fecha matenimiento" />
 
                 <label for="odometer"/>
                 <div class="o_row">
@@ -141,7 +141,7 @@
       <field name="arch" type="xml">
         <field name="date" position="after">
           <field name="name_seq" string="Consecutivo"/>
-          <field name="date_mtto" string="Fecha Mtto" optional="hide"/>
+          <field name="date_mtto" string="Fecha factura" optional="hide"/>
         </field>
         <field name="inv_ref" position="attributes">
           <attributes name="string">Factura</attributes>
@@ -165,8 +165,8 @@
       <field name="arch" type="xml">
         <search string="Bitacora de servicios">
           <field name="vehicle_id" string="Vehiculo"/>
-          <field name="date" string="Fecha"/>
-          <field name="date_mtto" string="Fecha Mtto"/>
+          <field name="date" string="Fecha mtto"/>
+          <field name="date_mtto" string="Fecha Factura"/>
           <field name="inv_ref" string="Referencia factura"/>
           <field name="name_seq" string="Consecutivo"/>
           <field name="vendor_id" string="Proveedor"/>

@@ -211,6 +211,11 @@ class FleetVehicleLogServices(models.Model):
                 rec.odometer_unit = rec.vehicle_id.odometer_unit
                 rec.driver_id = rec.vehicle_id.driver_id.id
 
+    @api.onchange('date_mtto')
+    def _onchange_date_mtto(self):
+        for rec in self:
+            rec.date = self.date_mtto
+
     @api.onchange('inv_ref')
     def _onchange_inv_ref(self):
         res = {}
