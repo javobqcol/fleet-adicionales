@@ -260,3 +260,14 @@ class FleetVehicleLogServices(models.Model):
                 record.cost_id.unlink()
         return super(FleetVehicleLogServices, self).unlink()
 
+
+    @api.constrains('date_mtto')
+    def _check_date_mtto(self):
+        for record in self:
+            if not record.date_mtto:
+                raise ValidationError(
+                    "Error, Debe dar un valor de fecha1"
+                )
+            if record.date_mtto > fields.Date.context_today(record):
+                raise ValidationError("Error, fecha de la factura es mayor que fecha actual")
+
