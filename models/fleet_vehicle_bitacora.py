@@ -16,7 +16,7 @@ class FleetVehiculebitacora(models.Model):
     vehicle_id = fields.Many2one(
         comodel_name='fleet.vehicle',
         string='Vehiculo',
-        domain="[('vehicle_type_id.code','=','vehiculo')]",
+        domain="[('vehicle_type_id.code','in',['vehiculo', 'maquinaria'])]",
         ondelete='restrict',
         required=True
     )
